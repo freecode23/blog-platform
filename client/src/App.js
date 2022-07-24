@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useSearchParams } from 'react-router-dom';
 import Home from "./pages/home/Home";
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
@@ -6,7 +8,7 @@ import Setting from "./pages/setting/Setting";
 import Login from "./pages/login/Login";
 import Layout from "./components/Layout/Layout";
 import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
+
 
 import "./App.css";
 
@@ -17,8 +19,10 @@ require("dotenv").config();
 
 function App() {
   // - user from auth
-  const { user, isLoading } = useAuth0();
+  const { user, isLoading, logout } = useAuth0();
   const { setUserData } = useUserData();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const sub = process.env.REACT_APP_SUB;
 
   // - get sherly's data from database
@@ -30,29 +34,41 @@ function App() {
       }
     };
     fetchProfileData();
+
+    const fetchErrorUrl = async () => {
+      const ans = searchParams.get("error");
+      if (ans === "unauthorized") {
+        logout({ returnTo: window.location.origin });
+
+        // make pop up here
+      }
+    }
+    fetchErrorUrl();
+
   }, []);
 
+
+
+
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/login" element={user ? <Home /> : <Login />} />
-          <Route path="/" element={<Home />} />
+    <Layout>
+      <Routes>
+        <Route path="/login" element={user ? <Home /> : <Login />} />
+        <Route path="/" element={<Home />} />
 
-          {user && !isLoading && <Route path="/write" element={<Write />} />}
+        {user && !isLoading && <Route path="/write" element={<Write />} />}
 
-          {!user && (
-            <Route
-              path="/write"
-              element={isLoading ? <p>Loading...</p> : <Login />}
-            />
-          )}
+        {!user && (
+          <Route
+            path="/write"
+            element={isLoading ? <p>Loading...</p> : <Login />}
+          />
+        )}
 
-          <Route path="/setting" element={user ? <Setting /> : <Login />} />
-          <Route path="/blogposts/:postId" element={<Single />} />
-        </Routes>
-      </Layout>
-    </Router>
+        <Route path="/setting" element={user ? <Setting /> : <Login />} />
+        <Route path="/blogposts/:postId" element={<Single />} />
+      </Routes>
+    </Layout>
   );
 }
 

@@ -150,6 +150,7 @@ app.post("/api/resume",
     }
 )
 
+
 // 4. use router
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);

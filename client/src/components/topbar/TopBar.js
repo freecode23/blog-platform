@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { saveAs } from "file-saver";
 
 export default function TopBar(props) {
-    const { isAuthenticated, logout } = useAuth0();
+    const { isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
 
     const { userData } = useUserData();
@@ -65,15 +65,22 @@ export default function TopBar(props) {
                 </div>
 
                 <div className="topRight">
-                    {isAuthenticated && userData && (
+                    <Link className="social link" to={"/setting"}>
+                        <i class="topSettingIcon fa-solid fa-user-astronaut fa-20x"></i>
+                    </Link>
+                    {isAuthenticated && userData ? (
                         <>
-                            <Link className="social link" to={"/setting"}>
-                                <i class="topSettingIcon fa-solid fa-user-astronaut fa-20x"></i>
-                            </Link>
                             <p className="topLogoutButton" onClick={handleLogout}>
                                 logout
                             </p>
                         </>
+                    ) : (
+                        <button className="topLogoutButton"
+                            onClick={async () => {
+                                await loginWithRedirect();
+                            }}>
+                            Login
+                        </button>
                     )}
                 </div>
             </div>
@@ -109,6 +116,6 @@ export default function TopBar(props) {
                     )}
                 </ul>
             </div>
-        </div>
+        </div >
     );
 }
