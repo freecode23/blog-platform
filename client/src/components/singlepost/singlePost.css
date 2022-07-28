@@ -10,7 +10,6 @@
 .singlePostImg {
     width: 40vw;
     object-fit: cover;
-    /* margin-left: 200px; */
 }
 
 .singlePostTitle {
@@ -103,7 +102,7 @@
     }
 }
 
-@media (min-width: 800px) and (max-width:1200px) {
+@media (min-width: 800px) and (max-width:1000px) {
     .singlePost {
         width: 80%;
         flex-direction: column;
@@ -117,5 +116,15 @@
     }
     .singlePostContent {
         width: 80%;
+    }
+}
+
+@media (min-width: 1000px) and (max-width:1200px) {
+    .singlePostT {
+        width: 80%;
+        flex-direction: column;
+        margin: 40px 0 0px 0px;
+        align-items: unset;
+        justify-content: unset;
     }
 }

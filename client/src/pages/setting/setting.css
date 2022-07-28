@@ -115,7 +115,7 @@ select:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
 }
 
-@media (min-width: 800px) and (max-width:1200px) {
+@media (min-width: 800px) and (max-width:1000px) {
     .setting {
         margin-left: calc(0.1 * 100vh);
         margin-right: calc(0.1 * 100vh);

@@ -10,3 +10,9 @@
     flex: 1;
     padding: 20px;
 }
+
+@media (min-width: 800px) and (max-width:1400px) {
+    .editor-wrapper {
+        flex-direction: column;
+    }
+}

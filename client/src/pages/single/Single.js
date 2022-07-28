@@ -4,6 +4,7 @@ import "./single.css";
 import React from "react";
 
 export default function Single() {
+  // Question. Want to do , if updateMode == true, dont do sidebar
   return (
     <div className="single">
       <SinglePost />
