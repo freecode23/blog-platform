@@ -23,7 +23,6 @@ export default function TopBar(props) {
     useEffect(() => {
         const fetchResumeUrl = async () => {
             if (userData) {
-                console.log("resume key:", userData.resumeKey);
                 const res = await axios.post("/resume", { key: userData.resumeKey });
 
                 if (res) {
@@ -36,7 +35,6 @@ export default function TopBar(props) {
 
     const saveFile = () => {
         console.log("savefile....");
-        // Question 3: not downloading as the name (download as the key)
         saveAs(resumeUrl, "SherlyHartono.pdf");
     };
 
@@ -70,7 +68,8 @@ export default function TopBar(props) {
                     </Link>
                     {isAuthenticated && userData ? (
                         <>
-                            <p className="topLogoutButton" onClick={handleLogout}>
+                            <p className="topLogoutButton"
+                                onClick={handleLogout}>
                                 logout
                             </p>
                         </>
@@ -88,12 +87,15 @@ export default function TopBar(props) {
             <div className="topMenu" >
                 <ul className="topList">
                     <li className="topListItem">
-                        <Link className="link" to={"/"}>
+                        <Link
+                            className="link"
+                            to={"/"}
+                            onClick={props.scrollHomeHandler}>
                             HOME
                         </Link>
                     </li>
                     <li className="topListItem">
-                        <p onClick={props.scrollHandler}>CONTACT</p>
+                        <p onClick={props.scrollContactHandler}>CONTACT</p>
                     </li>
 
 

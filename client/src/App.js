@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSearchParams } from 'react-router-dom';
 import Home from "./pages/home/Home";
@@ -9,14 +9,11 @@ import Login from "./pages/login/Login";
 import Layout from "./components/Layout/Layout";
 import axios from "axios";
 
-
 import "./App.css";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useUserData } from "./context/UserContext";
 
 require("dotenv").config();
-
 function App() {
   // - user from auth
   const { user, isLoading, logout } = useAuth0();
@@ -35,12 +32,13 @@ function App() {
     };
     fetchProfileData();
 
+    // - logout if theres unauthorized login
     const fetchErrorUrl = async () => {
       const ans = searchParams.get("error");
       if (ans === "unauthorized") {
         logout({ returnTo: window.location.origin });
 
-        // make pop up here
+        // Question: make pop up here
       }
     }
     fetchErrorUrl();
@@ -48,24 +46,43 @@ function App() {
   }, []);
 
 
+  const homeRef = useRef()
+  function scrollToHomeHandler() {
+    homeRef.current.scrollIntoView({ behavior: 'smooth' })
+  }
 
 
   return (
-    <Layout>
+    <Layout scrollHomeHandler={scrollToHomeHandler} >
       <Routes>
-        <Route path="/login" element={user ? <Home /> : <Login />} />
-        <Route path="/" element={<Home />} />
+        {/* Login */}
+        <Route path="/login" element={user ?
+          <div ref={homeRef}>
+            <Home />
+          </div> : <Login />} />
 
+        {/* Home */}
+        <Route
+          path="/"
+          element={
+            // Question: weird position when clicked
+            <div ref={homeRef}>
+              <Home />
+            </div>}
+        />
+
+        {/* Write */}
         {user && !isLoading && <Route path="/write" element={<Write />} />}
-
         {!user && (
           <Route
             path="/write"
             element={isLoading ? <p>Loading...</p> : <Login />}
           />
         )}
-
+        {/* Setting */}
         <Route path="/setting" element={user ? <Setting /> : <Login />} />
+
+        {/* Single */}
         <Route path="/blogposts/:postId" element={<Single />} />
       </Routes>
     </Layout>
