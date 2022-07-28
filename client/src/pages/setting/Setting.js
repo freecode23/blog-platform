@@ -8,8 +8,8 @@ import "./setting.css";
 function Setting() {
   // const { userData } = useContext(UserContext);
   const { user } = useAuth0();
-  const navigate = useNavigate();
   const { userData, setUserData } = useUserData();
+  const navigate = useNavigate();
 
   // 1. JSX variables
   const [profilePic, setProfilePic] = useState(null);
@@ -19,6 +19,9 @@ function Setting() {
   const [about, setAbout] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [github, setGithub] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [phone, setPhone] = useState("");
 
   // 2. update at init
   useEffect(() => {
@@ -29,6 +32,9 @@ function Setting() {
       setAbout(userData.about);
       setLinkedin(userData.linkedin);
       setGithub(userData.github);
+      setPhone(userData.phone);
+      setAddress(userData.address);
+      setCity(userData.city);
     }
   }, [userData]);
 
@@ -43,48 +49,39 @@ function Setting() {
       about,
       linkedin,
       github,
+      phone,
+      address,
+      city,
       sub: user.sub,
     };
     // - add profile pic if its added
     if (profilePic) {
-      // - create the name
       const filename = Date.now() + profilePic.name;
-
-      // - create a new form data
       const formData = new FormData();
       formData.append("name", filename);
       formData.append("file", profilePic);
 
       try {
-        // - upload big photo
         const res = await axios.post("/upload", formData);
         updatedUser.profilePic = res.data.key;
       } catch (err) {
         console.log(err);
       }
-    } else {
-      // show error
     }
 
     // - add resume if added
     if (resume) {
-      // - create the name
       const filename = resume.name;
-
-      // - create a new form data
       const formData = new FormData();
       formData.append("name", filename);
       formData.append("file", resume);
 
       try {
-        // - upload resume
         const res = await axios.post("/upload", formData);
         updatedUser.resumeKey = res.data.key;
       } catch (err) {
         console.log(err);
       }
-    } else {
-      // show error
     }
 
     // - update the user
@@ -100,14 +97,15 @@ function Setting() {
   return (
     <div className="setting">
       <div className="settingWrapper">
-        {/* Update delete account */}
+        {/* Title*/}
         <div className="settingTitle">
           <span className="settingUpdateTitle">Update account</span>
         </div>
         <form className="settingForm">
+
+          {/* Profile pic */}
           <label>Profile Picture</label>
           <div className="settingPp">
-            {/* if file has been staged, display */}
             {profilePic && (
               <img
                 className="writeImage"
@@ -115,8 +113,6 @@ function Setting() {
                 alt=""
               />
             )}
-
-            {/* change profile pic */}
             <label htmlFor="fileInput">
               <i className="settingPpIcon far fa-user-circle"></i>
             </label>
@@ -130,6 +126,7 @@ function Setting() {
             />
           </div>
 
+          {/* Resume */}
           <label>Resume</label>
           <div className="settingPp">
             {/* if file has been staged, display */}
@@ -141,7 +138,6 @@ function Setting() {
               />
             )}
 
-            {/* change resume */}
             <label htmlFor="resumeInput">
               <i className="settingPpIcon far fa-light fa-file"></i>
             </label>
@@ -155,6 +151,7 @@ function Setting() {
             />
           </div>
 
+          {/* Name */}
           <label>Name</label>
           <input
             type="text"
@@ -172,6 +169,7 @@ function Setting() {
             }}
             defaultValue={email}
           />
+
           <label>Linkedin</label>
           <input
             type="text"
@@ -188,6 +186,33 @@ function Setting() {
               setGithub(e.target.value);
             }}
             defaultValue={github}
+          />
+
+          <label>Address</label>
+          <input
+            type="text"
+            onChange={(e) => {
+              setAddress(e.target.value);
+            }}
+            defaultValue={address}
+          />
+
+          <label>City</label>
+          <input
+            type="text"
+            onChange={(e) => {
+              setCity(e.target.value);
+            }}
+            defaultValue={city}
+          />
+
+          <label>Phone</label>
+          <input
+            type="text"
+            onChange={(e) => {
+              setPhone(e.target.value);
+            }}
+            defaultValue={phone}
           />
 
           <label>About</label>

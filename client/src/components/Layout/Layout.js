@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 
 import TopBar from "../topbar/TopBar";
 import Contact from "../contact/Contact";
+import Footer from "../footer/Footer";
 
 export default function Layout({ scrollHomeHandler, children }) {
   const contactRef = useRef()
@@ -23,6 +24,7 @@ export default function Layout({ scrollHomeHandler, children }) {
       <div ref={contactRef}>
         <Contact />
       </div>
+      <Footer />
     </>
   );
 }

@@ -1,50 +1,35 @@
-.contactContainer {
-    border-top: 1px solid grey;
-    margin-right: 400px;
-    margin-left: 40px;
-    margin-top: 80px;
-}
-
-.contact {
-    order: 0;
-    flex: 1;
+.footer {
+    color: white;
     display: flex;
     align-items: left;
-    margin-left: 300px;
-    padding-top: 50px;
-    flex-direction: column;
     font-family: "Space Grotesk";
-    height: 700px;
+    height: 120px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.contactItem {
+.footerItem {
     margin-top: 30px;
     cursor: pointer;
     position: relative;
     display: flex;
     flex-direction: row;
-    padding: 20px 0 20px 0;
+    padding-left: 20px;
 }
 
-.contactContent:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 0.4rem;
-}
-
-.contactContent {
-    margin-left: 20px
-}
-
-.contactIcon {
-    font-size: 30px;
+.footerIcon {
+    font-size: 20px;
+    color: white;
 }
 
 .fa-brands {
-    font-size: 40px;
+    font-size: 20px;
 }
 
 @media (max-width: 800px) and (min-width: 0px) {
-    .contactContainer {
+    /* .footerContainer {
         margin-top: 0;
         border-top: 1px solid grey;
         margin-right: 0px;
@@ -53,18 +38,18 @@
         align-items: center;
         justify-content: center;
     }
-    .contact {
+    .footer {
         flex-direction: column;
         align-items: center;
         justify-content: center;
         font-family: "Space Grotesk";
         margin-left: 0px;
         height: 300px;
-    }
+    } */
 }
 
 @media (min-width: 800px) and (max-width:1200px) {
-    .contact {
+    /* .footer {
         margin-left: 80px;
-    }
+    } */
 }

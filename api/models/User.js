@@ -8,28 +8,40 @@ const UserSchema = new mongoose.Schema({
         required: [true, "cannot add an user without name"],
         unique: true
     },
-    
+
     email: {
         type: String,
         required: [true, "cannot add an user without email"],
         unique: true
     },
-    
+
     about: {
         type: String,
         default: ""
     },
-    
+
     linkedin: {
         type: String,
         default: ""
     },
-    
+
     github: {
         type: String,
         default: ""
     },
-    
+    address: {
+        type: String,
+        default: ""
+    },
+    phone: {
+        type: String,
+        default: ""
+    },
+    city: {
+        type: String,
+        default: ""
+    },
+
     sub: {
         type: String,
         default: ""
@@ -43,7 +55,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    
+
 }, { timestamps: true })
 
 

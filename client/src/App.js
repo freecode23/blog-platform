@@ -6,7 +6,7 @@ import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
 import Setting from "./pages/setting/Setting";
 import Login from "./pages/login/Login";
-import Layout from "./components/Layout/Layout";
+import Layout from "./components/layout/Layout";
 import axios from "axios";
 
 import "./App.css";
