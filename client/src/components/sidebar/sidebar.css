@@ -50,35 +50,42 @@
     object-fit: cover;
 }
 
-.sidebarList {
+.sidebarSkill {
     list-style-type: none;
     font-family: "Space Grotesk";
     font-weight: 600;
 }
 
-.sidebarListItem {
+.sidebarSkillItem {
     display: inline-block;
     padding: 0.4em 0.9em;
     margin: 8px 15px 8px 15px;
     cursor: pointer;
     font-size: 13px;
     border: 2px solid black;
-    /* border-radius: 10px; */
 }
 
-.sidebarListItem:hover {
+.sidebarSkillItem:hover {
     color: white;
     background-color: black;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .sidebar {
+        width: 70%;
+        border-top: 1px solid #a7a4a4;
         padding-top: 80px;
         position: relative;
         top: revert;
         border-left: none;
-        right: 0;
-        bottom: 0;
-        padding-right: 0px;
+        padding: 0px;
+        margin: 40px 0 40px 0;
+    }
+    .sidebarImg {
+        margin-top: 80px;
+        margin-bottom: 40px;
+    }
+    .sidebarSkill {
+        max-width: 400px;
     }
 }

@@ -22,6 +22,7 @@ function Setting() {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
+  const [title, setTitle] = useState("");
 
 
   // 2. update at init
@@ -36,6 +37,7 @@ function Setting() {
       setPhone(userData.phone);
       setAddress(userData.address);
       setCity(userData.city);
+      setTitle(userData.title);
     }
   }, [userData]);
 
@@ -53,6 +55,7 @@ function Setting() {
       phone,
       address,
       city,
+      title,
       sub: user.sub,
     };
     // - add profile pic if its added
@@ -225,6 +228,15 @@ function Setting() {
             }}
             placeholder="Hello, my name is.."
             defaultValue={about}
+          />
+
+          <label>Title</label>
+          <textarea
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            placeholder="SOFTWARE DEVELOPMENT, MACHINE LEARNING, MSCS@NORTHEASTERN"
+            defaultValue={title}
           />
           <button className="settingSubmitButton" onClick={handleSubmit}>
             Update

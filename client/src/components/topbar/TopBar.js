@@ -57,9 +57,12 @@ export default function TopBar(props) {
                     <div className="topCenterName">
                         Sherly Hartono
                     </div>
-                    <div className="topCenterDescription">
-                        SOFTWARE DEVELOPMENT, MACHINE LEARNING, MSCS@NORTHEASTERN
-                    </div>
+                    {
+                        userData &&
+                        <div className="topCenterDescription">
+                            {userData.title}
+                        </div>
+                    }
                 </div>
 
                 <div className="topRight">

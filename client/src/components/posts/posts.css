@@ -11,7 +11,7 @@
     /* grid-template-columns: repeat(3, 1fr); */
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .posts {
         padding-right: 40px;
         margin-right: 0;

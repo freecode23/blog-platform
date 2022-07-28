@@ -30,8 +30,8 @@ function Sidebar() {
 
     return (
       <Link to={"/?cat=" + catName.toString()} className="link">
-        <li key={cat._id} className="sidebarListItem">
-          <p className="sidebarListText">
+        <li key={cat._id} className="sidebarSkillItem">
+          <p className="sidebarSkillText">
             {cat.name}
           </p>
         </li>
@@ -56,7 +56,7 @@ function Sidebar() {
       </div>
       <div className="sidebarItem">
         <span className="sidebarTitle">Skills</span>
-        <ul className="sidebarList">{catsJSX}</ul>
+        <ul className="sidebarSkill">{catsJSX}</ul>
       </div>
     </aside>
   );
