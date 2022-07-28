@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSearchParams } from 'react-router-dom';
 import Home from "./pages/home/Home";
@@ -7,11 +7,13 @@ import Write from "./pages/write/Write";
 import Setting from "./pages/setting/Setting";
 import Login from "./pages/login/Login";
 import Layout from "./components/layout/Layout";
+import SnackBar from "./components/snackbar/Snackbar";
 import axios from "axios";
 
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useUserData } from "./context/UserContext";
+
 
 require("dotenv").config();
 function App() {
@@ -36,8 +38,9 @@ function App() {
     const fetchErrorUrl = async () => {
       const ans = searchParams.get("error");
       if (ans === "unauthorized") {
-        logout({ returnTo: window.location.origin });
 
+        localStorage.setItem('snackbar', true)
+        logout({ returnTo: window.location.origin });
         // Question: make pop up here
       }
     }
@@ -46,18 +49,22 @@ function App() {
   }, []);
 
 
-  const homeRef = useRef()
   function scrollToHomeHandler() {
-    homeRef.current.scrollIntoView({ behavior: 'smooth' })
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
   }
 
 
   return (
     <Layout scrollHomeHandler={scrollToHomeHandler} >
+
       <Routes>
         {/* Login */}
         <Route path="/login" element={user ?
-          <div ref={homeRef}>
+          <div >
             <Home />
           </div> : <Login />} />
 
@@ -66,7 +73,7 @@ function App() {
           path="/"
           element={
             // Question: weird position when clicked
-            <div ref={homeRef}>
+            <div >
               <Home />
             </div>}
         />

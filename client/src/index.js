@@ -4,6 +4,7 @@ import App from "./App";
 import { UserDataProvider } from "./context/UserContext";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { BrowserRouter as Router } from "react-router-dom";
+import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 
 
 require("dotenv").config();
@@ -20,6 +21,7 @@ root.render(
       redirectUri={window.location.origin}
     >
       <UserDataProvider>
+        <ScrollToTop />
         <App />
       </UserDataProvider>
     </Auth0Provider>

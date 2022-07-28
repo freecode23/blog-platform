@@ -1,0 +1,25 @@
+.snackBar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: tomato;
+    height: 36px;
+    z-index: 9999;
+}
+
+.snackBarContent {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+}
+
+.snackbarCloseButton {
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+}
