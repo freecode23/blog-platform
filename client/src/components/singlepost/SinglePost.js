@@ -3,6 +3,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useUpdateModeContext } from "../../context/UpdateModeContext";
 import Froala from "../../components/editor/Froala";
 import axios from "axios";
 import DOMPurify from "dompurify";
@@ -11,7 +12,7 @@ function SinglePost() {
   // 1. Get the picture from local folder
   const awsS3Path = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/";
   const { user, isAuthenticated } = useAuth0();
-  const [updateMode, setUpdateMode] = useState(false);
+  const { updateMode, setUpdateMode } = useUpdateModeContext();
   const [title, setTitle] = useState("");
   const [categories, setCategories] = useState([]);
   const [signature, setSignature] = React.useState();
@@ -81,6 +82,7 @@ function SinglePost() {
       title,
       content: editorContent,
     });
+    setUpdateMode(false)
     await navigate("/");
   };
 

@@ -1,10 +1,10 @@
 import React from "react";
-import { useUserData } from "../../context/UserContext";
+import { useUserDataContext } from "../../context/UserContext";
 import "./footer.css";
 
 
 function Footer() {
-  const { userData } = useUserData();
+  const { userData } = useUserDataContext();
   return (
     <div className="footer">
       <p>Get in Touch!</p>

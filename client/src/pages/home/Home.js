@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 
 import Posts from "../../components/posts/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
+import { useUpdateModeContext } from "../../context/UpdateModeContext";
 import "./home.css";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
 
   // 2. get params for query
   const search = useLocation().search;
+  const { updateMode, setUpdateMode } = useUpdateModeContext();
 
   // 3. Only do this on mount
   useEffect(() => {
@@ -30,6 +32,7 @@ export default function Home() {
 
     // - call the function
     fetchPosts();
+    setUpdateMode(false);
   }, [search]);
 
   return (

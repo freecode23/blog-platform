@@ -17,7 +17,7 @@ function UserDataProvider({ children }) {
 }
 
 // - create context containing userData and setUserData (used in children)
-function useUserData() {
+function useUserDataContext() {
   const context = React.useContext(UserDataContext);
 
   if (context === undefined) {
@@ -27,4 +27,4 @@ function useUserData() {
   return context;
 }
 
-export { UserDataProvider, useUserData };
+export { UserDataProvider, useUserDataContext };

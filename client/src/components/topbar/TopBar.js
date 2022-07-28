@@ -2,7 +2,7 @@ import "./topbar.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useUserData } from "../../context/UserContext";
+import { useUserDataContext } from "../../context/UserContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { saveAs } from "file-saver";
 
@@ -10,7 +10,7 @@ export default function TopBar(props) {
     const { isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
 
-    const { userData } = useUserData();
+    const { userData } = useUserDataContext();
     const [resumeUrl, setResumeUrl] = useState("");
 
     // fetch user here to get link github, linkedin, and picture

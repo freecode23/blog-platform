@@ -12,14 +12,16 @@ import axios from "axios";
 
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useUserData } from "./context/UserContext";
+import { useUserDataContext } from "./context/UserContext";
+import { useUpdateModeContext } from "./context/UpdateModeContext";
 
 
 require("dotenv").config();
 function App() {
   // - user from auth
   const { user, isLoading, logout } = useAuth0();
-  const { setUserData } = useUserData();
+  const { setUserData } = useUserDataContext();
+  const { updateMode, setUpdateMode } = useUpdateModeContext();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const sub = process.env.REACT_APP_SUB;
@@ -45,7 +47,6 @@ function App() {
       }
     }
     fetchErrorUrl();
-
   }, []);
 
 
@@ -60,7 +61,6 @@ function App() {
 
   return (
     <Layout scrollHomeHandler={scrollToHomeHandler} >
-
       <Routes>
         {/* Login */}
         <Route path="/login" element={user ?

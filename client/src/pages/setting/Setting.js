@@ -2,13 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useUserData } from "../../context/UserContext";
+import { useUserDataContext } from "../../context/UserContext";
 import "./setting.css";
 
 function Setting() {
   // 1. Get the picture from local folder
   const { user } = useAuth0();
-  const { userData, setUserData } = useUserData();
+  const { userData, setUserData } = useUserDataContext();
   const navigate = useNavigate();
 
   // 1. JSX variables
