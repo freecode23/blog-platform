@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function CardPost(props) {
     // 1. Get the picture from local folder
-    const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
+    const awsS3Path = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
 
     // 2. create category JSX array
     const catJSXElements = props.post.categories.map(cat => {
@@ -25,7 +25,7 @@ function CardPost(props) {
             <div className="post box">
                 <img
                     className="postImg"
-                    src={publicFolderPath + props.post.picture}
+                    src={awsS3Path + props.post.picture}
                     alt="blog cover"
                 />
 

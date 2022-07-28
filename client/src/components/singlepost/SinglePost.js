@@ -9,7 +9,7 @@ import DOMPurify from "dompurify";
 
 function SinglePost() {
   // 1. Get the picture from local folder
-  const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/";
+  const awsS3Path = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/";
   const { user, isAuthenticated } = useAuth0();
   const [updateMode, setUpdateMode] = useState(false);
   const [title, setTitle] = useState("");
@@ -134,7 +134,7 @@ function SinglePost() {
         {/* image */}
         <img
           className="singlePostImg"
-          src={publicFolderPath + post.picture}
+          src={awsS3Path + post.picture}
           alt=""
         />
 

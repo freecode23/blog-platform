@@ -9,7 +9,7 @@ function Sidebar() {
   // 1. variables
   const [cats, setCats] = useState([]);
   const { userData } = useUserData();
-  const publicFolderPath = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/";
+  const awsS3Path = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/";
 
   // 2. Init categories and about from DB
   useEffect(() => {
@@ -46,7 +46,7 @@ function Sidebar() {
           <>
             <img
               className="sidebarImg"
-              src={publicFolderPath + userData.profilePic}
+              src={awsS3Path + userData.profilePic}
               alt="sherly"
             />
 

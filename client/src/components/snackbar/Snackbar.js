@@ -1,5 +1,4 @@
 import React from "react";
-import { useUserData } from "../../context/UserContext";
 import "./snackbar.css";
 
 function SnackBar({ children, onClose }) {

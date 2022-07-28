@@ -1,75 +1,75 @@
 .write {
-  padding-top: 50px;
-  flex: 9;
+    padding: 50px;
+    flex: 9;
 }
 
 .writeForm {
-  position: relative;
+    position: relative;
 }
 
 .writeFormGroup {
-  margin-left: 150px;
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .writeIcon {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  border: 1px solid;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 ::-webkit-input-placeholder {
-  font-family: "Courier Prime";
+    font-family: "Courier Prime";
 }
 
 .writeInput {
-  font-size: 30px;
-  border: none;
-  padding: 20px;
-  width: 70vw;
+    font-size: 30px;
+    border: none;
+    padding: 20px;
+    width: 70vw;
 }
 
 .writeInput:focus {
-  outline: none;
+    outline: none;
 }
 
 .writeText {
-  font-size: 20px;
-  height: 200px;
+    font-size: 20px;
+    height: 200px;
 }
 
 .writeSubmit {
-  position: absolute;
-  top: 20px;
-  right: 100px;
-  background-color: #8ffff3;
-  padding: 8px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 15px;
-  font-family: "Space Grotesk";
-  font-weight: 700;
-  cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 100px;
+    background-color: #8ffff3;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: "Space Grotesk";
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .writeImage {
-  margin-left: 150px;
-  width: 50vw;
-  border-radius: 5 px;
-  /* object-fit: cover; */
+    margin-left: 150px;
+    width: 50vw;
+    border-radius: 5 px;
+    /* object-fit: cover; */
 }
+
 
 /* TAGS */
 
 .writeCategories {
-  font-family: "Space Grotesk";
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    font-family: "Space Grotesk";
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }

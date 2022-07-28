@@ -44,12 +44,12 @@
     flex: 3;
     display: flex;
     align-items: center;
-    justify-content: right;
-    margin-right: 70px;
+    justify-content: center;
 }
 
-.topLeft {
-    justify-content: center;
+.topRight {
+    justify-content: right;
+    margin-right: 70px
 }
 
 
@@ -139,17 +139,24 @@
 @media (max-width: 800px) {
     .top {
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     .topCenter {
         margin-bottom: 16px;
-    }
-    .topRight {
-        flex-direction: column;
     }
     .topLogoutButton {
         order: 1;
         margin-top: 8px;
         margin-right: 0;
+    }
+    .topRight,
+    .topLeft {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-right: 0px;
     }
 }
 

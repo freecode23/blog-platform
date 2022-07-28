@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import TopBar from "../topbar/TopBar";
-import Contact from "../contact/Contact";
 import Footer from "../footer/Footer";
 import SnackBar from "../snackbar/Snackbar";
 
@@ -32,9 +31,9 @@ export default function Layout({ scrollHomeHandler, children }) {
 
       {/* will go here if contact is clicked */}
       <div ref={contactRef}>
-        <Contact />
+        {/* <Contact /> */}
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }

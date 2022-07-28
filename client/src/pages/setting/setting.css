@@ -1,5 +1,8 @@
 .setting {
     display: flex;
+    margin-left: calc(0.4 * 100vh);
+    margin-right: calc(0.4 * 100vh);
+    margin-bottom: calc(0.1 * 100vh);
 }
 
 .settingWrapper {
@@ -10,32 +13,11 @@
 .settingTitle {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     font-family: "Space Grotesk";
-}
-
-.settingUpdateTitle {
     font-size: 30px;
     margin-bottom: 20px;
     font-weight: 700;
-}
-
-.settingDeleteTitle {
-    font-size: 20px;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.settingUpdateTitle:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 0.3rem;
-    cursor: pointer;
-}
-
-.settingDeleteTitle:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 0.3rem;
-    cursor: pointer;
 }
 
 .settingForm {
@@ -44,20 +26,25 @@
     flex-direction: column;
 }
 
-.settingPp {
+.settingFile {
     display: flex;
     align-items: center;
-    margin: 10px 0;
+    /* margin: 10px 0; */
 }
 
-.settingPp>img {
+.settingFile>img {
     width: 70px;
-    height: 70px;
+    height: 40px;
     border-radius: 8px;
+    margin-left: 10px;
     object-fit: cover;
 }
 
-.settingPpIcon {
+.settingFile>p {
+    margin-left: 10px
+}
+
+.settingFileIcon {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -71,7 +58,7 @@
     background-color: black;
 }
 
-.settingPpIcon:hover {
+.settingFileIcon:hover {
     border-color: red;
     color: black;
     background-color: white;
@@ -96,15 +83,21 @@
 
 .settingSubmitButton {
     width: 150px;
+    height: 70px;
     align-self: center;
     border: none;
     background-color: #8ffff3;
     padding: 10px;
-    font-size: 13px;
+    font-size: 20px;
     font-family: "Space Grotesk";
     font-weight: 700;
-    margin-top: 20px;
+    margin-top: 100px;
     cursor: pointer;
+}
+
+.settingSubmitButton:hover {
+    color: white;
+    background-color: black;
 }
 
 
@@ -120,4 +113,18 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+
+@media (min-width: 800px) and (max-width:1200px) {
+    .setting {
+        margin-left: calc(0.1 * 100vh);
+        margin-right: calc(0.1 * 100vh);
+    }
+}
+
+@media (min-width:0px) and (max-width:800px) {
+    .setting {
+        margin-left: calc(0.05 * 100vh);
+        margin-right: calc(0.05 * 100vh);
+    }
 }

@@ -7,7 +7,7 @@ import Write from "./pages/write/Write";
 import Setting from "./pages/setting/Setting";
 import Login from "./pages/login/Login";
 import Layout from "./components/layout/Layout";
-import SnackBar from "./components/snackbar/Snackbar";
+
 import axios from "axios";
 
 import "./App.css";

@@ -1,15 +1,24 @@
 .footer {
-    color: white;
+    order: 0;
+    flex: 1;
     display: flex;
-    align-items: left;
-    font-family: "Space Grotesk";
-    height: 120px;
-    background-color: black;
-    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 50px;
+    height: 750px;
     position: relative;
-    z-index: 9999;
+    color: white;
+    background-color: black;
+    font-family: "Space Grotesk";
+    font-size: 15px
+}
+
+.footerContainer {
+    border-top: 1px solid grey;
+    margin-right: 400px;
+    margin-left: 40px;
+    margin-top: 80px;
 }
 
 .footerItem {
@@ -18,17 +27,43 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    padding-left: 20px;
+    padding: 20px 0 20px 0;
+}
+
+.footerContent:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 0.4rem;
+}
+
+.footerContent {
+    margin-left: 20px
 }
 
 .footerIcon {
     font-size: 20px;
-    color: white;
 }
 
-.fa-brands {
-    font-size: 20px;
+@media (max-width: 800px) and (min-width: 0px) {
+    .footerContainer {
+        margin-top: 0;
+        border-top: 1px solid grey;
+        margin-right: 0px;
+        margin-left: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: "Space Grotesk";
+        margin-left: 0px;
+        height: 300px;
+    }
 }
+
+@media (min-width: 800px) and (max-width:1200px) {}
 
 @media (max-width: 800px) and (min-width: 0px) {
     /* .footerContainer {

@@ -6,7 +6,7 @@ import { useUserData } from "../../context/UserContext";
 import "./setting.css";
 
 function Setting() {
-  // const { userData } = useContext(UserContext);
+  // 1. Get the picture from local folder
   const { user } = useAuth0();
   const { userData, setUserData } = useUserData();
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ function Setting() {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [phone, setPhone] = useState("");
+
 
   // 2. update at init
   useEffect(() => {
@@ -99,23 +100,18 @@ function Setting() {
       <div className="settingWrapper">
         {/* Title*/}
         <div className="settingTitle">
-          <span className="settingUpdateTitle">Update account</span>
+          <span>Update Account</span>
         </div>
         <form className="settingForm">
 
           {/* Profile pic */}
           <label>Profile Picture</label>
-          <div className="settingPp">
-            {profilePic && (
-              <img
-                className="writeImage"
-                src={URL.createObjectURL(profilePic)}
-                alt=""
-              />
-            )}
+          <div className="settingFile">
+
             <label htmlFor="fileInput">
-              <i className="settingPpIcon far fa-user-circle"></i>
+              <i className="settingFileIcon far fa-user-circle"></i>
             </label>
+
             <input
               id="fileInput"
               type="file"
@@ -124,23 +120,23 @@ function Setting() {
                 setProfilePic(e.target.files[0]);
               }}
             />
+
+            {profilePic && (
+              <img
+                className="settingInputDisplay"
+                src={URL.createObjectURL(profilePic)}
+                alt=""
+              />
+            )}
           </div>
 
           {/* Resume */}
           <label>Resume</label>
-          <div className="settingPp">
-            {/* if file has been staged, display */}
-            {resume && (
-              <img
-                className="writeImage"
-                src={URL.createObjectURL(resume)}
-                alt=""
-              />
-            )}
-
+          <div className="settingFile">
             <label htmlFor="resumeInput">
-              <i className="settingPpIcon far fa-light fa-file"></i>
+              <i className="settingFileIcon far fa-light fa-file"></i>
             </label>
+
             <input
               id="resumeInput"
               type="file"
@@ -149,6 +145,13 @@ function Setting() {
                 setResume(e.target.files[0]);
               }}
             />
+
+            {/* if file has been staged, display */}
+            {resume && (
+              <>
+                <p className="settingInputDisplay">{resume.name}</p>
+              </>
+            )}
           </div>
 
           {/* Name */}
