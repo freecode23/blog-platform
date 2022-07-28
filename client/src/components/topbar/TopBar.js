@@ -39,8 +39,8 @@ export default function TopBar(props) {
     };
 
     return (
-        <div className="all">
-            <div className="top">
+        <div className="topAll">
+            <div className="topDesc">
                 <div className="topLeft">
                     {userData && (
                         <>

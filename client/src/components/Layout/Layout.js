@@ -21,7 +21,11 @@ export default function Layout({ scrollHomeHandler, children }) {
 
   return (
     <>
-      {showSnackBar && <SnackBar onClose={closeSnackbarHandler}>SnackBar Content</SnackBar>}
+      {showSnackBar &&
+        <SnackBar onClose={closeSnackbarHandler}>
+          Sorry, only Sherly can log in. You can still view the posts
+        </SnackBar>}
+
       {/* will go here if home is clicked */}
       <TopBar
         scrollContactHandler={scrollToContactHandler}

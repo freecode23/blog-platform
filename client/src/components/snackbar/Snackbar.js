@@ -8,7 +8,7 @@ function SnackBar({ children, onClose }) {
         <p>
           {children}
         </p>
-        <div className="snackbarCloseButton" onClick={onClose}>Close</div>
+        <div className="snackbarCloseButton" onClick={onClose}>X</div>
       </div>
     </div>
   );

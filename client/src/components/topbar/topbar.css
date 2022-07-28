@@ -1,14 +1,15 @@
-.all {
+.topAll {
     width: 100%;
-    padding: 10px 0 0 0;
+    padding: 10px 70px 0px 0;
     font-family: "Space Grotesk";
     position: sticky;
     background-color: white;
     top: 0;
     z-index: 999;
+    border-bottom: 1px solid #a7a4a4;
 }
 
-.top {
+.topDesc {
     display: flex;
 }
 
@@ -49,7 +50,6 @@
 
 .topRight {
     justify-content: right;
-    margin-right: 70px
 }
 
 
@@ -78,10 +78,6 @@
 
 
 /* 2. the list of menu */
-
-.topMenu {
-    border-bottom: 1px solid #a7a4a4;
-}
 
 .topList {
     display: flex;
@@ -136,30 +132,6 @@
     background-color: black;
 }
 
-@media (max-width: 800px) {
-    .top {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .topCenter {
-        margin-bottom: 16px;
-    }
-    .topLogoutButton {
-        order: 1;
-        margin-top: 8px;
-        margin-right: 0;
-    }
-    .topRight,
-    .topLeft {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        margin-right: 0px;
-    }
-}
-
 .topSettingIcon {
     font-size: 35px;
     cursor: pointer;
@@ -186,4 +158,33 @@
     padding: 0 36px 0 36px;
     display: inline;
     cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .topAll {
+        padding-right: 0;
+    }
+    .topDesc {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .topCenter {
+        margin-bottom: 16px;
+    }
+    .topLogoutButton {
+        order: 1;
+        margin-top: 8px;
+        margin-right: 0;
+    }
+}
+
+@media (min-width: 800px) and (max-width:1200px) {
+    .topAll {
+        padding-right: 0;
+    }
+    .topRight {
+        justify-content: center;
+        margin: 0px
+    }
 }
