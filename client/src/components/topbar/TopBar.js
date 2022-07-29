@@ -102,6 +102,11 @@ export default function TopBar(props) {
                     </li>
 
 
+                    <li className="topListItem">
+                        <Link className="link" to={"/write"}>
+                            WRITE
+                        </Link>
+                    </li>
 
                     {userData && (
                         <div className="topResume">
@@ -110,14 +115,6 @@ export default function TopBar(props) {
                             </li>
                             <i class="download fa-solid fa-file-arrow-down" onClick={saveFile}>     </i>
                         </div>
-                    )}
-
-                    {isAuthenticated && (
-                        <li className="topListItem">
-                            <Link className="link" to={"/write"}>
-                                WRITE
-                            </Link>
-                        </li>
                     )}
                 </ul>
             </div>
