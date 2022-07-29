@@ -150,7 +150,7 @@ function Write() {
 
         {/* Title */}
         <div className="writeFormItem">
-          <label>Title:</label>
+          <label>Title</label>
           <div className="writeInput">
             <input
               className="writeInputTitle"
