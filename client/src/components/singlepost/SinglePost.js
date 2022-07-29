@@ -163,7 +163,7 @@ function SinglePost() {
         {updateMode && (
           <button
             type="button"
-            className="singlePostSubmit"
+            className="singlePostSubmitButton"
             onClick={handleUpdate}
           >
             Update

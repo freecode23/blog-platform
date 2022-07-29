@@ -1,4 +1,5 @@
 .setting {
+    margin-top: 10px;
     display: flex;
     margin-left: calc(0.4 * 100vh);
     margin-right: calc(0.4 * 100vh);
@@ -29,7 +30,6 @@
 .settingFile {
     display: flex;
     align-items: center;
-    /* margin: 10px 0; */
 }
 
 .settingFile>img {

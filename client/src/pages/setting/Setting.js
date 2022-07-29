@@ -110,7 +110,6 @@ function Setting() {
           {/* Profile pic */}
           <label>Profile Picture</label>
           <div className="settingFile">
-
             <label htmlFor="fileInput">
               <i className="settingFileIcon far fa-user-circle"></i>
             </label>

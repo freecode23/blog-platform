@@ -3,12 +3,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 40px 200px 0px 100px;
+    margin: 40px 200px 80px 100px;
     text-align: left;
 }
 
 .singlePostImg {
-    width: 40vw;
+    max-width: 300px;
     object-fit: cover;
 }
 
@@ -20,10 +20,8 @@
 
 .singlePostTitleInput {
     font-family: "Space Grotesk";
-    text-align: center;
     font-size: 30px;
     border: none;
-    padding: 20px;
     width: 50vw;
 }
 
@@ -67,18 +65,23 @@
     font-weight: 600;
 }
 
-.singlePostSubmit {
+.singlePostSubmitButton {
     width: 150px;
-    margin-top: 30px;
-    padding: 8px 20px;
+    height: 70px;
+    align-self: center;
     border: none;
-    border-radius: 5px;
     background-color: #8ffff3;
-    font-size: 15px;
+    padding: 10px;
+    font-size: 20px;
     font-family: "Space Grotesk";
     font-weight: 700;
+    margin-top: 100px;
     cursor: pointer;
-    align-self: flex-end;
+}
+
+.singlePostSubmitButton:hover {
+    color: white;
+    background-color: black;
 }
 
 

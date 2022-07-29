@@ -1,18 +1,30 @@
 .editor-wrapper {
     max-width: 1100px;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     display: flex;
     flex-direction: row;
 }
 
-.editor-container,
+.editor-container {
+    min-width: 600px;
+}
+
 .editor-display-container {
-    flex: 1;
-    padding: 40px 0 20px 0;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 600px;
+    min-height: 300px;
+    margin-left: 40px;
 }
 
 @media (min-width: 800px) and (max-width:1400px) {
     .editor-wrapper {
         flex-direction: column;
+    }
+    .editor-display-container {
+        flex: 1;
+        margin-left: 0px;
+        margin-top: 40px;
     }
 }

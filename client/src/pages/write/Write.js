@@ -123,55 +123,72 @@ function Write() {
 
   return (
     <div className="write">
-      {/* if file has been staged, display */}
-      {file && (
-        <img className="writeImage" src={URL.createObjectURL(file)} alt="" />
-      )}
-
+      <div className="writeTitle">
+        <span>Write a post</span>
+      </div>
       <form className="writeForm">
-        <div className="writeFormGroup">
-          {/* Image */}
-          <label htmlFor="fileInput">
-            <i className="writeIcon fas fa-plus"></i>
-          </label>
+        {/* Image */}
+        <div className="writeFormItem">
+          <label>Blog Picture:</label>
+          <div className="writeInput">
+            <label htmlFor="fileInput">
+              <i className="writeIcon fas fa-plus"></i>
+            </label>
+            <input
+              id="fileInput"
+              type="file"
+              style={{ display: "none" }}
+              onChange={(e) => {
+                setFile(e.target.files[0]);
+              }}
+            />
+            {file && (
+              <img src={URL.createObjectURL(file)} alt="" />
+            )}
+          </div>
+        </div>
 
-          <input
-            id="fileInput"
-            type="file"
-            style={{ display: "none" }}
-            onChange={(e) => {
-              setFile(e.target.files[0]);
-            }}
-          />
-
-          {/* Title */}
-          <input
-            className="writeInput"
-            placeholder="Title"
-            type="text"
-            autoFocus={true}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
+        {/* Title */}
+        <div className="writeFormItem">
+          <label>Title:</label>
+          <div className="writeInput">
+            <input
+              className="writeInputTitle"
+              placeholder="Some title here"
+              type="text"
+              autoFocus={true}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
+          </div>
         </div>
 
         {/* Tags */}
-        <div className="writeFormGroup writeCategories">
-          <h2>Enter Some Tags ...</h2>
-          <TagsInput catsJSX={catsJSX} onKeyDown={handleKeydown} />
+        <div className="writeFormItem">
+          <label>Tags</label>
+          <div className="writeInput">
+            <TagsInput catsJSX={catsJSX} onKeyDown={handleKeydown} />
+          </div>
         </div>
-        <Froala
-          editorContent={editorContent}
-          handleEditorChange={handleEditorChange}
-          imageUploadToS3={signature}
-        />
 
-        <button type="button" className="writeSubmit" onClick={handleSubmit}>
+        {/* Editor */}
+        <div className="writeFormItem">
+          <label>Content</label>
+          <div className="writeInput">
+            <Froala
+              editorContent={editorContent}
+              handleEditorChange={handleEditorChange}
+              imageUploadToS3={signature}
+            />
+          </div>
+        </div>
+
+        <button type="button" className="writeSubmitButton" onClick={handleSubmit}>
           Publish
         </button>
-      </form>
-    </div>
+      </form >
+    </div >
   );
 }
 
