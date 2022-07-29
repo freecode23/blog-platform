@@ -133,8 +133,10 @@ function SinglePost() {
     )
   })
 
+
   return (
     <div className="singlePost">
+
       {/* Menu Title */}
       {updateMode && (
         <div className="singlePostMenuTitle">
@@ -157,16 +159,7 @@ function SinglePost() {
       )}
 
       {/* The Post */}
-      <div >
-
-        {/* Image */}
-        <div className="singlePostInput">
-          <img
-            className="singlePostImg"
-            src={awsS3Path + post.picture}
-            alt=""
-          />
-        </div>
+      <div className={updateMode ? ("singlePostForm") : ("")}>
         {/* Title */}
         {updateMode ? (
           <div className="singlePostFormItem">
@@ -188,7 +181,6 @@ function SinglePost() {
 
         {/* Tags */}
         {updateMode ?
-
           (
             <div className="singlePostFormItem">
               <label>Tags</label>
@@ -201,6 +193,15 @@ function SinglePost() {
             {catJSX}
           </div>)}
 
+
+        {/* Image */}
+        <div className="singlePostInput">
+          <img
+            className="singlePostImg"
+            src={awsS3Path + post.picture}
+            alt=""
+          />
+        </div>
 
         {/* Content */}
         {updateMode ? (

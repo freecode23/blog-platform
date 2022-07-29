@@ -8,7 +8,7 @@ function TagsInput(props) {
       <input
         type="text"
         className="tags-input"
-        placeholder="Type something"
+        placeholder="Type your own tags"
         onKeyDown={props.onKeyDown}
       />
     </div>
