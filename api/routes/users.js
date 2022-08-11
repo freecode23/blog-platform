@@ -7,8 +7,8 @@ router.post("/",
         try {
 
             const userFound = await User.findOne({ sub: req.body.sub });
-            
-            if(!userFound) {
+
+            if (!userFound) {
                 // 1. create the object based on request
                 const userObj = new User({
                     username: req.body.username,
@@ -18,13 +18,13 @@ router.post("/",
                     github: req.body.github,
                     sub: req.body.sub
                 });
-    
+
                 // 2. save new
                 const savedResponse = await userObj.save();
                 res.status(200).json(savedResponse);
 
             } else {
-  
+
                 // 3. find by id and update
                 const updatedUser = await User.findByIdAndUpdate(userFound._id,
                     {
@@ -45,7 +45,7 @@ router.post("/",
 router.get("/:sub",
     async (req, res) => {
         try {
-           
+
             // 1. find by sub
             const user = await User.findOne({ sub: req.params.sub });
             res.status(200).json(user);

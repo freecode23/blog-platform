@@ -5,18 +5,18 @@ const mongoose = require("mongoose");
 const PostSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: [true, "cannot add a post without title"],
+        required: [true, "Cannot add a post without a title"],
         unique: true
     },
 
     content: {
         type: String,
-        required: [true, "cannot add a post without description"],
+        required: [true, "Cannot add a post without any description"],
     },
 
     picture: {
         type: String,
-        required: [true, "cannot add a post without picture"],
+        required: [true, "Cannot add a post without a picture"],
     },
     categories: {
         type: Array,

@@ -103,6 +103,10 @@
     max-width: 900px;
 }
 
+.singlePostContent div {
+    width: auto !important;
+}
+
 .singlePostContent::first-letter {
     font-size: 40px;
     font-weight: 600;
@@ -145,11 +149,11 @@
         object-fit: cover;
     }
     .singlePostContent {
-        width: 80%;
+        width: 100%;
     }
 }
 
-@media (min-width: 800px) and (max-width:1000px) {
+@media (min-width: 800px) and (max-width: 1000px) {
     .singlePost {
         width: 80%;
         flex-direction: column;
@@ -159,14 +163,14 @@
     }
     .topRight {
         justify-content: center;
-        margin: 0px
+        margin: 0px;
     }
     .singlePostContent {
         width: 80%;
     }
 }
 
-@media (min-width: 1000px) and (max-width:1200px) {
+@media (min-width: 1000px) and (max-width: 1200px) {
     .singlePostT {
         width: 80%;
         flex-direction: column;

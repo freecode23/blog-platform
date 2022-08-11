@@ -6,16 +6,30 @@ const bcrypt = require("bcrypt");
 
 // CREATE 
 router.post("/", async (req, res) => {
-    // 1. create post
-    const newPost = await Post.create(req.body);
 
     try {
+        // 1. create post
+        const newPost = await Post.create(req.body);
         // 2. try save
         const post = await newPost.save();
         res.status(200).json(post);
 
     } catch (err) {
-        console.log(err);
+        if (err.errors) {
+            console.log("err.errors>>>>>>>>>>>>>>>>>>>>>", err.errors);
+        }
+
+        if (err.errors && err.errors.picture.properties) {
+            const message = err.errors.picture.properties.message
+            res.status(500).json({ message: message });
+        }
+        // 3. Handle duplicate post
+        if (err.code && err.code == 11000) {
+            for (var key in err.keyValue) {
+                const message = `The post with ${key}: "${err.keyValue[key]}" already exist`
+                res.status(500).json({ message: message });
+            }
+        }
     }
 })
 
@@ -38,7 +52,7 @@ router.get("/:id",
 router.get("/",
     async (req, res) => {
         const username = req.query.user;
-        const catName=decodeURI(req.query.cat)
+        const catName = decodeURI(req.query.cat)
 
         try {
 
@@ -47,7 +61,7 @@ router.get("/",
             if (username) { // fetch post by username
                 posts = await Post.find({ username: username });
 
-            } else if (catName && catName !='undefined') { // fetch post by category name
+            } else if (catName && catName != 'undefined') { // fetch post by category name
                 posts = await Post.find({
                     categories: {
                         $in: [catName]

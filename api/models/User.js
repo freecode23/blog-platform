@@ -5,13 +5,13 @@ const mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: [true, "cannot add an user without name"],
+        required: [true, "Cannot add a user without a name"],
         unique: true
     },
 
     email: {
         type: String,
-        required: [true, "cannot add an user without email"],
+        required: [true, "Cannot add a user without an email"],
         unique: true
     },
 

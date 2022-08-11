@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const CategorySchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, "cannot add a Category without name"],
+        required: [true, "Cannot add a category without name"],
     },
 
 }, { timestamps: true })

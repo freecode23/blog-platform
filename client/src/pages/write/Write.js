@@ -21,6 +21,7 @@ function Write() {
   const [editorContent, setEditorContent] = React.useState({
     model: "",
   });
+  const [isSubmitError, setSubmitError] = React.useState(null)
 
   function handleEditorChange(editorData) {
     setEditorContent(editorData);
@@ -46,6 +47,7 @@ function Write() {
       content: editorContent,
       categories,
     };
+
     // - add big photo if file exists - will be set by the JSX
     if (file) {
       const filename = Date.now() + file.name;
@@ -62,19 +64,22 @@ function Write() {
         console.log(err);
       }
     } else {
-      // show error
+      // TODO: notify user need to upload photo
     }
 
-    // 2. create the blogpost in Mongo
+    // - create the blogpost in Mongo
     try {
       const res = await axios.post("/blogposts", newPost);
+      console.log("res", res);
+
       res.data && navigate("/blogposts/" + res.data._id);
     } catch (err) {
-      console.log(err);
+      console.log("error submit>>>>", err.response.data.message);
+      setSubmitError(err.response.data.message)
     }
   };
 
-  // 3. create initial tags using existing categories
+  // 4. create initial tags using existing categories
   // - Init categories
   useEffect(() => {
     const fetchCategories = async () => {
@@ -89,7 +94,7 @@ function Write() {
     fetchCategories();
   }, []);
 
-  // - On key down add the element to category NAMES and
+  // 5. On key down add the element to category NAMES and
   // create new category
   const handleKeydown = async (e) => {
     const catName = e.target.value;
@@ -105,11 +110,12 @@ function Write() {
     }
   };
 
+  // 6. Remove tags
   const removeTag = (indexRemove) => {
     setCategoryNames(categories.filter((category, i) => i !== indexRemove));
   };
 
-  // - Create the tag JSX of the category using the names array
+  // 7. Create the tag JSX of the category using the names array
   const catsJSX = categories.map((categoryName, index) => {
     return (
       <div className="tag-item">
