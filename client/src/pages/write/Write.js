@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Froala from "../../components/editor/Froala";
 import TagsInput from "../../components/tagsInput/tagsInput";
+import SnackBar from "../../components/snackbar/Snackbar";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +22,17 @@ function Write() {
   const [editorContent, setEditorContent] = React.useState({
     model: "",
   });
-  const [isSubmitError, setSubmitError] = React.useState(null)
+  const [submitError, setSubmitError] = React.useState(null)
+
+  // >>>>>>>>>>>>>>>>>>> Question: repeat show snack bar. should we do use Context?
+  // also need to do this in update
+  const [showSnackBar, setShowSnackbar] = useState(false)
+
+  function closeSnackbarHandler() {
+    localStorage.removeItem('snackbar');
+    setShowSnackbar(false);
+  }
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
   function handleEditorChange(editorData) {
     setEditorContent(editorData);
@@ -76,6 +87,7 @@ function Write() {
     } catch (err) {
       console.log("error submit>>>>", err.response.data.message);
       setSubmitError(err.response.data.message)
+      setShowSnackbar(true)
     }
   };
 
@@ -110,6 +122,7 @@ function Write() {
     }
   };
 
+
   // 6. Remove tags
   const removeTag = (indexRemove) => {
     setCategoryNames(categories.filter((category, i) => i !== indexRemove));
@@ -128,7 +141,12 @@ function Write() {
   });
 
   return (
+
     <div className="write">
+      {showSnackBar &&
+        <SnackBar onClose={closeSnackbarHandler}>
+          {submitError}
+        </SnackBar>}
       <div className="writeTitle">
         <span>Write a post</span>
       </div>

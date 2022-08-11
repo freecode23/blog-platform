@@ -158,15 +158,6 @@ app.use("/api/blogposts", postsRoute);
 app.use("/api/categories", categoriesRoute);
 
 
-app.use(function (err, req, res, next) {
-    console.log("ERROR HANDLERRRR>>>>>>>>>>>>>>>>>>>");
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
-
 app.listen(4000, () => {
     console.log("back end running");
 })

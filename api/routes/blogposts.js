@@ -10,20 +10,26 @@ router.post("/", async (req, res) => {
     try {
         // 1. create post
         const newPost = await Post.create(req.body);
+
         // 2. try save
         const post = await newPost.save();
         res.status(200).json(post);
 
     } catch (err) {
+        // 3. handle missing property of the post
         if (err.errors) {
-            console.log("err.errors>>>>>>>>>>>>>>>>>>>>>", err.errors);
+            if (err.errors.content && err.errors.content.stringValue === "\"{ model: '' }\"") {
+                message = "no content"
+                res.status(500).json({ message: message });
+            } else {
+                for (var key in err.errors) {
+                    message = err.errors[key].properties.message
+                    res.status(500).json({ message: message });
+                }
+            }
         }
 
-        if (err.errors && err.errors.picture.properties) {
-            const message = err.errors.picture.properties.message
-            res.status(500).json({ message: message });
-        }
-        // 3. Handle duplicate post
+        // 4. Handle duplicate post
         if (err.code && err.code == 11000) {
             for (var key in err.keyValue) {
                 const message = `The post with ${key}: "${err.keyValue[key]}" already exist`

@@ -9,7 +9,6 @@ export default function Layout({ scrollHomeHandler, children }) {
   const contactRef = useRef()
   const [showSnackBar, setShowSnackbar] = useState(() => localStorage.getItem('snackbar'))
 
-
   function scrollToContactHandler() {
     contactRef.current.scrollIntoView({ behavior: 'smooth' })
   }

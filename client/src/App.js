@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSearchParams } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
@@ -9,10 +10,9 @@ import Login from "./pages/login/Login";
 import Layout from "./components/layout/Layout";
 import axios from "axios";
 
-import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useUserDataContext } from "./context/UserContext";
 import { useUpdateModeContext } from "./context/UpdateModeContext";
+import "./App.css";
 
 require("dotenv").config();
 function App() {

@@ -20,7 +20,6 @@ import "./froala.css"
 export default function Froala(props) {
     const { editorContent, handleEditorChange, imageUploadToS3 } = props;
 
-
     return (
         <div className="editor-wrapper">
             <div className="editor-container">
@@ -34,11 +33,14 @@ export default function Froala(props) {
             </div>
 
 
+            {/* Show content if its not an empty string. model is the content */}
             <div className="editor-display-container">
-                <div dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(editorContent, { FORCE_BODY: true })
-                }}></div>
+                {editorContent.model !== "" ?
+                    < div dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(editorContent, { FORCE_BODY: true })
+                    }}></div> : "Content will be displayed here..."
+                }
             </div>
-        </div>
+        </div >
     );
 }
