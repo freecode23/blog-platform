@@ -16,6 +16,7 @@ router.post("/", async (req, res) => {
         res.status(200).json(post);
 
     } catch (err) {
+        // Question: how to reuse this in put
         // 3. handle missing property of the post
         if (err.errors) {
             if (err.errors.content && err.errors.content.stringValue === "\"{ model: '' }\"") {
@@ -84,7 +85,6 @@ router.get("/",
         }
 
     })
-
 
 
 // UPDATE

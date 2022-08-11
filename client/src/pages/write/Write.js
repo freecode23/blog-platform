@@ -7,6 +7,7 @@ import SnackBar from "../../components/snackbar/Snackbar";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSnackbarContext } from "../../context/SnackbarContext";
 
 import "./write.css";
 
@@ -23,16 +24,8 @@ function Write() {
     model: "",
   });
   const [submitError, setSubmitError] = React.useState(null)
+  const { showSnackbar, setShowSnackbar, closeSnackbarHandler } = useSnackbarContext();
 
-  // >>>>>>>>>>>>>>>>>>> Question: repeat show snack bar. should we do use Context?
-  // also need to do this in update
-  const [showSnackBar, setShowSnackbar] = useState(false)
-
-  function closeSnackbarHandler() {
-    localStorage.removeItem('snackbar');
-    setShowSnackbar(false);
-  }
-  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
   function handleEditorChange(editorData) {
     setEditorContent(editorData);
@@ -143,7 +136,7 @@ function Write() {
   return (
 
     <div className="write">
-      {showSnackBar &&
+      {showSnackbar &&
         <SnackBar onClose={closeSnackbarHandler}>
           {submitError}
         </SnackBar>}
