@@ -38,8 +38,8 @@
 .singlePostIcons {
     display: flex;
     flex-direction: row;
-    margin-left: 85%;
-    font-size: 16px;
+    margin-left: 80%;
+    font-size: 12px;
 }
 
 .singlePostIcon {
