@@ -23,7 +23,7 @@ function Contact() {
 
             <a className="contactItem link"
               href="tel:480-678-0800">
-              <i class="contactIcon fa fa-solid fa-phone"></i>
+              <i className="contactIcon fa fa-solid fa-phone"></i>
               <p className="contactContent">
                 {userData.phone}
               </p>
@@ -31,7 +31,7 @@ function Contact() {
 
             <a className="contactItem link"
               href={`http://maps.google.com/?q=${userData.city}`}>
-              <i class="contactIcon fa-solid fa-map-pin"></i>
+              <i className="contactIcon fa-solid fa-map-pin"></i>
               <p className="contactContent">
                 {`${userData.address}, ${userData.city}`}
               </p>

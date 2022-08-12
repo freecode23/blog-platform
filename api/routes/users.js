@@ -5,7 +5,6 @@ const User = require('../models/User');
 router.post("/",
     async (req, res) => {
         try {
-
             const userFound = await User.findOne({ sub: req.body.sub });
 
             if (!userFound) {
@@ -45,14 +44,11 @@ router.post("/",
 router.get("/:sub",
     async (req, res) => {
         try {
-
             // 1. find by sub
             const user = await User.findOne({ sub: req.params.sub });
             res.status(200).json(user);
-
         } catch (err) {
             console.log(err);
-
         }
     })
 

@@ -4,6 +4,35 @@ const Post = require('../models/Post');
 const bcrypt = require("bcrypt");
 
 
+const handleError = (res, err) => {
+    // Question: is there a better way? error handling 
+
+    // - handle missing property of the post
+    if (err.stringValue && err.path === "content") {
+        message = "Make sure updated content exists"
+        res.status(500).json({ message: message });
+    } else if (err.errors) {
+        if (err.errors.content && err.errors.content.stringValue === "\"{ model: '' }\"") {
+            message = "Make sure content exists"
+            res.status(500).json({ message: message });
+        } else {
+            for (var key in err.errors) {
+                message = err.errors[key].properties.message
+                res.status(500).json({ message: message });
+            }
+        }
+    } else if (err.code && err.code == 11000) { // - Handle duplicate post
+        for (var key in err.keyValue) {
+            const message = `The post with ${key}: "${err.keyValue[key]}" already exist`
+            res.status(500).json({ message: message });
+        }
+    } else {
+        res.status(500).json({ message: "please check all of your fields" });
+    }
+
+
+}
+
 // CREATE 
 router.post("/", async (req, res) => {
 
@@ -16,27 +45,7 @@ router.post("/", async (req, res) => {
         res.status(200).json(post);
 
     } catch (err) {
-        // Question: how to reuse this in put
-        // 3. handle missing property of the post
-        if (err.errors) {
-            if (err.errors.content && err.errors.content.stringValue === "\"{ model: '' }\"") {
-                message = "no content"
-                res.status(500).json({ message: message });
-            } else {
-                for (var key in err.errors) {
-                    message = err.errors[key].properties.message
-                    res.status(500).json({ message: message });
-                }
-            }
-        }
-
-        // 4. Handle duplicate post
-        if (err.code && err.code == 11000) {
-            for (var key in err.keyValue) {
-                const message = `The post with ${key}: "${err.keyValue[key]}" already exist`
-                res.status(500).json({ message: message });
-            }
-        }
+        handleError(res, err)
     }
 })
 
@@ -97,13 +106,11 @@ router.put("/:id",
 
             // 2. if the post user name is current user
             if (post.username === req.body.username) {
-
                 // update
-                const updatedPost = await Post.findByIdAndUpdate(req.params.id,
-                    {
-                        $set: req.body
-                    },
-                    { new: true });
+                const updatedPost = await Post.findByIdAndUpdate(
+                    req.params.id,
+                    { $set: req.body },
+                    { new: true, runValidators: true });
                 res.status(200).json(updatedPost);
 
             } else {
@@ -111,7 +118,7 @@ router.put("/:id",
             }
 
         } catch (err) {
-            res.status(500).json(err);
+            handleError(res, err)
         }
 
     })

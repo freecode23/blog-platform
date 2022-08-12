@@ -20,7 +20,7 @@ function Footer() {
 
           <a className="footerItem link"
             href="tel:480-678-0800">
-            <i class="footerIcon fa fa-solid fa-phone"></i>
+            <i className="footerIcon fa fa-solid fa-phone"></i>
             <p className="footerContent">
               {userData.phone}
             </p>
@@ -28,13 +28,13 @@ function Footer() {
 
           <a className="footerItem link"
             href="https://www.instagram.com/shartono1/">
-            <i class="footerIcon fa-brands fa-instagram"></i>
+            <i className="footerIcon fa-brands fa-instagram"></i>
             <p className="footerContent">s.hartono1</p>
           </a>
 
           <a className="footerItem link"
             href={`http://maps.google.com/?q=${userData.city}`}>
-            <i class="footerIcon fa-solid fa-map-pin"></i>
+            <i className="footerIcon fa-solid fa-map-pin"></i>
             <p className="footerContent">
               {`${userData.address}, ${userData.city}`}
             </p>

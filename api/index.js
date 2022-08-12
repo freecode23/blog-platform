@@ -84,9 +84,8 @@ const upload = multer({
         s3: s3,
         bucket: process.env.AWS_BUCKET_NAME,
         acl: 'public-read',
-        // Question 1: why is it not going here
         key: function (req, file, cb) {
-            console.log("\nmulter basic req.body.name:", req.body.name);
+            // console.log("\nmulter basic req.body.name:", req.body.name);
             cb(null, req.body.name);
         },
     })
@@ -98,7 +97,7 @@ const uploadFroala = multer({
         bucket: process.env.AWS_BUCKET_NAME,
         acl: 'public-read',
         Key: function (req, file, cb) {
-            console.log("\nmulter froala req.body.name:", req.body.name);
+            // console.log("\nmulter froala req.body.name:", req.body.name);
             cb(null, req.body.name);
         },
     })

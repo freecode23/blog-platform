@@ -23,7 +23,7 @@ function Write() {
   const [editorContent, setEditorContent] = React.useState({
     model: "",
   });
-  const [submitError, setSubmitError] = React.useState(null)
+  const [submitErrorMsg, setSubmitErrorMsg] = React.useState(null)
   const { showSnackbar, setShowSnackbar, closeSnackbarHandler } = useSnackbarContext();
 
 
@@ -65,21 +65,21 @@ function Write() {
         const res = await axios.post("/upload", formData);
         newPost.picture = res.data.key;
       } catch (err) {
-        console.log(err);
+        setSubmitErrorMsg("Cannot upload photo")
+        setShowSnackbar(true)
       }
     } else {
-      // TODO: notify user need to upload photo
+      setSubmitErrorMsg("Please upload a photo for the post")
+      setShowSnackbar(true)
     }
 
     // - create the blogpost in Mongo
     try {
       const res = await axios.post("/blogposts", newPost);
-      console.log("res", res);
-
       res.data && navigate("/blogposts/" + res.data._id);
+      setShowSnackbar(false)
     } catch (err) {
-      console.log("error submit>>>>", err.response.data.message);
-      setSubmitError(err.response.data.message)
+      setSubmitErrorMsg(err.response.data.message)
       setShowSnackbar(true)
     }
   };
@@ -124,7 +124,7 @@ function Write() {
   // 7. Create the tag JSX of the category using the names array
   const catsJSX = categories.map((categoryName, index) => {
     return (
-      <div className="tag-item">
+      <div className="tag-item" key={categoryName}>
         <span className="text">{categoryName}</span>
         <span className="close" onClick={() => removeTag(index)}>
           &times;
@@ -138,7 +138,7 @@ function Write() {
     <div className="write">
       {showSnackbar &&
         <SnackBar onClose={closeSnackbarHandler}>
-          {submitError}
+          {submitErrorMsg}
         </SnackBar>}
       <div className="writeTitle">
         <span>Write a post</span>

@@ -4,6 +4,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useUpdateModeContext } from "../../context/UpdateModeContext";
+import { useSnackbarContext } from "../../context/SnackbarContext";
+import SnackBar from "../../components/snackbar/Snackbar";
 import TagsInput from "../../components/tagsInput/tagsInput";
 import Froala from "../../components/editor/Froala";
 import axios from "axios";
@@ -12,21 +14,32 @@ import DOMPurify from "dompurify";
 function SinglePost() {
   // 1. Get the picture from local folder
   const awsS3Path = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/";
+
+  // 2. States and hooks
   const { user, isAuthenticated } = useAuth0();
   const { updateMode, setUpdateMode } = useUpdateModeContext();
-
   const [title, setTitle] = useState("");
   const [categories, setCategoryNames] = useState([]);
   const [signature, setSignature] = React.useState();
   const [editorContent, setEditorContent] = React.useState({
     model: "",
   });
+  const [submitErrorMsg, setSubmitErrorMsg] = React.useState(null)
+  const { showSnackbar, setShowSnackbar, closeSnackbarHandler } = useSnackbarContext();
 
-  function handleEditorChange(editorData) {
-    setEditorContent(editorData);
-  }
+  // 3. create updated Post
+  const [post, setPost] = useState({
+    title: "",
+    picture: "",
+    content: "",
+    categories: [],
+  });
 
-  // - s3
+  // 4. get the id from the param so we can grab the data
+  const param = useParams();
+  const navigate = useNavigate();
+
+  // 5. use Effect for s3
   React.useEffect(() => {
     const getSignature = async () => {
       fetch("/get_signature")
@@ -36,19 +49,7 @@ function SinglePost() {
     getSignature();
   }, []);
 
-  // 2. get the id from the param so we can grab the data
-  const param = useParams();
-  const navigate = useNavigate();
-
-  // 3. create posts fields
-  const [post, setPost] = useState({
-    title: "",
-    picture: "",
-    content: "",
-    categories: [],
-  });
-
-  // 4. Init the post object, title, and the text area
+  // use Effect to fetch and init the post object, title, and the text area
   useEffect(() => {
     const fetchPosts = async () => {
       // - if we write "/blogposts" it will make get request to
@@ -70,29 +71,46 @@ function SinglePost() {
     fetchPosts();
   }, [param.postId]);
 
-  // 5. Delete the post using API
+
+
+  // 6. handler 
+  // - editor
+  function handleEditorChange(editorData) {
+    setEditorContent(editorData);
+  }
+
+  // - delete the post using API
   const handleDelete = async (event) => {
     await axios.delete(param.postId);
     await navigate("/");
   };
 
+
+  // - edit
   const handleUpdate = async (event) => {
     event.preventDefault();
+    console.log("try update");
 
-    await axios.put(param.postId, {
-      username: user.username,
-      categories,
-      title,
-      content: editorContent,
-    });
-    setUpdateMode(false)
-    await navigate("/");
+    try {
+      const res = await axios.put(param.postId, {
+        username: user.username,
+        categories,
+        title,
+        content: editorContent,
+      });
+      setUpdateMode(false)
+      setShowSnackbar(false)
+      res.data && navigate("/");
 
-
+    } catch (err) {
+      setSubmitErrorMsg(err.response.data.message)
+      setShowSnackbar(true)
+    }
   };
-  // >>>>>>>>>>>>Questions: Repeat this from write.js
-  // On key down add the element to category NAMES and
-  // create new category
+
+  // - submit
+  // >>>>>>>>>>>>Questions: Repeat this from write.js 
+  // create category elementes?
   const handleKeydown = async (e) => {
     const catName = e.target.value;
 
@@ -114,7 +132,7 @@ function SinglePost() {
   // - Create the tag JSX of the category using the names array
   const catsJSXTag = categories.map((categoryName, index) => {
     return (
-      <div className="tag-item">
+      <div className="tag-item" key={categoryName}>
         <span className="text">{categoryName}</span>
         <span className="close" onClick={() => removeTag(index)}>
           &times;
@@ -125,6 +143,7 @@ function SinglePost() {
 
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+  // 7. categories JSX
   const catJSX = categories.map(cat => {
     return (
       <span key={cat} className="postCat">
@@ -136,6 +155,10 @@ function SinglePost() {
 
   return (
     <div className="singlePost">
+      {showSnackbar &&
+        <SnackBar onClose={closeSnackbarHandler}>
+          {submitErrorMsg}
+        </SnackBar>}
 
       {/* Menu Title */}
       {updateMode && (

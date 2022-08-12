@@ -74,7 +74,6 @@ function App() {
         <Route
           path="/"
           element={
-            // Question: weird position when clicked
             <div>
               <Home />
             </div>

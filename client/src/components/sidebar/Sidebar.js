@@ -29,8 +29,8 @@ function Sidebar() {
     const catName = encodeURIComponent(cat.name);
 
     return (
-      <Link to={"/?cat=" + catName.toString()} className="link">
-        <li key={cat._id} className="sidebarSkillItem">
+      <Link to={"/?cat=" + catName.toString()} className="link" key={cat._id}>
+        <li className="sidebarSkillItem">
           <p className="sidebarSkillText">
             {cat.name}
           </p>

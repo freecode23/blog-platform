@@ -5,7 +5,6 @@ import React from "react";
 import { useUpdateModeContext } from "../../context/UpdateModeContext";
 
 export default function Single() {
-  // Question. Want to do , if updateMode == true, dont do sidebar
   const { updateMode } = useUpdateModeContext();
 
   return (

@@ -34,7 +34,6 @@ export default function TopBar(props) {
     }, [userData]);
 
     const saveFile = () => {
-        console.log("savefile....");
         saveAs(resumeUrl, "SherlyHartono.pdf");
     };
 
@@ -67,7 +66,7 @@ export default function TopBar(props) {
 
                 <div className="topRight">
                     <Link className="social link" to={"/setting"}>
-                        <i class="topSettingIcon fa-solid fa-user-astronaut fa-20x"></i>
+                        <i className="topSettingIcon fa-solid fa-user-astronaut fa-20x"></i>
                     </Link>
                     {isAuthenticated && userData ? (
                         <>
@@ -113,7 +112,7 @@ export default function TopBar(props) {
                             <li className="resume topListItem">
                                 RESUME
                             </li>
-                            <i class="download fa-solid fa-file-arrow-down" onClick={saveFile}>     </i>
+                            <i className="download fa-solid fa-file-arrow-down" onClick={saveFile}>     </i>
                         </div>
                     )}
                 </ul>
