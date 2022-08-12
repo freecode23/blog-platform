@@ -4,13 +4,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 40px 150px 80px 100px;
+    margin: 30px 150px 80px 100px;
     text-align: left;
 }
 
 .singlePostMenuTitle {
     font-family: "Space Grotesk";
-    font-size: 30px;
     font-weight: 700;
     margin-bottom: 20px;
 }
@@ -26,7 +25,7 @@
 .singlePostFormItem {
     position: relative;
     font-family: "Open Sans";
-    font-size: 20px;
+    font-size: 15px;
     margin: 20px 40px 10px 40px;
 }
 
@@ -70,7 +69,7 @@
 }
 
 .singlePostCatWrapper {
-    margin: 20px 0 30px 0;
+    margin: 20px 0 10px 0;
 }
 
 .singlePostImg {
@@ -80,7 +79,7 @@
 
 .singlePostTitle {
     color: #292929;
-    font-size: 50px;
+    font-size: 40px;
     font-family: "Space Grotesk";
 }
 
@@ -99,7 +98,7 @@
 }
 
 .singlePostContent {
-    margin-top: 40px;
+    margin-top: 10px;
     max-width: 900px;
 }
 
@@ -113,16 +112,16 @@
 }
 
 .singlePostSubmitButton {
-    width: 150px;
-    height: 70px;
+    width: 120px;
+    height: 55px;
     align-self: center;
     border: none;
     background-color: #8ffff3;
     padding: 10px;
-    font-size: 20px;
+    font-size: 16px;
     font-family: "Space Grotesk";
     font-weight: 700;
-    margin-top: 80px;
+    margin-top: 40px;
     margin-bottom: 50px;
     cursor: pointer;
 }
