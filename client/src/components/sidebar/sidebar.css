@@ -1,7 +1,7 @@
 .sidebar {
     padding-bottom: 30px;
-    padding-top: 200px;
-    padding-right: 30px;
+    padding-top: 175px;
+    padding-right: 20px;
     display: flex;
     position: fixed;
     top: 0;
@@ -9,8 +9,8 @@
     bottom: 0;
     flex-direction: column;
     font-family: "Open Sans";
-    width: 380px;
-    border-left: 1px solid #a7a4a4;
+    width: 350px;
+    border-left: 0.5px solid #a7a4a4;
     overflow-y: scroll;
 }
 
@@ -20,15 +20,10 @@
     align-items: center;
 }
 
-
-/* .sidebarItem>p:hover {
-    text-decoration: underline;
-} */
-
 .sidebarAbout {
     margin: 20px 30px 10px 30px;
     text-align: left;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .sidebarTitle {
@@ -44,9 +39,9 @@
 }
 
 .sidebarImg {
-    width: 300px;
-    height: 200px;
-    margin-top: 15px;
+    width: 270px;
+    height: 180px;
+    margin-top: 8px;
     object-fit: cover;
 }
 
@@ -59,10 +54,10 @@
 .sidebarSkillItem {
     display: inline-block;
     padding: 0.4em 0.9em;
-    margin: 8px 15px 8px 15px;
+    margin: 4px 3px 5px 10px;
     cursor: pointer;
-    font-size: 13px;
-    border: 2px solid black;
+    font-size: 12px;
+    border: 1.5px solid black;
 }
 
 .sidebarSkillItem:hover {

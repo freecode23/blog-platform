@@ -10,6 +10,7 @@
     font-family: "Open Sans";
     color: grey;
     font-style: italic;
+    min-height: 100vh;
 }
 
 @media (max-width: 1000px) {
