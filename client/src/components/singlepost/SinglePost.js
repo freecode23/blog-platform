@@ -143,7 +143,7 @@ function SinglePost() {
 
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-  // 7. categories JSX
+  // 7. categories JSX , just display
   const catJSX = categories.map(cat => {
     return (
       <span key={cat} className="postCat">
