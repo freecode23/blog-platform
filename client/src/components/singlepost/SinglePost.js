@@ -6,9 +6,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useUpdateModeContext } from "../../context/UpdateModeContext";
 import { useSnackbarContext } from "../../context/SnackbarContext";
 import SnackBar from "../../components/snackbar/Snackbar";
-import TagsInput from "../../components/tagsInput/tagsInput";
 import Froala from "../../components/editor/Froala";
-import Categories from "../../components/categories/categories";
+import Tags from "../tags/tags";
 import axios from "axios";
 import DOMPurify from "dompurify";
 
@@ -109,31 +108,6 @@ function SinglePost() {
     }
   };
 
-  // - submit
-  // >>>>>>>>>>>>Questions: Repeat this from write.js
-  // create category elementes?
-  const handleKeydown = async (e) => {
-    const catName = e.target.value;
-
-    // - if enter key is pressed and category name is not empty create a new one
-    if (e.key === "Enter" && catName.trim()) {
-      await axios.post("/categories", { name: catName });
-      // - set the array of category names to make a new post
-      await setCategoryNames((prevCatNames) => {
-        return [...prevCatNames, catName];
-      });
-      e.target.value = "";
-    }
-  };
-
-  const handleRemoveTag = (indexRemove) => {
-    setCategoryNames(categories.filter((category, i) => i !== indexRemove));
-  };
-
-  const categoriesJSX = (
-    <Categories categories={categories} onRemoveTag={handleRemoveTag} />
-  );
-
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   // 7. categories JSX , just display
   const catJSX = categories.map((cat) => {
@@ -196,7 +170,10 @@ function SinglePost() {
           <div className="singlePostFormItem">
             <label>Tags</label>
             <div className="singlePostInput">
-              <TagsInput catsJSX={categoriesJSX} onKeyDown={handleKeydown} />
+              <Tags
+                categories={categories}
+                setCategoryNames={setCategoryNames}
+              />
             </div>
           </div>
         ) : (

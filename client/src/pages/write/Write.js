@@ -2,9 +2,8 @@ import React from "react";
 import axios from "axios";
 
 import Froala from "../../components/editor/Froala";
-import TagsInput from "../../components/tagsInput/tagsInput";
 import SnackBar from "../../components/snackbar/Snackbar";
-import Categories from "../../components/categories/categories";
+import Tags from "../../components/tags/tags";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -104,31 +103,6 @@ function Write() {
     fetchCategories();
   }, []);
 
-  // 5. On key down add the element to category NAMES and
-  // create new category
-  const handleKeydown = async (e) => {
-    const catName = e.target.value;
-
-    // - if enter key is pressed and category name is not empty create a new one
-    if (e.key === "Enter" && catName.trim()) {
-      await axios.post("/categories", { name: catName });
-      // - set the array of category names to make a new post
-      await setCategoryNames((prevCatNames) => {
-        return [...prevCatNames, catName];
-      });
-      e.target.value = "";
-    }
-  };
-
-  // 6. Remove tags
-  const handleRemoveTag = (indexRemove) => {
-    setCategoryNames(categories.filter((category, i) => i !== indexRemove));
-  };
-
-  const categoriesJSX = (
-    <Categories categories={categories} onRemoveTag={handleRemoveTag} />
-  );
-
   return (
     <div className="write">
       {showSnackbar && (
@@ -177,7 +151,7 @@ function Write() {
         <div className="writeFormItem">
           <label>Tags</label>
           <div className="writeInput">
-            <TagsInput catsJSX={categoriesJSX} onKeyDown={handleKeydown} />
+            <Tags categories={categories} setCategoryNames={setCategoryNames} />
           </div>
         </div>
 
