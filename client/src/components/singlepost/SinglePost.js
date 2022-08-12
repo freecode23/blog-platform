@@ -8,6 +8,7 @@ import { useSnackbarContext } from "../../context/SnackbarContext";
 import SnackBar from "../../components/snackbar/Snackbar";
 import TagsInput from "../../components/tagsInput/tagsInput";
 import Froala from "../../components/editor/Froala";
+import Categories from "../../components/categories/categories";
 import axios from "axios";
 import DOMPurify from "dompurify";
 
@@ -24,8 +25,12 @@ function SinglePost() {
   const [editorContent, setEditorContent] = React.useState({
     model: "",
   });
-  const [submitErrorMsg, setSubmitErrorMsg] = React.useState(null)
-  const { showSnackbar, setShowSnackbar, closeSnackbarHandler } = useSnackbarContext();
+  const [submitErrorMsg, setSubmitErrorMsg] = React.useState(null);
+  const {
+    showSnackbar,
+    setShowSnackbar,
+    closeSnackbarHandler,
+  } = useSnackbarContext();
 
   // 3. create updated Post
   const [post, setPost] = useState({
@@ -61,7 +66,7 @@ function SinglePost() {
       const res = await axios.get("/blogposts/" + param.postId);
       setPost(res.data);
       setTitle(res.data.title);
-      setCategoryNames(res.data.categories)
+      setCategoryNames(res.data.categories);
 
       // fill in the value on textarea
       setEditorContent({ model: res.data.content });
@@ -71,9 +76,7 @@ function SinglePost() {
     fetchPosts();
   }, [param.postId]);
 
-
-
-  // 6. handler 
+  // 6. handler
   // - editor
   function handleEditorChange(editorData) {
     setEditorContent(editorData);
@@ -84,7 +87,6 @@ function SinglePost() {
     await axios.delete(param.postId);
     await navigate("/");
   };
-
 
   // - edit
   const handleUpdate = async (event) => {
@@ -98,18 +100,17 @@ function SinglePost() {
         title,
         content: editorContent,
       });
-      setUpdateMode(false)
-      setShowSnackbar(false)
+      setUpdateMode(false);
+      setShowSnackbar(false);
       res.data && navigate("/");
-
     } catch (err) {
-      setSubmitErrorMsg(err.response.data.message)
-      setShowSnackbar(true)
+      setSubmitErrorMsg(err.response.data.message);
+      setShowSnackbar(true);
     }
   };
 
   // - submit
-  // >>>>>>>>>>>>Questions: Repeat this from write.js 
+  // >>>>>>>>>>>>Questions: Repeat this from write.js
   // create category elementes?
   const handleKeydown = async (e) => {
     const catName = e.target.value;
@@ -125,40 +126,30 @@ function SinglePost() {
     }
   };
 
-  const removeTag = (indexRemove) => {
+  const handleRemoveTag = (indexRemove) => {
     setCategoryNames(categories.filter((category, i) => i !== indexRemove));
   };
 
-  // - Create the tag JSX of the category using the names array
-  const catsJSXTag = categories.map((categoryName, index) => {
-    return (
-      <div className="tag-item" key={categoryName}>
-        <span className="text">{categoryName}</span>
-        <span className="close" onClick={() => removeTag(index)}>
-          &times;
-        </span>
-      </div>
-    );
-  });
+  const categoriesJSX = (
+    <Categories categories={categories} onRemoveTag={handleRemoveTag} />
+  );
 
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
   // 7. categories JSX
-  const catJSX = categories.map(cat => {
+  const catJSX = categories.map((cat) => {
     return (
       <span key={cat} className="postCat">
         {cat}
       </span>
-    )
-  })
-
+    );
+  });
 
   return (
     <div className="singlePost">
-      {showSnackbar &&
-        <SnackBar onClose={closeSnackbarHandler}>
-          {submitErrorMsg}
-        </SnackBar>}
+      {showSnackbar && (
+        <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar>
+      )}
 
       {/* Menu Title */}
       {updateMode && (
@@ -182,7 +173,7 @@ function SinglePost() {
       )}
 
       {/* The Post */}
-      <div className={updateMode ? ("singlePostForm") : ("")}>
+      <div className={updateMode ? "singlePostForm" : ""}>
         {/* Title */}
         {updateMode ? (
           <div className="singlePostFormItem">
@@ -194,28 +185,24 @@ function SinglePost() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 autoFocus
-              /></div>
+              />
+            </div>
           </div>
         ) : (
-          <h1 className="singlePostTitle">
-            {post.title}
-          </h1>
+          <h1 className="singlePostTitle">{post.title}</h1>
         )}
 
         {/* Tags */}
-        {updateMode ?
-          (
-            <div className="singlePostFormItem">
-              <label>Tags</label>
-              <div className="singlePostInput">
-                <TagsInput catsJSX={catsJSXTag} onKeyDown={handleKeydown} />
-              </div>
-            </div>)
-          :
-          (<div className="singlePostCatWrapper">
-            {catJSX}
-          </div>)}
-
+        {updateMode ? (
+          <div className="singlePostFormItem">
+            <label>Tags</label>
+            <div className="singlePostInput">
+              <TagsInput catsJSX={categoriesJSX} onKeyDown={handleKeydown} />
+            </div>
+          </div>
+        ) : (
+          <div className="singlePostCatWrapper">{catJSX}</div>
+        )}
 
         {/* Image */}
         <div className="singlePostInput">
@@ -239,14 +226,13 @@ function SinglePost() {
             </div>
           </div>
         ) : (
-          <div className="singlePostContent"
-            dangerouslySetInnerHTML={
-              {
-                __html: DOMPurify.sanitize(post.content, {
-                  FORCE_BODY: true,
-                }),
-              }
-            }
+          <div
+            className="singlePostContent"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(post.content, {
+                FORCE_BODY: true,
+              }),
+            }}
           ></div>
         )}
 
@@ -260,7 +246,7 @@ function SinglePost() {
           </button>
         )}
       </div>
-    </div >
+    </div>
   );
 }
 

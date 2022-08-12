@@ -4,6 +4,7 @@ import axios from "axios";
 import Froala from "../../components/editor/Froala";
 import TagsInput from "../../components/tagsInput/tagsInput";
 import SnackBar from "../../components/snackbar/Snackbar";
+import Categories from "../../components/categories/categories";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -23,9 +24,12 @@ function Write() {
   const [editorContent, setEditorContent] = React.useState({
     model: "",
   });
-  const [submitErrorMsg, setSubmitErrorMsg] = React.useState(null)
-  const { showSnackbar, setShowSnackbar, closeSnackbarHandler } = useSnackbarContext();
-
+  const [submitErrorMsg, setSubmitErrorMsg] = React.useState(null);
+  const {
+    showSnackbar,
+    setShowSnackbar,
+    closeSnackbarHandler,
+  } = useSnackbarContext();
 
   function handleEditorChange(editorData) {
     setEditorContent(editorData);
@@ -33,13 +37,12 @@ function Write() {
 
   // 2. get signature and set so we can access s3
   React.useEffect(() => {
-
     const getSignature = async () => {
       fetch("/get_signature")
         .then((r) => r.json())
         .then((data) => setSignature(data));
     };
-    setShowSnackbar(false)
+    setShowSnackbar(false);
     getSignature();
   }, []);
 
@@ -67,22 +70,22 @@ function Write() {
         const res = await axios.post("/upload", formData);
         newPost.picture = res.data.key;
       } catch (err) {
-        setSubmitErrorMsg("Cannot upload photo")
-        setShowSnackbar(true)
+        setSubmitErrorMsg("Cannot upload photo");
+        setShowSnackbar(true);
       }
     } else {
-      setSubmitErrorMsg("Please upload a photo for the post")
-      setShowSnackbar(true)
+      setSubmitErrorMsg("Please upload a photo for the post");
+      setShowSnackbar(true);
     }
 
     // - create the blogpost in Mongo
     try {
       const res = await axios.post("/blogposts", newPost);
       res.data && navigate("/blogposts/" + res.data._id);
-      setShowSnackbar(false)
+      setShowSnackbar(false);
     } catch (err) {
-      setSubmitErrorMsg(err.response.data.message)
-      setShowSnackbar(true)
+      setSubmitErrorMsg(err.response.data.message);
+      setShowSnackbar(true);
     }
   };
 
@@ -90,7 +93,6 @@ function Write() {
   // - Init categories
   useEffect(() => {
     const fetchCategories = async () => {
-
       const res = await axios.get("/categories");
 
       setCategoryNames(() => {
@@ -118,31 +120,20 @@ function Write() {
     }
   };
 
-
   // 6. Remove tags
-  const removeTag = (indexRemove) => {
+  const handleRemoveTag = (indexRemove) => {
     setCategoryNames(categories.filter((category, i) => i !== indexRemove));
   };
 
-  // 7. Create the tag JSX of the category using the names array
-  const catsJSX = categories.map((categoryName, index) => {
-    return (
-      <div className="tag-item" key={categoryName}>
-        <span className="text">{categoryName}</span>
-        <span className="close" onClick={() => removeTag(index)}>
-          &times;
-        </span>
-      </div>
-    );
-  });
+  const categoriesJSX = (
+    <Categories categories={categories} onRemoveTag={handleRemoveTag} />
+  );
 
   return (
-
     <div className="write">
-      {showSnackbar &&
-        <SnackBar onClose={closeSnackbarHandler}>
-          {submitErrorMsg}
-        </SnackBar>}
+      {showSnackbar && (
+        <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar>
+      )}
       <div className="writeTitle">
         <span>Write a post</span>
       </div>
@@ -162,9 +153,7 @@ function Write() {
                 setFile(e.target.files[0]);
               }}
             />
-            {file && (
-              <img src={URL.createObjectURL(file)} alt="" />
-            )}
+            {file && <img src={URL.createObjectURL(file)} alt="" />}
           </div>
         </div>
 
@@ -188,7 +177,7 @@ function Write() {
         <div className="writeFormItem">
           <label>Tags</label>
           <div className="writeInput">
-            <TagsInput catsJSX={catsJSX} onKeyDown={handleKeydown} />
+            <TagsInput catsJSX={categoriesJSX} onKeyDown={handleKeydown} />
           </div>
         </div>
 
@@ -204,11 +193,15 @@ function Write() {
           </div>
         </div>
 
-        <button type="button" className="writeSubmitButton" onClick={handleSubmit}>
+        <button
+          type="button"
+          className="writeSubmitButton"
+          onClick={handleSubmit}
+        >
           Publish
         </button>
-      </form >
-    </div >
+      </form>
+    </div>
   );
 }
 
