@@ -33,11 +33,13 @@ function Write() {
 
   // 2. get signature and set so we can access s3
   React.useEffect(() => {
+
     const getSignature = async () => {
       fetch("/get_signature")
         .then((r) => r.json())
         .then((data) => setSignature(data));
     };
+    setShowSnackbar(false)
     getSignature();
   }, []);
 
@@ -88,6 +90,7 @@ function Write() {
   // - Init categories
   useEffect(() => {
     const fetchCategories = async () => {
+
       const res = await axios.get("/categories");
 
       setCategoryNames(() => {
