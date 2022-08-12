@@ -2,20 +2,30 @@ const router = require("express").Router();
 const Category = require('../models/Category');
 
 
-// CREATE is in auth.js
+// CREATE 
 router.post("/", async (req, res) => {
-    // 1. create category
-    const newCat = await Category.create(req.body);
 
     try {
+        // 1. create category
+        const newCat = await Category.create(req.body);
         // 2. try save
         Category.updateOne(newCat, { upsert: true });
         res.status(200).json(newCat);
 
     } catch (err) {
-        console.log(err);
+        // >>>>>>>>>>repeat handler
+        if (err.code && err.code == 11000) { // - Handle duplicate caregory
+            for (var key in err.keyValue) {
+                const message = `The category with ${key}: "${err.keyValue[key]}" already exist`
+                res.status(500).json({ message: message });
+            }
+        } else {
+            res.status(500).json({ message: "please check all of your fields" });
+        }
+        // <<<<<<<<<<<<<<<<<<<<<<<<
     }
 })
+
 
 // READ
 // get all categories
