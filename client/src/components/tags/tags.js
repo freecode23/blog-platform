@@ -5,7 +5,7 @@ import { axiosInstance } from "../../config";
 import "./tags.css";
 
 import Categories from "../categories/categories";
-import SnackBar from "../../components/snackbar/Snackbar";
+import SnackBar from "../snackbar/Snackbar";
 import { useSnackbarContext } from "../../context/SnackbarContext";
 
 function Tags({ categories, setCategoryNames }) {
