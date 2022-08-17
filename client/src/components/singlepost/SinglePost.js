@@ -9,8 +9,6 @@ import { axiosInstance } from "../../config";
 import SnackBar from "../snackbar/Snackbar";
 import Froala from "../editor/Froala";
 import Tags from "../tags/tags";
-import axios from "axios";
-// import { axios } from "../../config";
 import DOMPurify from "dompurify";
 
 function SinglePost() {

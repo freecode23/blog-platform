@@ -8,7 +8,6 @@ import Write from "./pages/write/Write";
 import Setting from "./pages/setting/Setting";
 import Login from "./pages/login/Login";
 import Layout from "./components/layout/Layout";
-// import axios from "axios";
 import { axiosInstance } from "./config";
 
 import { useUserDataContext } from "./context/UserContext";

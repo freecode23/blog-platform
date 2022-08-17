@@ -3,7 +3,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useUserDataContext } from "../../context/UserContext";
-// import axios from "axios";
 import { axiosInstance } from "../../config";
 
 function Sidebar() {
