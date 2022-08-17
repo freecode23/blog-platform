@@ -37,7 +37,7 @@ function Write() {
   // 2. get signature and set so we can access s3
   React.useEffect(() => {
     const getSignature = async () => {
-      fetch("/get_signature")
+      fetch("/api/get_signature")
         .then((r) => r.json())
         .then((data) => setSignature(data));
     };
@@ -66,7 +66,7 @@ function Write() {
 
       // - upload big photo
       try {
-        const res = await axios.post("/upload", formData);
+        const res = await axios.post("/api/upload", formData);
         newPost.picture = res.data.key;
       } catch (err) {
         setSubmitErrorMsg("Cannot upload photo");
@@ -79,8 +79,8 @@ function Write() {
 
     // - create the blogpost in Mongo
     try {
-      const res = await axios.post("/blogposts", newPost);
-      res.data && navigate("/blogposts/" + res.data._id);
+      const res = await axios.post("/api/blogposts", newPost);
+      res.data && navigate("/api/blogposts/" + res.data._id);
       setShowSnackbar(false);
     } catch (err) {
       setSubmitErrorMsg(err.response.data.message);
@@ -92,7 +92,7 @@ function Write() {
   // - Init categories
   useEffect(() => {
     const fetchCategories = async () => {
-      const res = await axios.get("/categories");
+      const res = await axios.get("/api/categories");
 
       setCategoryNames(() => {
         return res.data.map((category) => {

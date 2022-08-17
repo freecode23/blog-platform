@@ -27,7 +27,7 @@ function App() {
   // 2. useEffect for fetch Profile data and handle logout error
   useEffect(() => {
     const fetchProfileData = async () => {
-      const fetchedProfileData = await axios.get(sub);
+      const fetchedProfileData = await axios.get("/api/" + sub);
       if (fetchedProfileData.data) {
         setUserData(fetchedProfileData.data);
       }

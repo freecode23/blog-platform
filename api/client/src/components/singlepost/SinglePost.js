@@ -46,7 +46,7 @@ function SinglePost() {
   // 5. use Effect for s3
   React.useEffect(() => {
     const getSignature = async () => {
-      fetch("/get_signature")
+      fetch("/api/get_signature")
         .then((r) => r.json())
         .then((data) => setSignature(data));
     };
@@ -62,7 +62,8 @@ function SinglePost() {
       // - if we wrote "blogposts" it will make get request to:
       // will take the current browser path and append blogposts
       // "localhost::4000/api/blogposts/ + "blogposts /:postId"
-      const res = await axios.get("/blogposts/" + param.postId);
+      const res = await axios.get("/api/blogposts/" + param.postId);
+
       setPost(res.data);
       setTitle(res.data.title);
       setCategoryNames(res.data.categories);
@@ -93,16 +94,18 @@ function SinglePost() {
     console.log("try update");
 
     try {
-      const res = await axios.put(param.postId, {
+      const res = await axios.put("/api/blogposts/" + param.postId, {
         username: user.username,
         categories,
         title,
         content: editorContent,
       });
+      console.log("updated")
       setUpdateMode(false);
       setShowSnackbar(false);
       res.data && navigate("/");
     } catch (err) {
+      console.log(err);
       setSubmitErrorMsg(err.response.data.message);
       setShowSnackbar(true);
     }

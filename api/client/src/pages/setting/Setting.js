@@ -66,7 +66,7 @@ function Setting() {
       formData.append("file", profilePic);
 
       try {
-        const res = await axios.post("/upload", formData);
+        const res = await axios.post("/api/upload", formData);
         updatedUser.profilePic = res.data.key;
       } catch (err) {
         console.log(err);
@@ -81,7 +81,7 @@ function Setting() {
       formData.append("file", resume);
 
       try {
-        const res = await axios.post("/upload", formData);
+        const res = await axios.post("/api/upload", formData);
         updatedUser.resumeKey = res.data.key;
       } catch (err) {
         console.log(err);
@@ -90,7 +90,7 @@ function Setting() {
 
     // - update the user
     try {
-      const res = await axios.post("/users", updatedUser);
+      const res = await axios.post("/api/users", updatedUser);
       setUserData(res.data);
       res.data && navigate("/");
     } catch (err) {

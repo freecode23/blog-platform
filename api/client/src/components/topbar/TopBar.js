@@ -23,7 +23,7 @@ export default function TopBar(props) {
     useEffect(() => {
         const fetchResumeUrl = async () => {
             if (userData) {
-                const res = await axios.post("/resume", { key: userData.resumeKey });
+                const res = await axios.post("/api/resume", { key: userData.resumeKey });
 
                 if (res) {
                     setResumeUrl(res.data);

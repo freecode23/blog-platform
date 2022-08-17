@@ -22,7 +22,7 @@ function Tags({ categories, setCategoryNames }) {
     if (e.key === "Enter" && catName.trim()) {
 
       try {
-        await axios.post("/categories", { name: catName });
+        await axios.post("/api/categories", { name: catName });
         // - set the array of category names to make a new post
         await setCategoryNames((prevCatNames) => {
           return [...prevCatNames, catName];

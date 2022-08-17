@@ -24,7 +24,7 @@ export default function Home() {
       // get response use axios
       // will make request to : localhost::4000/api/blogposts/search
       // response to : localhost::3000/blogposts
-      const res = await axios.get("/blogposts" + search);
+      const res = await axios.get("/api/blogposts" + search);
 
       // set posts
       setPosts(res.data);

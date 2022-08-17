@@ -17,7 +17,7 @@ function Sidebar() {
     const fetchCats = async () => {
       // request to API: "localhost::4000/api/ + "/categories"
       // response to : localhost::3000/...
-      const res = await axios.get("/categories");
+      const res = await axios.get("/api/categories");
 
       setCats(res.data);
     };
