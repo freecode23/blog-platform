@@ -10,7 +10,12 @@
 }
 
 .fr-wrapper div:first-of-type {
+    height: 200px;
     display: none;
+}
+
+.fr-wrapper div.second-toolbar {
+    height: 200px;
 }
 
 .editor-display-container {
