@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { axiosInstance } from "../../config";
 
 import Froala from "../../components/editor/Froala";
 import SnackBar from "../../components/snackbar/Snackbar";
@@ -36,10 +37,15 @@ function Write() {
 
   // 2. get signature and set so we can access s3
   React.useEffect(() => {
+    // const getSignature = async () => {
+    //   fetch("/api/get_signature")
+    //     .then((r) => r.json())
+    //     .then((data) => setSignature(data));
+    // };
+
     const getSignature = async () => {
-      fetch("/api/get_signature")
-        .then((r) => r.json())
-        .then((data) => setSignature(data));
+      const res = await axiosInstance.get("/api/get_signature")
+      setSignature(res.data)
     };
     setShowSnackbar(false);
     getSignature();
@@ -66,7 +72,7 @@ function Write() {
 
       // - upload big photo
       try {
-        const res = await axios.post("/api/upload", formData);
+        const res = await axiosInstance.post("/api/upload", formData);
         newPost.picture = res.data.key;
       } catch (err) {
         setSubmitErrorMsg("Cannot upload photo");
@@ -79,8 +85,8 @@ function Write() {
 
     // - create the blogpost in Mongo
     try {
-      const res = await axios.post("/api/blogposts", newPost);
-      res.data && navigate("/api/blogposts/" + res.data._id);
+      const res = await axiosInstance.post("/api/blogposts", newPost);
+      res.data && navigate("/blogposts/" + res.data._id);
       setShowSnackbar(false);
     } catch (err) {
       setSubmitErrorMsg(err.response.data.message);
@@ -92,7 +98,7 @@ function Write() {
   // - Init categories
   useEffect(() => {
     const fetchCategories = async () => {
-      const res = await axios.get("/api/categories");
+      const res = await axiosInstance.get("/api/categories");
 
       setCategoryNames(() => {
         return res.data.map((category) => {

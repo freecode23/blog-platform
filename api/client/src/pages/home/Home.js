@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 
 import Posts from "../../components/posts/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
+import { axiosInstance } from "../../config";
 import { useUpdateModeContext } from "../../context/UpdateModeContext";
 import "./home.css";
 
@@ -24,7 +25,7 @@ export default function Home() {
       // get response use axios
       // will make request to : localhost::4000/api/blogposts/search
       // response to : localhost::3000/blogposts
-      const res = await axios.get("/api/blogposts" + search);
+      const res = await axiosInstance.get("/api/blogposts" + search);
 
       // set posts
       setPosts(res.data);

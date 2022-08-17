@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useUserDataContext } from "../../context/UserContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { saveAs } from "file-saver";
+import { axiosInstance } from "../../config";
 
 export default function TopBar(props) {
     const { isAuthenticated, logout, loginWithRedirect } = useAuth0();
@@ -23,7 +24,7 @@ export default function TopBar(props) {
     useEffect(() => {
         const fetchResumeUrl = async () => {
             if (userData) {
-                const res = await axios.post("/api/resume", { key: userData.resumeKey });
+                const res = await axiosInstance.post("/api/resume", { key: userData.resumeKey });
 
                 if (res) {
                     setResumeUrl(res.data);

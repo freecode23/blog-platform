@@ -3,7 +3,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useUserDataContext } from "../../context/UserContext";
-import axios from "axios";
+// import axios from "axios";
+import { axiosInstance } from "../../config";
 
 function Sidebar() {
   // 1. variables
@@ -17,7 +18,7 @@ function Sidebar() {
     const fetchCats = async () => {
       // request to API: "localhost::4000/api/ + "/categories"
       // response to : localhost::3000/...
-      const res = await axios.get("/api/categories");
+      const res = await axiosInstance.get("/api/categories");
 
       setCats(res.data);
     };

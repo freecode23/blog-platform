@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useUserDataContext } from "../../context/UserContext";
 import "./setting.css";
+import { axiosInstance } from "../../config";
 
 function Setting() {
   // 1. Get the picture from local folder
@@ -66,7 +67,7 @@ function Setting() {
       formData.append("file", profilePic);
 
       try {
-        const res = await axios.post("/api/upload", formData);
+        const res = await axiosInstance.post("/api/upload", formData);
         updatedUser.profilePic = res.data.key;
       } catch (err) {
         console.log(err);
@@ -81,7 +82,7 @@ function Setting() {
       formData.append("file", resume);
 
       try {
-        const res = await axios.post("/api/upload", formData);
+        const res = await axiosInstance.post("/api/upload", formData);
         updatedUser.resumeKey = res.data.key;
       } catch (err) {
         console.log(err);
@@ -90,7 +91,7 @@ function Setting() {
 
     // - update the user
     try {
-      const res = await axios.post("/api/users", updatedUser);
+      const res = await axiosInstance.post("/api/users", updatedUser);
       setUserData(res.data);
       res.data && navigate("/");
     } catch (err) {

@@ -8,7 +8,8 @@ import Write from "./pages/write/Write";
 import Setting from "./pages/setting/Setting";
 import Login from "./pages/login/Login";
 import Layout from "./components/layout/Layout";
-import axios from "axios";
+// import axios from "axios";
+import { axiosInstance } from "./config";
 
 import { useUserDataContext } from "./context/UserContext";
 import { useUpdateModeContext } from "./context/UpdateModeContext";
@@ -27,7 +28,7 @@ function App() {
   // 2. useEffect for fetch Profile data and handle logout error
   useEffect(() => {
     const fetchProfileData = async () => {
-      const fetchedProfileData = await axios.get("/api/" + sub);
+      const fetchedProfileData = await axiosInstance.get("/api/" + sub);
       if (fetchedProfileData.data) {
         setUserData(fetchedProfileData.data);
       }

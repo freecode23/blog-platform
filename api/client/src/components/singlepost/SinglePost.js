@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useUpdateModeContext } from "../../context/UpdateModeContext";
 import { useSnackbarContext } from "../../context/SnackbarContext";
+import { axiosInstance } from "../../config";
 import SnackBar from "../../components/snackbar/Snackbar";
 import Froala from "../../components/editor/Froala";
 import Tags from "../tags/tags";
 import axios from "axios";
+// import { axios } from "../../config";
 import DOMPurify from "dompurify";
 
 function SinglePost() {
@@ -46,9 +48,8 @@ function SinglePost() {
   // 5. use Effect for s3
   React.useEffect(() => {
     const getSignature = async () => {
-      fetch("/api/get_signature")
-        .then((r) => r.json())
-        .then((data) => setSignature(data));
+      const res = await axiosInstance.get("/api/get_signature")
+      setSignature(res.data)
     };
     getSignature();
   }, []);
@@ -62,7 +63,7 @@ function SinglePost() {
       // - if we wrote "blogposts" it will make get request to:
       // will take the current browser path and append blogposts
       // "localhost::4000/api/blogposts/ + "blogposts /:postId"
-      const res = await axios.get("/api/blogposts/" + param.postId);
+      const res = await axiosInstance.get("/api/blogposts/" + param.postId);
 
       setPost(res.data);
       setTitle(res.data.title);
@@ -84,7 +85,7 @@ function SinglePost() {
 
   // - delete the post using API
   const handleDelete = async (event) => {
-    await axios.delete(param.postId);
+    await axiosInstance.delete("/api/blogposts/" + param.postId);
     await navigate("/");
   };
 
@@ -94,7 +95,7 @@ function SinglePost() {
     console.log("try update");
 
     try {
-      const res = await axios.put("/api/blogposts/" + param.postId, {
+      const res = await axiosInstance.put("/api/blogposts/" + param.postId, {
         username: user.username,
         categories,
         title,
