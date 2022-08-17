@@ -9,6 +9,10 @@
     min-width: 600px;
 }
 
+.fr-wrapper div:first-of-type {
+    display: none;
+}
+
 .editor-display-container {
     border: 1px solid lightgray;
     border-radius: 10px;
