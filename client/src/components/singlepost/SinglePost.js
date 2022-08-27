@@ -6,10 +6,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useUpdateModeContext } from "../../context/UpdateModeContext";
 import { useSnackbarContext } from "../../context/SnackbarContext";
 import { axiosInstance } from "../../config";
+import CommentForm from "../../components/comments/CommentForm"
 import SnackBar from "../snackbar/Snackbar";
 import Froala from "../editor/Froala";
 import Tags from "../tags/tags";
 import DOMPurify from "dompurify";
+
+
 
 function SinglePost() {
   // 1. Get the picture from local folder
@@ -224,6 +227,7 @@ function SinglePost() {
           </button>
         )}
       </div>
+      <CommentForm />
     </div>
   );
 }

@@ -5,12 +5,12 @@ const bcrypt = require("bcrypt");
 
 
 const handleError = (res, err) => {
-    // Question: is there a better way? error handling 
 
     // - handle missing property of the post
     if (err.stringValue && err.path === "content") {
         message = "Make sure updated content exists"
         res.status(500).json({ message: message });
+
     } else if (err.errors) {
         if (err.errors.content && err.errors.content.stringValue === "\"{ model: '' }\"") {
             message = "Make sure content exists"
@@ -68,7 +68,7 @@ router.get("/:id",
 router.get("/",
     async (req, res) => {
         const username = req.query.user;
-        const catName = decodeURI(req.query.cat)
+        const categoryName = decodeURI(req.query.cat)
 
         try {
 
@@ -77,10 +77,10 @@ router.get("/",
             if (username) { // fetch post by username
                 posts = await Post.find({ username: username });
 
-            } else if (catName && catName != 'undefined') { // fetch post by category name
+            } else if (categoryName && categoryName != 'undefined') { // fetch post by category name
                 posts = await Post.find({
                     categories: {
-                        $in: [catName]
+                        $in: [categoryName]
                     }
                 });
 

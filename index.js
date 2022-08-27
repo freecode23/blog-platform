@@ -17,6 +17,7 @@ const authRoute = require("./routes/auth");
 const usersRoute = require("./routes/users");
 const postsRoute = require("./routes/blogposts");
 const categoriesRoute = require("./routes/categories");
+const commentsRoute = require("./routes/comments");
 const FroalaEditor = require('./node_modules/wysiwyg-editor-node-sdk/lib/froalaEditor.js');
 
 app.use(cors());
@@ -155,6 +156,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/blogposts", postsRoute);
 app.use("/api/categories", categoriesRoute);
+app.use("/api/comments", commentsRoute);
 
 
 if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "staging") {

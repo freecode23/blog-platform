@@ -10,7 +10,6 @@ export default function Single() {
   return (
     <div className="single">
       <SinglePost />
-
       {!updateMode && <Sidebar />}
     </div>
   );
