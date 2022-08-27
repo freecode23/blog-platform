@@ -14,12 +14,9 @@ function CommentForm(props) {
             username,
             content: commentContent
         };
-
         try {
-
             // need the blog id
             const res = await axiosInstance.post("/api/comments/" + props.postId, newComment);
-            console.log("res:", res);
         } catch (err) {
 
         }
@@ -29,8 +26,6 @@ function CommentForm(props) {
         <div className="commentFormWrapper">
             <span>Add a Comment</span>
             <form className="commentForm">
-
-
                 <label>Name</label>
                 <input type="text" onChange={(e) => {
                     setUsername(e.target.value);
@@ -41,7 +36,7 @@ function CommentForm(props) {
                     onChange={(e) => {
                         setCommentContent(e.target.value);
                     }}
-                    defaultValue={"I think ..."}
+                    placeholder={"What are your thoughts?"}
                 />
                 <button
                     type="button"
@@ -51,11 +46,8 @@ function CommentForm(props) {
                     Add
                 </button>
             </form>
-
-
         </div>
     );
-
 }
 
 export default CommentForm;

@@ -8,10 +8,10 @@ function CardPost(props) {
     const awsS3Path = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/"
 
     // 2. create category JSX array
-    const catJSXElements = props.post.categories.map(cat => {
+    const catJSXElements = props.post.categories.map(category => {
         return (
-            <span key={cat} className="postCat">
-                {cat}
+            <span key={category} className="postCat">
+                {category}
             </span>
         )
     })

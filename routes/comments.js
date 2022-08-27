@@ -27,16 +27,15 @@ router.post("/:id", async (req, res) => {
 
 
     } catch (err) {
-        console.log("error>>>", err)
         // >>>>>>>>>>repeat handler
-        // if (err.code && err.code == 11000) { // - Handle duplicate caregory
-        //     for (var key in err.keyValue) {
-        //         const message = `The comment with ${key}: "${err.keyValue[key]}" already exist`
-        //         res.status(500).json({ message: message });
-        //     }
-        // } else {
-        //     res.status(500).json({ message: "please check all of your fields" });
-        // }
+        if (err.code && err.code == 11000) { // - Handle duplicate caregory
+            for (var key in err.keyValue) {
+                const message = `The comment with ${key}: "${err.keyValue[key]}" already exist`
+                res.status(500).json({ message: message });
+            }
+        } else {
+            res.status(500).json({ message: "please check all of your fields" });
+        }
         // <<<<<<<<<<<<<<<<<<<<<<<<
     }
 })

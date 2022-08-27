@@ -7,19 +7,21 @@
 .commentFormWrapper>span {
     font-family: "Open Sans";
     font-weight: 700;
-    font-size: 20px;
+    font-size: 15px;
     text-align: left;
 }
 
 .commentForm>label {
     font-family: "Open Sans";
-    font-size: 15px;
+    font-size: 10px;
     text-align: left;
     margin: 10px 0;
 }
 
 .commentForm>textarea {
     font-family: "Open Sans";
-    width: 400px;
-    height: 200px;
+    padding: 10px;
+    font-size: 12px;
+    width: 300px;
+    height: 100px;
 }

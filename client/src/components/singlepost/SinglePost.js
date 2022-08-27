@@ -7,6 +7,7 @@ import { useUpdateModeContext } from "../../context/UpdateModeContext";
 import { useSnackbarContext } from "../../context/SnackbarContext";
 import { axiosInstance } from "../../config";
 import CommentForm from "../../components/comments/CommentForm"
+import Comments from "../../components/comments/Comments"
 import SnackBar from "../snackbar/Snackbar";
 import Froala from "../editor/Froala";
 import Tags from "../tags/tags";
@@ -23,6 +24,7 @@ function SinglePost() {
   const { updateMode, setUpdateMode } = useUpdateModeContext();
   const [title, setTitle] = useState("");
   const [categories, setCategoryNames] = useState([]);
+  const [comments, setComments] = useState([]);
   const [signature, setSignature] = React.useState();
   const [editorContent, setEditorContent] = React.useState({
     model: "",
@@ -40,6 +42,7 @@ function SinglePost() {
     picture: "",
     content: "",
     categories: [],
+    comments: []
   });
 
   // 4. get the id from the param so we can grab the data
@@ -69,6 +72,7 @@ function SinglePost() {
       setPost(res.data);
       setTitle(res.data.title);
       setCategoryNames(res.data.categories);
+      setComments(res.data.comments);
 
       // fill in the value on textarea
       setEditorContent({ model: res.data.content });
@@ -227,7 +231,11 @@ function SinglePost() {
           </button>
         )}
       </div>
-      <CommentForm postId={param.postId} />
+
+      <div>
+        <CommentForm postId={param.postId} />
+        <Comments comments={comments} />
+      </div>
     </div>
   );
 }
