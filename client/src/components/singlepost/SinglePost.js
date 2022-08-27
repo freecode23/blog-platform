@@ -227,7 +227,7 @@ function SinglePost() {
           </button>
         )}
       </div>
-      <CommentForm />
+      <CommentForm postId={param.postId} />
     </div>
   );
 }

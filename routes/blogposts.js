@@ -35,7 +35,6 @@ const handleError = (res, err) => {
 
 // CREATE 
 router.post("/", async (req, res) => {
-
     try {
         // 1. create post
         const newPost = await Post.create(req.body);

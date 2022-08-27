@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { axiosInstance } from "../../config";
 import "./commentForm.css"
 
-function CommentForm() {
+function CommentForm(props) {
     const [commentContent, setCommentContent] = useState("");
     const [username, setUsername] = useState("");
 
     // post comment
     const handleSubmit = async (event) => {
-
+        console.log("post coimment", props.postId)
         // - create newpost with the editor state
         const newComment = {
             username,
@@ -16,8 +16,10 @@ function CommentForm() {
         };
 
         try {
+
             // need the blog id
-            const res = await axiosInstance.post("/api/comments", newComment);
+            const res = await axiosInstance.post("/api/comments/" + props.postId, newComment);
+            console.log("res:", res);
         } catch (err) {
 
         }
@@ -31,13 +33,13 @@ function CommentForm() {
 
                 <label>Name</label>
                 <input type="text" onChange={(e) => {
-                    setUsername(e.target.files[0]);
+                    setUsername(e.target.value);
                 }} />
                 <label>Your Comment</label>
                 <textarea
                     id="commentInput"
                     onChange={(e) => {
-                        setCommentContent(e.target.files[0]);
+                        setCommentContent(e.target.value);
                     }}
                     defaultValue={"I think ..."}
                 />

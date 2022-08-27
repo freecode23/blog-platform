@@ -4,10 +4,10 @@ const Category = require('../models/Category');
 
 // CREATE 
 router.post("/", async (req, res) => {
-
     try {
         // 1. create category
         const newCat = await Category.create(req.body);
+
         // 2. try save
         Category.updateOne(newCat, { upsert: true });
         res.status(200).json(newCat);
@@ -31,9 +31,10 @@ router.post("/", async (req, res) => {
 // get all categories
 router.get("/",
     async (req, res) => {
+
         try {
-            const cats = await Category.find();
-            res.status(200).json(cats);
+            const categories = await Category.find();
+            res.status(200).json(categories);
         } catch (err) {
             res.status(404).json("Category doesn't exists");
         }
