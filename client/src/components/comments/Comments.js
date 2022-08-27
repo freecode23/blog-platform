@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { axiosInstance } from "../../config";
 import "./comments.css"
 
 function Comments(props) {
-    const commentsJSX = props.comments.map((comment) => {
-        console.log(comment._id);
-        console.log(comment.content);
 
+
+    const commentsJSX = props.comments.map((comment) => {
         return (
             <>
                 <span key={comment._id} className="commentUsername">
-                    {comment.username}
+                    {comment.username}:
                 </span>
                 <span key={comment._id} className="comment">
                     {comment.content}
@@ -18,6 +17,11 @@ function Comments(props) {
             </>
         )
     })
+
+
+
+
+
 
     return (
         <div className="comments">

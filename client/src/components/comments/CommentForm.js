@@ -8,7 +8,6 @@ function CommentForm(props) {
 
     // post comment
     const handleSubmit = async (event) => {
-        console.log("post coimment", props.postId)
         // - create newpost with the editor state
         const newComment = {
             username,
@@ -40,7 +39,7 @@ function CommentForm(props) {
                 />
                 <button
                     type="button"
-                    className="writeSubmitButton"
+                    className="commentFormSubmitButton"
                     onClick={handleSubmit}
                 >
                     Add

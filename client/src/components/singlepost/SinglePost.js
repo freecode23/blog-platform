@@ -50,7 +50,7 @@ function SinglePost() {
   const navigate = useNavigate();
 
   // 5. use Effect for s3
-  React.useEffect(() => {
+  useEffect(() => {
     const getSignature = async () => {
       const res = await axiosInstance.get("/api/get_signature")
       setSignature(res.data)
@@ -81,6 +81,14 @@ function SinglePost() {
     // - call the function
     fetchPosts();
   }, [param.postId]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      const res = await axiosInstance.get("/api/blogposts/" + param.postId);
+      setComments(res.data.comments);
+    };
+
+  }, [comments]);
 
   // 6. handler
   // - editor
@@ -232,9 +240,13 @@ function SinglePost() {
         )}
       </div>
 
-      <div>
-        <CommentForm postId={param.postId} />
-        <Comments comments={comments} />
+      <div className="singlePostCommentWrapper">
+        <div className="singlePostComments">
+          <Comments comments={comments} />
+        </div>
+        <div className="singlePostCommentForm">
+          <CommentForm postId={param.postId} />
+        </div>
       </div>
     </div>
   );

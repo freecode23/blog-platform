@@ -131,6 +131,21 @@
     background-color: black;
 }
 
+.singlePostCommentWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.singlePostCommentForm {
+    margin-left: 40px;
+}
+
+.singlePostComments {
+    margin-top: 50px;
+}
+
 
 /* mobile */
 
