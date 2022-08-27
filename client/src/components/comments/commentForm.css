@@ -18,19 +18,36 @@
     margin: 10px 0;
 }
 
+.commentForm>input {
+    font-family: "Open Sans";
+    /* padding: 10px; */
+    font-size: 12px;
+    height: 30px;
+    border: none;
+    border-bottom: 0.5px solid gray;
+}
+
+.commentForm>input:focus {
+    outline: none;
+}
+
 .commentForm>textarea {
     font-family: "Open Sans";
     padding: 10px;
     font-size: 12px;
-    width: 300px;
+    width: 210px;
     height: 100px;
 }
 
+.commentForm>textarea:focus {
+    outline: none;
+}
+
 .commentFormSubmitButton {
+    align-self: flex-end;
     margin-top: 30px;
     width: 100px;
     height: 50px;
-    align-self: center;
     border: none;
     background-color: #8ffff3;
     padding: 8px;

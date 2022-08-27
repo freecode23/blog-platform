@@ -240,14 +240,18 @@ function SinglePost() {
         )}
       </div>
 
-      <div className="singlePostCommentWrapper">
-        <div className="singlePostComments">
-          <Comments comments={comments} />
+      {!updateMode && (
+        <div className="singlePostCommentWrapper">
+          <div className="singlePostComments">
+            <Comments comments={comments} />
+          </div>
+          <div className="singlePostCommentForm">
+            <CommentForm postId={param.postId} />
+          </div>
         </div>
-        <div className="singlePostCommentForm">
-          <CommentForm postId={param.postId} />
-        </div>
-      </div>
+      )
+
+      }
     </div>
   );
 }

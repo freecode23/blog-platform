@@ -18,11 +18,6 @@ function Comments(props) {
         )
     })
 
-
-
-
-
-
     return (
         <div className="comments">
             {commentsJSX}
