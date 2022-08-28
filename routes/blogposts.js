@@ -3,6 +3,8 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 const bcrypt = require("bcrypt");
+const s3 = require("../config")
+require("dotenv").config();
 
 
 const handleError = (res, err) => {
@@ -133,6 +135,15 @@ router.delete("/:id",
 
             // 3. delete comments of this postid
             await Comment.deleteMany({ "postId": `${req.params.id}` })
+
+
+            // 4. delete from s3
+            s3.deleteObject({
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: post.picture
+            }, function (err, data) {
+                console.log("error deleteion", err)
+            })
 
             res.status(200).json(`post comments:\n ${post.comments}`);
 

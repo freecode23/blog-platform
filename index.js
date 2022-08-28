@@ -1,14 +1,15 @@
 require("dotenv").config();
 const express = require("express");
+const s3 = require("./config");
 
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
 
 // aws and multer
+// >>> const aws = require('aws-sdk')
 const cors = require("cors");
 const multer = require("multer");
-const aws = require('aws-sdk')
 const multerS3 = require('multer-s3')
 const bodyParser = require("body-parser")
 
@@ -29,15 +30,6 @@ mongoose
     .connect(process.env.MONGO_URL)
     .catch((err) => console.log(err));
 
-
-// 3. AWS 
-// aws config
-aws.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: 'us-east-2'
-});
-const s3 = new aws.S3();
 
 // aws froala >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // get signature so we can upload from froala

@@ -104,6 +104,8 @@ function SinglePost() {
   // - delete the post using API
   const handleDelete = async (event) => {
     const res = await axiosInstance.delete("/api/blogposts/" + param.postId);
+
+    // delete small pictures from s3
     await navigate("/");
   };
 
@@ -118,7 +120,7 @@ function SinglePost() {
         title,
         content: editorContent,
       });
-      console.log("updated")
+
       setUpdateMode(false);
       setShowSnackbar(false);
       res.data && navigate("/");
