@@ -58,7 +58,7 @@ function SinglePost() {
     getSignature();
   }, []);
 
-  // use Effect to fetch and init the post object, title, and the text area
+  // fetch and init the post object, title, and the text area
   useEffect(() => {
     const fetchPosts = async () => {
       // - if we write "/blogposts" it will make get request to
@@ -72,7 +72,6 @@ function SinglePost() {
       setPost(res.data);
       setTitle(res.data.title);
       setCategoryNames(res.data.categories);
-      setComments(res.data.comments);
 
       // fill in the value on textarea
       setEditorContent({ model: res.data.content });
@@ -82,11 +81,17 @@ function SinglePost() {
     fetchPosts();
   }, [param.postId]);
 
+
+  // fetch comments when user add it
   useEffect(() => {
     const fetchComments = async () => {
       const res = await axiosInstance.get("/api/blogposts/" + param.postId);
-      setComments(res.data.comments);
+      if (res.data) {
+        setComments(res.data.comments);
+      }
     };
+
+    fetchComments()
 
   }, [comments]);
 
@@ -105,7 +110,6 @@ function SinglePost() {
   // - edit
   const handleUpdate = async (event) => {
     event.preventDefault();
-    console.log("try update");
 
     try {
       const res = await axiosInstance.put("/api/blogposts/" + param.postId, {
@@ -119,7 +123,6 @@ function SinglePost() {
       setShowSnackbar(false);
       res.data && navigate("/");
     } catch (err) {
-      console.log(err);
       setSubmitErrorMsg(err.response.data.message);
       setShowSnackbar(true);
     }

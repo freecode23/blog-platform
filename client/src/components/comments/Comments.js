@@ -8,7 +8,7 @@ function Comments(props) {
     const commentsJSX = props.comments.map((comment) => {
         return (
             <>
-                <span key={comment._id} className="commentUsername">
+                <span key={comment.username} className="commentUsername">
                     {comment.username}:
                 </span>
                 <span key={comment._id} className="comment">
@@ -19,7 +19,7 @@ function Comments(props) {
     })
 
     return (
-        <div className="comments">
+        <div className="comments" >
             {commentsJSX}
         </div>
     );
