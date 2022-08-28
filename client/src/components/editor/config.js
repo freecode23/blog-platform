@@ -6,7 +6,8 @@ export const froalaConfig = {
     fontFamilySelection: true,
     imageUploadMethod: "POST",
     imageAllowedTypes: ['jpeg', 'jpg', 'png'],
-    imageUploadURL: 'http://localhost:4000/api/upload_froala',
+    // imageUploadURL: 'http://localhost:4000/api/upload_froala',
+    imageUploadURL: 'https://hartono-s.herokuapp.com/api/upload_froala',
     imageUploadParam: "file",
     fontFamily: {
         'Arial,Helvetica,sans-serif': 'Arial',
