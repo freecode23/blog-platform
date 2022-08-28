@@ -19,9 +19,10 @@
 @media (max-width: 1200px) {
     .posts {
         grid-template-columns: repeat(2, 1fr);
-        width: 65%;
+        width: 60%;
         padding: 0;
         margin-right: 0;
+        margin-left: 40px;
     }
 }
 
@@ -43,5 +44,6 @@
         width: 90%;
         padding: 0;
         margin-right: 0;
+        margin-left: 20px;
     }
 }
