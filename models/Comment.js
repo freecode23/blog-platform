@@ -11,6 +11,10 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         required: [true, "Cannot add a comment without the comment itself!"],
     },
+    postId: {
+        type: String,
+        required: [true, "Cannot add a comment without belonging to a post!"],
+    }
 
 }, { timestamps: true })
 

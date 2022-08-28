@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require('../models/User');
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 const bcrypt = require("bcrypt");
 
 
@@ -70,9 +71,7 @@ router.get("/",
         const categoryName = decodeURI(req.query.cat)
 
         try {
-
             let posts;
-
             if (username) { // fetch post by username
                 posts = await Post.find({ username: username });
 
@@ -91,7 +90,6 @@ router.get("/",
         } catch (err) {
             res.status(404).json("Post doesn't exists");
         }
-
     })
 
 
@@ -130,16 +128,13 @@ router.delete("/:id",
             // 1. find the post to be deleted
             const post = await Post.findById(req.params.id);
 
-            // 2. if the post user name is current user
-            if (post.username === req.body.username) {
+            // 2. delete the post
+            await post.delete();
 
-                // delete
-                await post.delete();
-                res.status(200).json("post deleted");
+            // 3. delete comments of this postid
+            await Comment.deleteMany({ "postId": `${req.params.id}` })
 
-            } else {
-                res.status(401).json("You can only delete your own post");
-            }
+            res.status(200).json(`post comments:\n ${post.comments}`);
 
         } catch (err) {
             res.status(500).json(err);

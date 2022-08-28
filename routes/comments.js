@@ -18,7 +18,7 @@ router.post("/:id", async (req, res) => {
         // 4. push comment to the post 
         blogPost.comments.push(newComment)
 
-        // 5. update
+        // 5. update the post
         const updatedPost = await Post.findByIdAndUpdate(
             req.params.id,
             blogPost,

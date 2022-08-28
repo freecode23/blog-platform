@@ -103,7 +103,7 @@ function SinglePost() {
 
   // - delete the post using API
   const handleDelete = async (event) => {
-    await axiosInstance.delete("/api/blogposts/" + param.postId);
+    const res = await axiosInstance.delete("/api/blogposts/" + param.postId);
     await navigate("/");
   };
 

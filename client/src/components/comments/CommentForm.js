@@ -8,10 +8,12 @@ function CommentForm(props) {
 
     // post comment
     const handleSubmit = async (event) => {
-        // - create newpost with the editor state
+        // - create new comment 
         const newComment = {
             username,
-            content: commentContent
+            content: commentContent,
+            postId: props.postId
+
         };
         try {
             // need the blog id

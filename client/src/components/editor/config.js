@@ -1,3 +1,5 @@
+import { apiUrl } from "../../config";
+
 export const froalaConfig = {
     attribution: false,
     placeholderText: "Start typing...",
@@ -6,8 +8,8 @@ export const froalaConfig = {
     fontFamilySelection: true,
     imageUploadMethod: "POST",
     imageAllowedTypes: ['jpeg', 'jpg', 'png'],
-    // imageUploadURL: 'http://localhost:4000/api/upload_froala',
-    imageUploadURL: 'https://hartono-s.herokuapp.com/api/upload_froala',
+    imageUploadURL: apiUrl + "upload_froala",
+    // imageUploadURL: 'https://hartono-s.herokuapp.com/api/upload_froala',
     imageUploadParam: "file",
     fontFamily: {
         'Arial,Helvetica,sans-serif': 'Arial',

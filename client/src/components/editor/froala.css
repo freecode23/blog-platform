@@ -10,7 +10,7 @@
 }
 
 .fr-wrapper div:first-of-type {
-    display: none;
+    /* display: none; */
     /* height: 1000px; */
 }
 
