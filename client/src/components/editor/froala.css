@@ -10,8 +10,8 @@
 }
 
 .fr-wrapper div:first-of-type {
-    /* display: none; */
-    height: 1000px;
+    display: none;
+    /* height: 1000px; */
 }
 
 .fr-wrapper div.second-toolbar {
