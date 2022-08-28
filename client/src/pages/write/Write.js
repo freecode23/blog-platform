@@ -23,7 +23,7 @@ function Write() {
   const [editorContent, setEditorContent] = React.useState({
     model: "",
   });
-  const [submitErrorMsg, setSubmitErrorMsg] = React.useState(null);
+  const [submitErrorMsg, setSubmitErrorMsg] = React.useState("");
   const {
     showSnackbar,
     setShowSnackbar,
@@ -54,11 +54,17 @@ function Write() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // - check if adding froala pictures
+    const images_arr = JSON.parse(localStorage.getItem("froalaImages"))
+    console.log("arr before submitting>>", images_arr)
+    console.log("submitting")
+
     // - create newpost with the editor state
     const newPost = {
       title,
       content: editorContent,
       categories,
+      pictures: images_arr
     };
 
     // - add big photo if file exists - will be set by the JSX
@@ -89,6 +95,8 @@ function Write() {
       setShowSnackbar(false);
     } catch (err) {
       setSubmitErrorMsg(err.response.data.message);
+      // Questions: not updating this
+      console.log("submit error msg>>", submitErrorMsg)
       setShowSnackbar(true);
     }
   };
@@ -113,6 +121,7 @@ function Write() {
       {showSnackbar && (
         <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar>
       )}
+      {/* <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar> */}
       <div className="writeTitle">
         <span>Write a post</span>
       </div>

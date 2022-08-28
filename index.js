@@ -120,6 +120,7 @@ app.post("/api/upload_froala",
     // key: 8cf10b9a45e9b14322b7b3b26fab5dfe
     (req, res) => {
         res.json({
+            // get post id and add the filename there
             link: req.file.location,
             key: req.file.key
         })
@@ -131,7 +132,6 @@ app.post("/api/resume",
         try {
             const url = await s3.getSignedUrl('getObject', {
                 Bucket: process.env.AWS_BUCKET_NAME,
-                // TODO change key here with req.body key
                 Key: req.body.key,
                 Expires: 60 * 5
             })

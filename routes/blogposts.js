@@ -8,32 +8,45 @@ require("dotenv").config();
 
 
 const handleError = (res, err) => {
-
-    // - handle missing property of the post
-    if (err.stringValue && err.path === "content") {
-        message = "Make sure updated content exists"
-        res.status(500).json({ message: message });
-
-    } else if (err.errors) {
-        if (err.errors.content && err.errors.content.stringValue === "\"{ model: '' }\"") {
-            message = "Make sure content exists"
-            res.status(500).json({ message: message });
-        } else {
-            for (var key in err.errors) {
-                message = err.errors[key].properties.message
-                res.status(500).json({ message: message });
-            }
+    const messages = []
+    for (var key in err.errors) {
+        var message = ""
+        if (key === "picture") {
+            message = "Check if blogpost picture exist"
+        } else if (key === "content") {
+            message = "Check if content exists"
+        } else if (key === "title") {
+            message = "Check if title exists"
         }
-    } else if (err.code && err.code == 11000) { // - Handle duplicate post
-        for (var key in err.keyValue) {
-            const message = `The post with ${key}: "${err.keyValue[key]}" already exist`
-            res.status(500).json({ message: message });
-        }
-    } else {
-        res.status(500).json({ message: "please check all of your fields" });
+        messages.push(message)
     }
+    console.log("messages=", messages.join("\n"))
+    res.status(500).json({ message: messages.join("\n") });
 
+    // // - handle missing property of the post
+    // if (err.stringValue && err.path === "content") {
+    //     message = "Make sure updated content exists"
+    //     res.status(500).json({ message: message });
 
+    // } else if (err.errors) {
+    //     if (err.errors.content && err.errors.content.stringValue === "\"{ model: '' }\"") {
+    //         message = "Make sure content exists"
+    //         res.status(500).json({ message: message });
+    //     } else {
+    //         console.log("some error>>>")
+    //         for (var key in err.errors) {
+    //             message = err.errors[key].properties.message
+    //         }
+    //         res.status(500).json({ message: message });
+    //     }
+    // } else if (err.code && err.code == 11000) { // - Handle duplicate post
+    //     for (var key in err.keyValue) {
+    //         const message = `The post with ${key}: "${err.keyValue[key]}" already exist`
+    //         res.status(500).json({ message: message });
+    //     }
+    // } else {
+    //     res.status(500).json({ message: "please check all of your fields" });
+    // }
 }
 
 // CREATE 
@@ -41,7 +54,6 @@ router.post("/", async (req, res) => {
     try {
         // 1. create post
         const newPost = await Post.create(req.body);
-
         // 2. try save
         const post = await newPost.save();
         res.status(200).json(post);
@@ -136,15 +148,25 @@ router.delete("/:id",
             // 3. delete comments of this postid
             await Comment.deleteMany({ "postId": `${req.params.id}` })
 
-
-            // 4. delete from s3
+            // 4. delete big picture from s3
             s3.deleteObject({
                 Bucket: process.env.AWS_BUCKET_NAME,
                 Key: post.picture
             }, function (err, data) {
-                console.log("error deleteion", err)
+                res.status(500).json(err);
             })
 
+            // 5. delete object fro froala
+            post.pictures.forEach((pictureKey, idx) => {
+                s3.deleteObject({
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Key: pictureKey
+
+                }, function (err, data) {
+                    res.status(500).json(err);
+                })
+
+            })
             res.status(200).json(`post comments:\n ${post.comments}`);
 
         } catch (err) {

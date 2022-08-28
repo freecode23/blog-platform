@@ -20,6 +20,7 @@ import "./froala.css"
 export default function Froala(props) {
     const { editorContent, handleEditorChange, imageUploadToS3 } = props;
 
+
     return (
         <div className="editor-wrapper">
             <div className="editor-container">

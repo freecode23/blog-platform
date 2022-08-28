@@ -1,3 +1,4 @@
+import { CostExplorer } from "aws-sdk";
 import { apiUrl } from "../../config";
 
 export const froalaConfig = {
@@ -23,7 +24,18 @@ export const froalaConfig = {
     },
     events: {
         'image.uploaded': function (response) {
-            // console.log("config response:", response);
+            // parse response and array from string
+            const data = JSON.parse(response)
+            const images_arr = JSON.parse(localStorage.getItem("froalaImages"))
+
+            try {
+                // add the image key
+                images_arr.push(data.key)
+
+            } catch (err) {
+                console.log(err)
+            }
+            localStorage.setItem("froalaImages", JSON.stringify(images_arr))
         }
     },
     toolbarButtons: {
