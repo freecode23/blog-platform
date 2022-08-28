@@ -13,11 +13,12 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: [true, "Cannot add a post without any description"],
     },
-
+    // blog cover photo
     picture: {
         type: String,
         required: [true, "Cannot add a post without a picture"],
     },
+    // froala pictures
     pictures: {
         type: Array,
         required: false,
