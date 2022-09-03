@@ -10,7 +10,7 @@
 }
 
 .fr-wrapper div:first-of-type {
-    display: none;
+    /* display: none; */
     /* height: 1000px; */
 }
 
@@ -35,5 +35,19 @@
         flex: 1;
         margin-left: 0px;
         margin-top: 40px;
+    }
+}
+
+@media (min-width: 300px) and (max-width:800px) {
+    .editor-wrapper {
+        flex-direction: column;
+    }
+    .editor-display-container {
+        flex: 1;
+        margin-left: 0px;
+        margin-top: 40px;
+    }
+    .editor-container {
+        min-width: 300px;
     }
 }

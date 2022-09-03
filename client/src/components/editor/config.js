@@ -10,7 +10,7 @@ export const froalaConfig = {
     imageUploadMethod: "POST",
     imageAllowedTypes: ['jpeg', 'jpg', 'png'],
     imageUploadURL: apiUrl + "upload_froala",
-    // imageUploadURL: 'https://hartono-s.herokuapp.com/api/upload_froala',
+    // the full url will be this: 'https://hartono-s.herokuapp.com/api/upload_froala',
     imageUploadParam: "file",
     fontFamily: {
         'Arial,Helvetica,sans-serif': 'Arial',

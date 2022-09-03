@@ -25,6 +25,7 @@ function SinglePost() {
   const [title, setTitle] = useState("");
   const [categories, setCategoryNames] = useState([]);
   const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState(0);
   const [signature, setSignature] = React.useState();
   const [editorContent, setEditorContent] = React.useState({
     model: "",
@@ -58,7 +59,7 @@ function SinglePost() {
     getSignature();
   }, []);
 
-  // fetch and init the post object, title, and the text area
+  // fetch Post object, title, and text area
   useEffect(() => {
     const fetchPosts = async () => {
       // - if we write "/blogposts" it will make get request to
@@ -72,6 +73,7 @@ function SinglePost() {
       setPost(res.data);
       setTitle(res.data.title);
       setCategoryNames(res.data.categories);
+      setLikes(res.data.likes)
 
       // fill in the value on textarea
       setEditorContent({ model: res.data.content });
@@ -82,7 +84,7 @@ function SinglePost() {
   }, [param.postId]);
 
 
-  // fetch comments when user add it
+  // fetch Comments 
   useEffect(() => {
     const fetchComments = async () => {
       const res = await axiosInstance.get("/api/blogposts/" + param.postId);
@@ -90,10 +92,10 @@ function SinglePost() {
         setComments(res.data.comments);
       }
     };
-
     fetchComments()
 
   }, [comments]);
+
 
   // 6. handler
   // - editor
@@ -131,7 +133,17 @@ function SinglePost() {
     }
   };
 
-  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  // Question: Likes not updating on first click
+  const handleAddLikes = async (event) => {
+    event.preventDefault();
+    try {
+      const res = await axiosInstance.put("/api/blogposts/likes/" + param.postId, {});
+      res.data && setLikes(res.data.likes)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   // 7. categories JSX , just display
   const catJSX = categories.map((cat) => {
     return (
@@ -212,6 +224,7 @@ function SinglePost() {
           />
         </div>
 
+
         {/* Content */}
         {updateMode ? (
           <div className="singlePostFormItem">
@@ -243,6 +256,17 @@ function SinglePost() {
           >
             Update
           </button>
+        )}
+      </div>
+
+      {/* Likes */}
+      <div className="singlePostLikes">
+        <i
+          className="singlePostLikesIcon fa-solid fa-hands-clapping"
+          onClick={handleAddLikes}
+        ></i>
+        {likes > 0 && (
+          <p className="singlePostLikesCounter">{likes}</p>
         )}
       </div>
 

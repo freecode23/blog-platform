@@ -74,3 +74,13 @@
     color: white;
     background-color: black;
 }
+
+@media (min-width: 300px) and (max-width: 1000px) {
+    .write {
+        align-items: baseline;
+        padding: 20px;
+    }
+    .writeFormItem {
+        margin: 5px 10px;
+    }
+}

@@ -44,7 +44,7 @@
 }
 
 .commentFormSubmitButton {
-    align-self: flex-end;
+    /* align-self: flex-end; */
     margin-top: 30px;
     width: 100px;
     height: 50px;
@@ -57,7 +57,17 @@
     cursor: pointer;
 }
 
-.commentFormSubmitButton:hover {
-    color: white;
-    background-color: black;
+
+/* iphone / ipad*/
+
+@media (min-width: 300px) and (max-width: 1000px) {
+    .commentFormSubmitButton {
+        align-self: flex-start;
+        width: 80px;
+        height: 40px;
+    }
+    .commentFormSubmitButton:hover {
+        color: white;
+        background-color: black;
+    }
 }

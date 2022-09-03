@@ -56,15 +56,15 @@ function Write() {
 
     // - check if adding froala pictures
     const images_arr = JSON.parse(localStorage.getItem("froalaImages"))
-    console.log("arr before submitting>>", images_arr)
-    console.log("submitting")
 
     // - create newpost with the editor state
     const newPost = {
       title,
       content: editorContent,
       categories,
-      pictures: images_arr
+      pictures: images_arr,
+      likes: 0
+
     };
 
     // - add big photo if file exists - will be set by the JSX
@@ -95,7 +95,8 @@ function Write() {
       setShowSnackbar(false);
     } catch (err) {
       setSubmitErrorMsg(err.response.data.message);
-      // Questions: not updating this
+
+      // Question: not updating this
       console.log("submit error msg>>", submitErrorMsg)
       setShowSnackbar(true);
     }

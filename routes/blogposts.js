@@ -22,31 +22,6 @@ const handleError = (res, err) => {
     }
     console.log("messages=", messages.join("\n"))
     res.status(500).json({ message: messages.join("\n") });
-
-    // // - handle missing property of the post
-    // if (err.stringValue && err.path === "content") {
-    //     message = "Make sure updated content exists"
-    //     res.status(500).json({ message: message });
-
-    // } else if (err.errors) {
-    //     if (err.errors.content && err.errors.content.stringValue === "\"{ model: '' }\"") {
-    //         message = "Make sure content exists"
-    //         res.status(500).json({ message: message });
-    //     } else {
-    //         console.log("some error>>>")
-    //         for (var key in err.errors) {
-    //             message = err.errors[key].properties.message
-    //         }
-    //         res.status(500).json({ message: message });
-    //     }
-    // } else if (err.code && err.code == 11000) { // - Handle duplicate post
-    //     for (var key in err.keyValue) {
-    //         const message = `The post with ${key}: "${err.keyValue[key]}" already exist`
-    //         res.status(500).json({ message: message });
-    //     }
-    // } else {
-    //     res.status(500).json({ message: "please check all of your fields" });
-    // }
 }
 
 // CREATE 
@@ -133,6 +108,33 @@ router.put("/:id",
         }
 
     })
+
+// update likes only
+router.put("/likes/:id",
+    async (req, res) => {
+
+        try {
+            // 1. find the post to be updated
+            const post = await Post.findById(req.params.id);
+
+            // 2. if the post user name is current user
+            if (post.username === req.body.username) {
+                // update
+                const updatedLikedPost = await Post.findByIdAndUpdate(
+                    req.params.id,
+                    { $inc: { likes: 1 } });
+                res.status(200).json(updatedLikedPost);
+
+            } else {
+                res.status(401).json("You can only update your own post");
+            }
+
+        } catch (err) {
+            console.log("err", err)
+        }
+
+    })
+
 
 
 // DELETE
