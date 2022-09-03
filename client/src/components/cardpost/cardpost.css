@@ -63,6 +63,7 @@
     color: white;
     background-color: rgb(15, 15, 15);
     border: 1px solid white;
+    white-space: nowrap;
 }
 
 .postTitle {

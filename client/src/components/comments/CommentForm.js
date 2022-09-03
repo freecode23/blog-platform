@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { axiosInstance } from "../../config";
 import "./commentForm.css"
 
@@ -8,6 +9,7 @@ function CommentForm(props) {
 
     // post comment
     const handleSubmit = async (event) => {
+        event.preventDefault()
         // - create new comment 
         const newComment = {
             username,
@@ -18,9 +20,13 @@ function CommentForm(props) {
         try {
             // need the blog id
             const res = await axiosInstance.post("/api/comments/" + props.postId, newComment);
+
         } catch (err) {
 
         }
+        // Question: not clearing comment after submit
+        setCommentContent("asdad");
+        setUsername("adas");
     }
 
     return (
@@ -28,9 +34,11 @@ function CommentForm(props) {
             <span>Add a Comment</span>
             <form className="commentForm">
                 <label>Name</label>
-                <input type="text" onChange={(e) => {
-                    setUsername(e.target.value);
-                }} />
+                <input
+                    type="text"
+                    onChange={(e) => {
+                        setUsername(e.target.value);
+                    }} />
                 <label>Your Comment</label>
                 <textarea
                     id="commentInput"

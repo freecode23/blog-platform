@@ -123,6 +123,7 @@ function SinglePost() {
 
       setUpdateMode(false);
       setShowSnackbar(false);
+
       res.data && navigate("/");
     } catch (err) {
       setSubmitErrorMsg(err.response.data.message);

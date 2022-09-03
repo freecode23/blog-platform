@@ -1,200 +1,206 @@
-.singlePost {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 30px 150px 80px 100px;
-    text-align: left;
-}
-
-.singlePostMenuTitle {
-    font-family: "Space Grotesk";
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-.singlePostForm {
-    font-family: "Open Sans";
-    font-size: 20px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.singlePostFormItem {
-    position: relative;
-    font-family: "Open Sans";
-    font-size: 15px;
-    margin: 20px 40px 10px 40px;
-}
-
-.singlePostInput {
-    display: flex;
-    align-items: center;
-    padding: 20px 30px;
-}
-
-.singlePostIcons {
-    display: flex;
-    flex-direction: row;
-    margin-left: 70%;
-    font-size: 12px;
-}
-
-.singlePostIcon {
-    font-size: 30px;
-    margin-left: 30px;
-    cursor: pointer;
-}
-
-.singlePostIcon:first-child {
-    color: rgb(8, 14, 14);
-}
-
-.singlePostIcon:last-child {
-    color: red;
-}
-
-.singlePostInputTitle {
-    font-family: "Space Grotesk";
-    font-size: 20px;
-    border: none;
-    border-bottom: 1px solid lightgrey;
-    width: 70vw;
-}
-
-.singlePostInputTitle:focus {
-    outline: none;
-}
-
-.singlePostCatWrapper {
-    margin: 20px 0 10px 0;
-}
-
-.singlePostImg {
-    max-width: 600px;
-    object-fit: cover;
-}
-
-.singlePostTitle {
-    color: #292929;
-    font-size: 40px;
-    font-family: "Space Grotesk";
-}
-
-.singlePostTitleInput {
-    font-family: "Space Grotesk";
-    font-size: 30px;
-    border: none;
-    width: 50vw;
-}
-
-.singlePostTitleInput:focus {
-    outline: none;
-    border: none;
-    color: grey;
-    border-bottom: 2px solid lightgrey;
-}
-
-.singlePostContent {
-    margin-top: 10px;
-    max-width: 900px;
-}
-
-.singlePostContent div {
-    width: auto !important;
-}
-
-.singlePostContent::first-letter {
-    font-size: 40px;
-    font-weight: 600;
-}
-
-.singlePostSubmitButton {
-    width: 120px;
-    height: 55px;
-    align-self: center;
-    border: none;
-    background-color: #8ffff3;
-    padding: 10px;
-    font-size: 16px;
-    font-family: "Space Grotesk";
-    font-weight: 700;
-    margin-top: 40px;
-    margin-bottom: 50px;
-    cursor: pointer;
-}
-
-.singlePostSubmitButton:hover {
-    color: white;
-    background-color: black;
-}
-
-.singlePostCommentWrapper {
-    border-top: 5px solid black;
-    margin-top: 100px;
-    display: flex;
-    flex-direction: row;
-}
-
-.singlePostCommentForm {
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin-left: 40px;
-    margin-top: 50px;
-}
-
-.singlePostComments {
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin-top: 50px;
-}
-
-
-/* mobile */
-
-@media (max-width: 800px) {
     .singlePost {
-        width: 80%;
+        flex: 1;
+        display: flex;
         flex-direction: column;
-        margin: 40px 0 40px 0px;
-        align-items: unset;
-        justify-content: unset;
+        align-items: center;
+        justify-content: center;
+        margin: 30px 150px 80px 100px;
+        text-align: left;
     }
+    
+    .singlePostMenuTitle {
+        font-family: "Space Grotesk";
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+    
+    .singlePostForm {
+        font-family: "Open Sans";
+        font-size: 20px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .singlePostFormItem {
+        position: relative;
+        font-family: "Open Sans";
+        font-size: 15px;
+        margin: 20px 40px 10px 40px;
+    }
+    
+    .singlePostInput {
+        display: flex;
+        align-items: center;
+        padding: 20px 30px;
+    }
+    
+    .singlePostIcons {
+        display: flex;
+        flex-direction: row;
+        margin-left: 70%;
+        font-size: 12px;
+    }
+    
+    .singlePostIcon {
+        font-size: 30px;
+        margin-left: 30px;
+        cursor: pointer;
+    }
+    
+    .singlePostIcon:first-child {
+        color: rgb(8, 14, 14);
+    }
+    
+    .singlePostIcon:last-child {
+        color: red;
+    }
+    
+    .singlePostInputTitle {
+        font-family: "Space Grotesk";
+        font-size: 20px;
+        border: none;
+        border-bottom: 1px solid lightgrey;
+        width: 70vw;
+    }
+    
+    .singlePostInputTitle:focus {
+        outline: none;
+    }
+    
+    .singlePostCatWrapper {
+        margin: 20px 0 10px 0;
+    }
+    
     .singlePostImg {
-        width: 80%;
-        max-height: 300px;
+        max-width: 600px;
         object-fit: cover;
     }
+    
+    .singlePostTitle {
+        color: #292929;
+        font-size: 40px;
+        font-family: "Space Grotesk";
+    }
+    
+    .singlePostTitleInput {
+        font-family: "Space Grotesk";
+        font-size: 30px;
+        border: none;
+        width: 50vw;
+    }
+    
+    .singlePostTitleInput:focus {
+        outline: none;
+        border: none;
+        color: grey;
+        border-bottom: 2px solid lightgrey;
+    }
+    
     .singlePostContent {
-        width: 100%;
+        margin-top: 10px;
+        max-width: 900px;
     }
-}
-
-@media (min-width: 800px) and (max-width: 1000px) {
-    .singlePost {
-        width: 80%;
-        flex-direction: column;
-        margin: 40px 0 10px 0px;
-        align-items: unset;
-        justify-content: unset;
+    
+    .singlePostContent div {
+        width: auto !important;
     }
-    .topRight {
-        justify-content: center;
-        margin: 0px;
+    
+    .singlePostContent::first-letter {
+        font-size: 40px;
+        font-weight: 600;
     }
-    .singlePostContent {
-        width: 80%;
+    
+    .singlePostSubmitButton {
+        width: 120px;
+        height: 55px;
+        align-self: center;
+        border: none;
+        background-color: #8ffff3;
+        padding: 10px;
+        font-size: 16px;
+        font-family: "Space Grotesk";
+        font-weight: 700;
+        margin-top: 40px;
+        margin-bottom: 50px;
+        cursor: pointer;
     }
-}
-
-@media (min-width: 1000px) and (max-width: 1200px) {
-    .singlePostT {
-        width: 80%;
-        flex-direction: column;
-        margin: 40px 0 0px 0px;
-        align-items: unset;
-        justify-content: unset;
+    
+    .singlePostSubmitButton:hover {
+        color: white;
+        background-color: black;
     }
-}
+    
+    .singlePostCommentWrapper {
+        border-top: 5px solid black;
+        margin-top: 100px;
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .singlePostCommentForm {
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-left: 40px;
+        margin-top: 50px;
+    }
+    
+    .singlePostComments {
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-top: 50px;
+    }
+    /* mobile */
+    
+    @media (max-width: 800px) {
+        .singlePost {
+            width: 80%;
+            flex-direction: column;
+            margin: 40px 0 40px 0px;
+            align-items: unset;
+            justify-content: unset;
+        }
+        .singlePostImg {
+            width: 80%;
+            max-height: 300px;
+            object-fit: cover;
+        }
+        .singlePostContent {
+            width: 100%;
+        }
+        .singlePostComments {
+            margin-left: 40px;
+        }
+    }
+    /* ipad*/
+    
+    @media (min-width: 300px) and (max-width: 1000px) {
+        .singlePost {
+            width: 80%;
+            flex-direction: column;
+            margin: 40px 0 10px 0px;
+            align-items: unset;
+            justify-content: unset;
+        }
+        .topRight {
+            justify-content: center;
+            margin: 0px;
+        }
+        .singlePostContent {
+            width: 80%;
+        }
+        .singlePostComments {
+            margin-left: 40px;
+        }
+    }
+    /* half size*/
+    
+    @media (min-width: 1000px) and (max-width: 1200px) {
+        .singlePostT {
+            width: 80%;
+            flex-direction: column;
+            margin: 40px 0 0px 0px;
+            align-items: unset;
+            justify-content: unset;
+        }
+    }
