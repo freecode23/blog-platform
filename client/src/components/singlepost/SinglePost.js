@@ -6,14 +6,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useUpdateModeContext } from "../../context/UpdateModeContext";
 import { useSnackbarContext } from "../../context/SnackbarContext";
 import { axiosInstance } from "../../config";
-import CommentForm from "../../components/comments/CommentForm"
-import Comments from "../../components/comments/Comments"
+import CommentForm from "../../components/comments/CommentForm";
+import Comments from "../../components/comments/Comments";
 import SnackBar from "../snackbar/Snackbar";
 import Froala from "../editor/Froala";
 import Tags from "../tags/tags";
 import DOMPurify from "dompurify";
-
-
 
 function SinglePost() {
   // 1. Get the picture from local folder
@@ -43,7 +41,7 @@ function SinglePost() {
     picture: "",
     content: "",
     categories: [],
-    comments: []
+    comments: [],
   });
 
   // 4. get the id from the param so we can grab the data
@@ -53,8 +51,8 @@ function SinglePost() {
   // 5. use Effect for s3
   useEffect(() => {
     const getSignature = async () => {
-      const res = await axiosInstance.get("/api/get_signature")
-      setSignature(res.data)
+      const res = await axiosInstance.get("/api/get_signature");
+      setSignature(res.data);
     };
     getSignature();
   }, []);
@@ -69,11 +67,11 @@ function SinglePost() {
       // will take the current browser path and append blogposts
       // "localhost::4000/api/blogposts/ + "blogposts /:postId"
       const res = await axiosInstance.get("/api/blogposts/" + param.postId);
-
+      console.log("res", res);
       setPost(res.data);
       setTitle(res.data.title);
       setCategoryNames(res.data.categories);
-      setLikes(res.data.likes)
+      setLikes(res.data.likes);
 
       // fill in the value on textarea
       setEditorContent({ model: res.data.content });
@@ -81,10 +79,9 @@ function SinglePost() {
 
     // - call the function
     fetchPosts();
-  }, [param.postId]);
+  }, []);
 
-
-  // fetch Comments 
+  // fetch intial comments
   useEffect(() => {
     const fetchComments = async () => {
       const res = await axiosInstance.get("/api/blogposts/" + param.postId);
@@ -92,10 +89,8 @@ function SinglePost() {
         setComments(res.data.comments);
       }
     };
-    fetchComments()
-
-  }, [comments]);
-
+    fetchComments();
+  }, []);
 
   // 6. handler
   // - editor
@@ -136,13 +131,18 @@ function SinglePost() {
   // Question: Likes not updating on first click
   const handleAddLikes = async (event) => {
     event.preventDefault();
+    console.log("param.postId", param.postId);
     try {
-      const res = await axiosInstance.put("/api/blogposts/likes/" + param.postId, {});
-      res.data && setLikes(res.data.likes)
+      const res = await axiosInstance.put(
+        "/api/blogposts/likes/" + param.postId,
+        {}
+      );
+      console.log("res", res.data);
+      res.data && setLikes(res.data.likes);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   // 7. categories JSX , just display
   const catJSX = categories.map((cat) => {
@@ -152,6 +152,8 @@ function SinglePost() {
       </span>
     );
   });
+
+  console.log("likes", likes);
 
   return (
     <div className="singlePost">
@@ -224,7 +226,6 @@ function SinglePost() {
           />
         </div>
 
-
         {/* Content */}
         {updateMode ? (
           <div className="singlePostFormItem">
@@ -265,9 +266,7 @@ function SinglePost() {
           className="singlePostLikesIcon fa-solid fa-hands-clapping"
           onClick={handleAddLikes}
         ></i>
-        {likes > 0 && (
-          <p className="singlePostLikesCounter">{likes}</p>
-        )}
+        {likes > 0 && <p className="singlePostLikesCounter">{likes}</p>}
       </div>
 
       {!updateMode && (
@@ -276,12 +275,10 @@ function SinglePost() {
             <Comments comments={comments} />
           </div>
           <div className="singlePostCommentForm">
-            <CommentForm postId={param.postId} />
+            <CommentForm postId={param.postId} setComments={setComments} />
           </div>
         </div>
-      )
-
-      }
+      )}
     </div>
   );
 }

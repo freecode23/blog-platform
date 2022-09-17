@@ -1,63 +1,67 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { axiosInstance } from "../../config";
-import "./commentForm.css"
+import "./commentForm.css";
 
 function CommentForm(props) {
-    const [commentContent, setCommentContent] = useState("");
-    const [username, setUsername] = useState("");
+  const [commentContent, setCommentContent] = useState("");
+  const [username, setUsername] = useState("");
+  const { setComments } = props;
 
-    // post comment
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-        // - create new comment 
-        const newComment = {
-            username,
-            content: commentContent,
-            postId: props.postId
+  // post comment
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // - create new comment
+    const newComment = {
+      username,
+      content: commentContent,
+      postId: props.postId,
+    };
+    try {
+      // need the blog id
+      const res = await axiosInstance.post(
+        "/api/comments/" + props.postId,
+        newComment
+      );
+      const { comments } = res.data;
+      setComments(comments);
+      console.log("comments", comments);
+    } catch (err) {}
+    //
+    // Question: not clearing comment after submit
+    setCommentContent("asdad");
+    setUsername("adas");
+  };
 
-        };
-        try {
-            // need the blog id
-            const res = await axiosInstance.post("/api/comments/" + props.postId, newComment);
-
-        } catch (err) {
-
-        }
-        // 
-        // Question: not clearing comment after submit
-        setCommentContent("asdad");
-        setUsername("adas");
-    }
-
-    return (
-        <div className="commentFormWrapper">
-            <span>Add a Comment</span>
-            <form className="commentForm">
-                <label>Name</label>
-                <input
-                    type="text"
-                    onChange={(e) => {
-                        setUsername(e.target.value);
-                    }} />
-                <label>Your Comment</label>
-                <textarea
-                    id="commentInput"
-                    onChange={(e) => {
-                        setCommentContent(e.target.value);
-                    }}
-                    placeholder={"What are your thoughts?"}
-                />
-                <button
-                    type="button"
-                    className="commentFormSubmitButton"
-                    onClick={handleSubmit}
-                >
-                    Add
-                </button>
-            </form>
-        </div>
-    );
+  return (
+    <div className="commentFormWrapper">
+      <span>Add a Comment</span>
+      <form className="commentForm">
+        <label>Name</label>
+        <input
+          type="text"
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />
+        <label>Your Comment</label>
+        <textarea
+          id="commentInput"
+          onChange={(e) => {
+            setCommentContent(e.target.value);
+          }}
+          placeholder={"What are your thoughts?"}
+        />
+        <button
+          type="button"
+          className="commentFormSubmitButton"
+          onClick={handleSubmit}
+        >
+          Add
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default CommentForm;

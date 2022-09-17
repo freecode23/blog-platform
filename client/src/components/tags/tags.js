@@ -8,7 +8,7 @@ import SnackBar from "../snackbar/Snackbar";
 import { useSnackbarContext } from "../../context/SnackbarContext";
 
 function Tags({ categories, setCategoryNames }) {
-  const [submitErrorMsg, setSubmitErrorMsg] = React.useState(null);
+  const [submitErrorMsg, setSubmitErrorMsg] = React.useState();
   const {
     showSnackbar,
     setShowSnackbar,
@@ -20,7 +20,6 @@ function Tags({ categories, setCategoryNames }) {
 
     // - if enter key is pressed and category name is not empty create a new one
     if (e.key === "Enter" && catName.trim()) {
-
       try {
         await axiosInstance.post("/api/categories", { name: catName });
         // - set the array of category names to make a new post
@@ -29,7 +28,6 @@ function Tags({ categories, setCategoryNames }) {
         });
         e.target.value = "";
         setShowSnackbar(false);
-
       } catch (err) {
         setSubmitErrorMsg(err.response.data.message);
         setShowSnackbar(true);
@@ -43,7 +41,7 @@ function Tags({ categories, setCategoryNames }) {
 
   return (
     <>
-      {showSnackbar && (
+      {showSnackbar && submitErrorMsg && (
         <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar>
       )}
       <div className="tags-input-container">
@@ -55,8 +53,6 @@ function Tags({ categories, setCategoryNames }) {
           onKeyDown={handleKeydown}
         />
       </div>
-
-
     </>
   );
 }

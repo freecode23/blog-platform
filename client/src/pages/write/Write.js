@@ -43,8 +43,8 @@ function Write() {
     // };
 
     const getSignature = async () => {
-      const res = await axiosInstance.get("/api/get_signature")
-      setSignature(res.data)
+      const res = await axiosInstance.get("/api/get_signature");
+      setSignature(res.data);
     };
     setShowSnackbar(false);
     getSignature();
@@ -55,7 +55,7 @@ function Write() {
     event.preventDefault();
 
     // - check if adding froala pictures
-    const images_arr = JSON.parse(localStorage.getItem("froalaImages"))
+    const images_arr = JSON.parse(localStorage.getItem("froalaImages"));
 
     // - create newpost with the editor state
     const newPost = {
@@ -63,8 +63,7 @@ function Write() {
       content: editorContent,
       categories,
       pictures: images_arr,
-      likes: 0
-
+      likes: 0,
     };
 
     // - add big photo if file exists - will be set by the JSX
@@ -96,10 +95,10 @@ function Write() {
     } catch (err) {
       setSubmitErrorMsg(err.message);
 
-      // Question1: 
+      // Question1:
       // Question2: not updating this
       console.log("err.message", err.message);
-      console.log("submit error msg>>", submitErrorMsg)
+      console.log("submit error msg>>", submitErrorMsg);
       setShowSnackbar(true);
     }
   };
@@ -121,7 +120,7 @@ function Write() {
 
   return (
     <div className="write">
-      {showSnackbar && (
+      {showSnackbar && submitErrorMsg && (
         <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar>
       )}
       {/* <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar> */}
