@@ -54,7 +54,7 @@ export default function TopBar(props) {
                 </div>
                 <div className="topCenter">
                     <div className="topCenterName">
-                        Sherly Hartono
+                        xherly Hartono
                     </div>
                     {
                         userData &&

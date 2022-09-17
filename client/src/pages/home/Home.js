@@ -37,7 +37,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="home">
+      <div className="Home">
         {posts.length > 0 ? (
           <Posts posts={posts} />
         ) : (
