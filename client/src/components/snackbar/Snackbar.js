@@ -2,6 +2,7 @@ import React from "react";
 import "./snackbar.css";
 
 function SnackBar({ children, onClose }) {
+  console.log('children', children);
   return (
     <div className="snackBar">
       <div className="snackBarContent">

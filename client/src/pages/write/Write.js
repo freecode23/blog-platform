@@ -94,9 +94,11 @@ function Write() {
       res.data && navigate("/blogposts/" + res.data._id);
       setShowSnackbar(false);
     } catch (err) {
-      setSubmitErrorMsg(err.response.data.message);
+      setSubmitErrorMsg(err.message);
 
-      // Question: not updating this
+      // Question1: 
+      // Question2: not updating this
+      console.log("err.message", err.message);
       console.log("submit error msg>>", submitErrorMsg)
       setShowSnackbar(true);
     }

@@ -24,6 +24,7 @@ function CommentForm(props) {
         } catch (err) {
 
         }
+        // 
         // Question: not clearing comment after submit
         setCommentContent("asdad");
         setUsername("adas");
