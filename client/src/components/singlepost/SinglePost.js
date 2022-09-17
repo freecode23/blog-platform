@@ -31,11 +31,12 @@ function SinglePost() {
     model: "",
   });
   const [submitErrorMsg, setSubmitErrorMsg] = React.useState(null);
-  const {
-    showSnackbar,
-    setShowSnackbar,
-    closeSnackbarHandler,
-  } = useSnackbarContext();
+
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+  function closeSnackbarHandler() {
+    localStorage.removeItem('snackbar');
+    setShowSnackbar(false);
+  }
 
   // 3. create updated Post
   const [post, setPost] = useState({
@@ -125,6 +126,7 @@ function SinglePost() {
 
       setUpdateMode(false);
       setShowSnackbar(false);
+      setSubmitErrorMsg("");
 
       res.data && navigate("/");
     } catch (err) {
@@ -133,7 +135,6 @@ function SinglePost() {
     }
   };
 
-  // Question: Likes not updating on first click
   const handleAddLikes = async (event) => {
     event.preventDefault();
     try {

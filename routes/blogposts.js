@@ -12,16 +12,16 @@ const handleError = (res, err) => {
     for (var key in err.errors) {
         var message = ""
         if (key === "picture") {
-            message = "Check if blogpost picture exist"
+            message = "Check if blogpost picture exist."
         } else if (key === "content") {
-            message = "Check if content exists"
+            message = "Check if content exists."
         } else if (key === "title") {
-            message = "Check if title exists"
+            message = "Check if title exists."
         }
         messages.push(message)
     }
     console.log("messages=", messages.join("\n"))
-    res.status(500).json({ message: messages.join("\n") });
+    res.status(500).json({ message: messages.join("\r\n") });
 }
 
 // CREATE 

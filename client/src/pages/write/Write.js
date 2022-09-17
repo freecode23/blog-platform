@@ -7,7 +7,7 @@ import Tags from "../../components/tags/tags";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSnackbarContext } from "../../context/SnackbarContext";
+// import { useSnackbarContext } from "../../context/SnackbarContext";
 
 import "./write.css";
 
@@ -24,11 +24,12 @@ function Write() {
     model: "",
   });
   const [submitErrorMsg, setSubmitErrorMsg] = React.useState("");
-  const {
-    showSnackbar,
-    setShowSnackbar,
-    closeSnackbarHandler,
-  } = useSnackbarContext();
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+  function closeSnackbarHandler() {
+    localStorage.removeItem('snackbar');
+    setShowSnackbar(false);
+  }
+
 
   function handleEditorChange(editorData) {
     setEditorContent(editorData);
@@ -47,6 +48,7 @@ function Write() {
       setSignature(res.data)
     };
     setShowSnackbar(false);
+    setSubmitErrorMsg("");
     getSignature();
   }, []);
 
@@ -93,13 +95,12 @@ function Write() {
       const res = await axiosInstance.post("/api/blogposts", newPost);
       res.data && navigate("/blogposts/" + res.data._id);
       setShowSnackbar(false);
-    } catch (err) {
-      setSubmitErrorMsg(err.message);
+      setSubmitErrorMsg("");
 
-      // Question1: 
-      // Question2: not updating this
-      console.log("err.message", err.message);
-      console.log("submit error msg>>", submitErrorMsg)
+    } catch (err) {
+      console.log("err.data", err)
+      setSubmitErrorMsg(err.response.data.message);
+
       setShowSnackbar(true);
     }
   };
@@ -122,7 +123,9 @@ function Write() {
   return (
     <div className="write">
       {showSnackbar && submitErrorMsg && (
-        <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar>
+        <SnackBar onClose={closeSnackbarHandler}>
+          <p>{submitErrorMsg}</p>
+        </SnackBar>
       )}
       {/* <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar> */}
       <div className="writeTitle">

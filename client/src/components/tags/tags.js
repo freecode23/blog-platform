@@ -5,15 +5,16 @@ import "./tags.css";
 
 import Categories from "../categories/categories";
 import SnackBar from "../snackbar/Snackbar";
-import { useSnackbarContext } from "../../context/SnackbarContext";
 
 function Tags({ categories, setCategoryNames }) {
   const [submitErrorMsg, setSubmitErrorMsg] = React.useState(null);
-  const {
-    showSnackbar,
-    setShowSnackbar,
-    closeSnackbarHandler,
-  } = useSnackbarContext();
+
+  // snackbar
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+  function closeSnackbarHandler() {
+    localStorage.removeItem('snackbar');
+    setShowSnackbar(false);
+  }
 
   const handleKeydown = async (e) => {
     const catName = e.target.value;
@@ -29,6 +30,7 @@ function Tags({ categories, setCategoryNames }) {
         });
         e.target.value = "";
         setShowSnackbar(false);
+        setSubmitErrorMsg("");
 
       } catch (err) {
         setSubmitErrorMsg(err.response.data.message);

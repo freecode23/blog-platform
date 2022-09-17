@@ -17,6 +17,7 @@ router.post("/", async (req, res) => {
         if (err.code && err.code == 11000) { // - Handle duplicate caregory
             for (var key in err.keyValue) {
                 const message = `The category with ${key}: "${err.keyValue[key]}" already exist`
+                console.log("category error backend", message)
                 res.status(500).json({ message: message });
             }
         } else {

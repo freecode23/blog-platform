@@ -21,7 +21,7 @@ export default function Layout({ scrollHomeHandler, children }) {
   return (
     <>
       {showSnackBar &&
-        <SnackBar onClose={closeSnackbarHandler}>
+        < SnackBar onClose={closeSnackbarHandler}>
           Sorry, only Sherly can log in. You can still view the posts
         </SnackBar>}
 
