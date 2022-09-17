@@ -6,8 +6,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useUpdateModeContext } from "../../context/UpdateModeContext";
 import { useSnackbarContext } from "../../context/SnackbarContext";
 import { axiosInstance } from "../../config";
-import CommentForm from "../../components/comments/CommentForm"
-import Comments from "../../components/comments/Comments"
+import CommentForm from "../../components/comments/CommentForm";
+import Comments from "../../components/comments/Comments";
 import SnackBar from "../snackbar/Snackbar";
 import Froala from "../editor/Froala";
 import Tags from "../tags/tags";
@@ -18,7 +18,7 @@ import DOMPurify from "dompurify";
 function SinglePost() {
   // 1. Get the picture from local folder
   const awsS3Path = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/";
-
+  console.log("test")
   // 2. States and hooks
   const { user, isAuthenticated } = useAuth0();
   const { updateMode, setUpdateMode } = useUpdateModeContext();
@@ -94,7 +94,7 @@ function SinglePost() {
     };
     fetchComments()
 
-  }, [comments]);
+  }, []);
 
 
   // 6. handler
@@ -155,7 +155,7 @@ function SinglePost() {
 
   return (
     <div className="singlePost">
-      {showSnackbar && (
+      {showSnackbar && submitErrorMsg && (
         <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar>
       )}
 
@@ -259,6 +259,7 @@ function SinglePost() {
         )}
       </div>
 
+
       {/* Likes */}
       <div className="singlePostLikes">
         <i
@@ -270,13 +271,14 @@ function SinglePost() {
         )}
       </div>
 
+      {/* Comments */}
       {!updateMode && (
         <div className="singlePostCommentWrapper">
           <div className="singlePostComments">
             <Comments comments={comments} />
           </div>
           <div className="singlePostCommentForm">
-            <CommentForm postId={param.postId} />
+            <CommentForm postId={param.postId} setComments={setComments} />
           </div>
         </div>
       )

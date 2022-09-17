@@ -43,7 +43,7 @@ function Tags({ categories, setCategoryNames }) {
 
   return (
     <>
-      {showSnackbar && (
+      {showSnackbar && submitErrorMsg && (
         <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar>
       )}
       <div className="tags-input-container">

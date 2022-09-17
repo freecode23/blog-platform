@@ -20,14 +20,12 @@ function CommentForm(props) {
         try {
             // need the blog id
             const res = await axiosInstance.post("/api/comments/" + props.postId, newComment);
+            // Question: not clearing comment after submit
+            props.setComments(res.data.comments);
 
         } catch (err) {
 
         }
-        // 
-        // Question: not clearing comment after submit
-        setCommentContent("asdad");
-        setUsername("adas");
     }
 
     return (

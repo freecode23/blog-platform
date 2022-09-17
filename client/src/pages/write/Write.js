@@ -121,7 +121,7 @@ function Write() {
 
   return (
     <div className="write">
-      {showSnackbar && (
+      {showSnackbar && submitErrorMsg && (
         <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar>
       )}
       {/* <SnackBar onClose={closeSnackbarHandler}>{submitErrorMsg}</SnackBar> */}

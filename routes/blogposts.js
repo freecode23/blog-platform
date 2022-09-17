@@ -122,7 +122,9 @@ router.put("/likes/:id",
                 // update
                 const updatedLikedPost = await Post.findByIdAndUpdate(
                     req.params.id,
-                    { $inc: { likes: 1 } });
+                    { $inc: { likes: 1 } },
+                    { returnDocument: "after" });
+
                 res.status(200).json(updatedLikedPost);
 
             } else {
