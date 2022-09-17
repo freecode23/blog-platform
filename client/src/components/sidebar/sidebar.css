@@ -49,6 +49,8 @@
     list-style-type: none;
     font-family: "Space Grotesk";
     font-weight: 600;
+    max-width: 260px;
+    text-align: center;
 }
 
 .sidebarSkillItem {
