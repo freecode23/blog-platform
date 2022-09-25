@@ -9,8 +9,11 @@
     min-width: 600px;
 }
 
+
+/* Remove display none on heroku deploy */
+
 .fr-wrapper div:first-of-type {
-    /* display: none; */
+    display: none;
     height: 1000px;
 }
 
