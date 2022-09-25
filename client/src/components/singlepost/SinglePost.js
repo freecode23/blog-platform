@@ -18,7 +18,6 @@ import DOMPurify from "dompurify";
 function SinglePost() {
   // 1. Get the picture from local folder
   const awsS3Path = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/";
-  console.log("test")
   // 2. States and hooks
   const { user, isAuthenticated } = useAuth0();
   const { updateMode, setUpdateMode } = useUpdateModeContext();

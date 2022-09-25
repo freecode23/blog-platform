@@ -22,7 +22,8 @@ const commentsRoute = require("./routes/comments");
 const FroalaEditor = require('./node_modules/wysiwyg-editor-node-sdk/lib/froalaEditor.js');
 
 app.use(cors());
-app.use(express.json()); // allow to send JSON object to route
+app.use(express.json({ extended: true, limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use("/images", express.static(path.join(__dirname, "/images"))); // make images folder public
 
 // 2. DB

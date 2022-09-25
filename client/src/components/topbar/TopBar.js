@@ -117,6 +117,6 @@ export default function TopBar(props) {
                     )}
                 </ul>
             </div>
-        </div >
+        </div>
     );
 }

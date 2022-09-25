@@ -1,4 +1,3 @@
-import { CostExplorer } from "aws-sdk";
 import { apiUrl } from "../../config";
 
 export const froalaConfig = {

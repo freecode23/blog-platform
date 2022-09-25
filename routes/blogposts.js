@@ -140,6 +140,7 @@ router.put("/likes/:id",
 
 
 // DELETE
+// Question: cannot send headers after sent to client
 router.delete("/:id",
     async (req, res) => {
         try {
@@ -157,26 +158,30 @@ router.delete("/:id",
                 Bucket: process.env.AWS_BUCKET_NAME,
                 Key: post.picture
             }, function (err, data) {
-                res.status(500).json(err);
+                if (err) {
+                    console.log("err:", err)
+                }
             })
 
-            // 5. delete object fro froala
+            // 5. delete object from froala
             post.pictures.forEach((pictureKey, idx) => {
                 s3.deleteObject({
                     Bucket: process.env.AWS_BUCKET_NAME,
                     Key: pictureKey
 
                 }, function (err, data) {
-                    res.status(500).json(err);
+                    if (err) {
+                        console.log("err:", err)
+                    }
+
                 })
 
             })
-            res.status(200).json(`post comments:\n ${post.comments}`);
 
         } catch (err) {
             res.status(500).json(err);
         }
-
+        res.status(200).json("post deleted");
     })
 
 

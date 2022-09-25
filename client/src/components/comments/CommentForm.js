@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
 import { axiosInstance } from "../../config";
 import "./commentForm.css"
 

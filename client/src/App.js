@@ -11,7 +11,6 @@ import Layout from "./components/layout/Layout";
 import { axiosInstance } from "./config";
 
 import { useUserDataContext } from "./context/UserContext";
-import { useUpdateModeContext } from "./context/UpdateModeContext";
 import "./App.css";
 
 require("dotenv").config();
@@ -23,7 +22,6 @@ function App() {
   // 1. user from auth
   const { user, isLoading, logout } = useAuth0();
   const { setUserData } = useUserDataContext();
-  const { updateMode, setUpdateMode } = useUpdateModeContext();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const sub = process.env.REACT_APP_SUB;

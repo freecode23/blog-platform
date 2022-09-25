@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { axiosInstance } from "../../config";
+import React from "react";
 import "./comments.css"
 
 function Comments(props) {
