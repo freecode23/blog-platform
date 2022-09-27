@@ -14,8 +14,7 @@ import "froala-editor/css/plugins/video.min.css";
 
 import { froalaConfig } from './config';
 import FroalaEditor from 'react-froala-wysiwyg';
-// import { passiveSupport } from 'passive-events-support/src/utils'
-// passiveSupport({ debug: true })
+
 import "./froala.css"
 import { useEffect } from 'react';
 
@@ -36,14 +35,13 @@ export default function Froala(props) {
                 />
             </div>
 
-            {/* NOTE2: IFRAME TAGS NOT SHOWING UP HERE (NOT FROALA EDITOR)>>>>>>>>> */}
             <div className="editor-display-container">
                 {editorContent.model !== "" ?
                     <div
                         dangerouslySetInnerHTML={{
                             __html: DOMPurify.sanitize(editorContent, {
                                 FORCE_BODY: true,
-                                ALLOWED_TAGS: ["iframe"],
+                                ALLOWED_TAGS: ["iframe", "img", "br", "p", "span"],
                             }),
                         }}
                     ></div> : "Content will be displayed here..."

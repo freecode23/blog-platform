@@ -12,7 +12,6 @@ export const froalaConfig = {
     imageUploadURL: apiUrl + "upload_froala",
     htmlAllowedEmptyTags: ['textarea', 'a', 'iframe', 'object', 'video', 'style', '.fa', 'p'],
     imageUploadParam: "file",
-    htmlAllowedTags: ['a', 'blockquote', 'br', 'div', 'embed', 'h2', 'h3', 'iframe', 'img', 'li', 'ol', 'p', 'strong', 'ul'],
     fontFamily: {
         'Arial,Helvetica,sans-serif': 'Arial',
         'Georgia,serif': 'Georgia',
@@ -25,21 +24,23 @@ export const froalaConfig = {
     },
     events: {
         'image.uploaded': function (response) {
+            console.log("uploading images config.....>>>>>")
             // parse response and array from string
             const data = JSON.parse(response)
+
+            // get existing images
             const images_arr = JSON.parse(localStorage.getItem("froalaImages"))
             try {
-                // add the image key
+                // append new uploaded image
                 images_arr.push(data.key)
 
             } catch (err) {
                 console.log(err)
             }
             localStorage.setItem("froalaImages", JSON.stringify(images_arr))
-        },
-        'video.inserted': function ($video) {
-            // Do something here.
-            console.log($video);
+
+            const setArr = JSON.parse(localStorage.getItem("froalaImages"))
+            console.log("finished setting local storage>>>>>", setArr)
         }
     },
     toolbarButtons: {

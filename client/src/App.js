@@ -12,16 +12,7 @@ import Layout from "./components/layout/Layout";
 import { axiosInstance } from "./config";
 
 import { useUserDataContext } from "./context/UserContext";
-import { passiveSupport } from 'passive-events-support/src/utils'
-passiveSupport({
-  debug: true,
-  listeners: [
-    {
-      element: 'div#root',
-      event: 'touchend'
-    }
-  ]
-})
+
 require("dotenv").config();
 function App() {
   // set empty array as items for Froala Images

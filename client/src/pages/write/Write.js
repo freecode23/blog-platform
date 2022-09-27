@@ -7,11 +7,11 @@ import Tags from "../../components/tags/tags";
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useSnackbarContext } from "../../context/SnackbarContext";
 
 import "./write.css";
 
 function Write() {
+
   // 1. set the state that will be received by the UI
   // make sure the name is the same as the field name in the model
   // so that req.body works in API
@@ -36,7 +36,6 @@ function Write() {
     // Question: somethine happen here that cause it not to update
     // receive editorData from Froala component
     // then pass it back to update the display
-    console.log("1) handleEditorChange", editorData);
     setEditorContent(editorData);
   }
 
@@ -60,6 +59,8 @@ function Write() {
   // 3. When publish is clicked
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+
 
     // - check if adding froala pictures
     const images_arr = JSON.parse(localStorage.getItem("froalaImages"))

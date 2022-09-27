@@ -9,12 +9,25 @@ import { useUpdateModeContext } from "../../context/UpdateModeContext";
 import "./home.css";
 
 export default function Home() {
+
+  // * Question: local storage empty
+  const [unpublished, setUnpublished] = useState(
+    JSON.parse(localStorage.getItem("froalaImages")) || []
+  );
+
+  useEffect(() => {
+    localStorage.setItem("froalaImages", JSON.stringify(unpublished));
+    console.log("unpublished", unpublished);
+  }, [unpublished]);
+
+
   // 1. create posts fields
   const [posts, setPosts] = useState([]);
 
   // 2. get params for query
   const search = useLocation().search;
   const { updateMode, setUpdateMode } = useUpdateModeContext();
+
 
   // 3. Only do this on mount
   useEffect(() => {

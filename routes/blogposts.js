@@ -139,8 +139,7 @@ router.put("/likes/:id",
 
 
 
-// DELETE
-// Question: cannot send headers after sent to client
+// DELETE post
 router.delete("/:id",
     async (req, res) => {
         try {
@@ -165,6 +164,7 @@ router.delete("/:id",
 
             // 5. delete object from froala
             post.pictures.forEach((pictureKey, idx) => {
+                console.log("picture key", pictureKey)
                 s3.deleteObject({
                     Bucket: process.env.AWS_BUCKET_NAME,
                     Key: pictureKey
@@ -185,6 +185,45 @@ router.delete("/:id",
     })
 
 
+// DELETE froala images that is not submitted
+router.delete("/unpublished",
+    async (req, res) => {
+        try {
+
+            console.log("delete unpublished", req.body)
+
+
+            // // 4. delete big picture from s3
+            // s3.deleteObject({
+            //     Bucket: process.env.AWS_BUCKET_NAME,
+            //     Key: post.picture
+            // }, function (err, data) {
+            //     if (err) {
+            //         console.log("err:", err)
+            //     }
+            // })
+
+            // // 5. delete object from froala
+            // post.pictures.forEach((pictureKey, idx) => {
+            //     console.log("picture key", pictureKey)
+            //     s3.deleteObject({
+            //         Bucket: process.env.AWS_BUCKET_NAME,
+            //         Key: pictureKey
+
+            //     }, function (err, data) {
+            //         if (err) {
+            //             console.log("err:", err)
+            //         }
+
+            //     })
+
+            // })
+
+        } catch (err) {
+            res.status(500).json(err);
+        }
+        res.status(200).json("post deleted");
+    })
 
 
 module.exports = router;
