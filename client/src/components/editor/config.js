@@ -10,7 +10,7 @@ export const froalaConfig = {
     imageUploadMethod: "POST",
     imageAllowedTypes: ['jpeg', 'jpg', 'png'],
     imageUploadURL: apiUrl + "upload_froala",
-    htmlAllowedEmptyTags: ['textarea', 'a', 'iframe', 'object', 'video', 'style', '.fa'],
+    htmlAllowedEmptyTags: ['textarea', 'a', 'iframe', 'object', 'video', 'style', '.fa', 'p'],
     imageUploadParam: "file",
     fontFamily: {
         'Arial,Helvetica,sans-serif': 'Arial',
