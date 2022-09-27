@@ -4,7 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useUpdateModeContext } from "../../context/UpdateModeContext";
-import { useSnackbarContext } from "../../context/SnackbarContext";
 import { axiosInstance } from "../../config";
 import CommentForm from "../../components/comments/CommentForm";
 import Comments from "../../components/comments/Comments";
@@ -244,7 +243,7 @@ function SinglePost() {
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(post.content, {
                 FORCE_BODY: true,
-                ALLOWED_TAGS: ["iframe", "img", "br", "p", "span"],
+                ALLOWED_TAGS: ["iframe", "img", "br", "p", "span", "li", "a"],
               }),
             }}
           ></div>

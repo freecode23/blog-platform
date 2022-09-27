@@ -7,6 +7,7 @@ import "froala-editor/js/plugins.pkgd.min";
 import "froala-editor/js/plugins/font_size.min";
 import "froala-editor/js/plugins/font_family.min";
 import "froala-editor/js/plugins/video.min";
+import "froala-editor/js/plugins/link.min";
 
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
@@ -16,7 +17,6 @@ import { froalaConfig } from './config';
 import FroalaEditor from 'react-froala-wysiwyg';
 
 import "./froala.css"
-import { useEffect } from 'react';
 
 
 export default function Froala(props) {
@@ -41,7 +41,7 @@ export default function Froala(props) {
                         dangerouslySetInnerHTML={{
                             __html: DOMPurify.sanitize(editorContent, {
                                 FORCE_BODY: true,
-                                ALLOWED_TAGS: ["iframe", "img", "br", "p", "span"],
+                                ALLOWED_TAGS: ["iframe", "img", "br", "p", "span", "a"],
                             }),
                         }}
                     ></div> : "Content will be displayed here..."
