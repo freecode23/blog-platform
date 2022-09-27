@@ -32,6 +32,11 @@ function Write() {
 
 
   function handleEditorChange(editorData) {
+
+    // Question: somethine happen here that cause it not to update
+    // receive editorData from Froala component
+    // then pass it back to update the display
+    console.log("1) handleEditorChange", editorData);
     setEditorContent(editorData);
   }
 

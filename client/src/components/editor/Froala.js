@@ -14,12 +14,15 @@ import "froala-editor/css/plugins/video.min.css";
 
 import { froalaConfig } from './config';
 import FroalaEditor from 'react-froala-wysiwyg';
+// import { passiveSupport } from 'passive-events-support/src/utils'
+// passiveSupport({ debug: true })
 import "./froala.css"
+import { useEffect } from 'react';
 
 
 export default function Froala(props) {
     const { editorContent, handleEditorChange, imageUploadToS3 } = props;
-
+    console.log("2) editorContent Froala Comp>>", editorContent)
 
     return (
         <div className="editor-wrapper">
@@ -42,6 +45,6 @@ export default function Froala(props) {
                     }}></div> : "Content will be displayed here..."
                 }
             </div>
-        </div >
+        </div>
     );
 }

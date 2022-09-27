@@ -12,7 +12,17 @@ import SnackBar from "../snackbar/Snackbar";
 import Froala from "../editor/Froala";
 import Tags from "../tags/tags";
 import DOMPurify from "dompurify";
-
+import { passiveSupport } from 'passive-events-support/src/utils'
+passiveSupport({
+  debug: true,
+  listeners: [
+    {
+      element: "div#root",
+      event: 'touchend',
+      prevented: true
+    }
+  ]
+})
 
 
 function SinglePost() {
@@ -100,6 +110,7 @@ function SinglePost() {
   // 6. handler
   // - editor
   function handleEditorChange(editorData) {
+
     setEditorContent(editorData);
   }
 

@@ -10,10 +10,10 @@
 }
 
 
-/* Remove display none on heroku deploy */
+/* Remove display none on development */
 
 .fr-wrapper div:first-of-type {
-    display: none;
+    /* display: none; */
     height: 1000px;
 }
 

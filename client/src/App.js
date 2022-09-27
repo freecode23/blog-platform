@@ -1,3 +1,4 @@
+import "./App.css";
 import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSearchParams } from "react-router-dom";
@@ -11,8 +12,16 @@ import Layout from "./components/layout/Layout";
 import { axiosInstance } from "./config";
 
 import { useUserDataContext } from "./context/UserContext";
-import "./App.css";
-
+import { passiveSupport } from 'passive-events-support/src/utils'
+passiveSupport({
+  debug: true,
+  listeners: [
+    {
+      element: 'div#root',
+      event: 'touchend'
+    }
+  ]
+})
 require("dotenv").config();
 function App() {
   // set empty array as items for Froala Images
@@ -44,6 +53,8 @@ function App() {
         logout({ returnTo: window.location.origin });
       }
     };
+
+
     fetchErrorUrl();
   }, []);
 

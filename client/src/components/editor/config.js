@@ -6,10 +6,11 @@ export const froalaConfig = {
     imageUpload: true,
     fontSizeSelection: true,
     fontFamilySelection: true,
+    videoResponsive: true,
     imageUploadMethod: "POST",
     imageAllowedTypes: ['jpeg', 'jpg', 'png'],
     imageUploadURL: apiUrl + "upload_froala",
-    // the full url will be this: 'https://hartono-s.herokuapp.com/api/upload_froala',
+    htmlAllowedEmptyTags: ['textarea', 'a', 'iframe', 'object', 'video', 'style', '.fa'],
     imageUploadParam: "file",
     fontFamily: {
         'Arial,Helvetica,sans-serif': 'Arial',
@@ -26,7 +27,6 @@ export const froalaConfig = {
             // parse response and array from string
             const data = JSON.parse(response)
             const images_arr = JSON.parse(localStorage.getItem("froalaImages"))
-
             try {
                 // add the image key
                 images_arr.push(data.key)
@@ -48,6 +48,7 @@ export const froalaConfig = {
                 "strikeThrough",
                 "textColor",
                 "backgroundColor",
+                // "insertVideo"
                 // "subscript",
                 // "superscript",
                 // "inlineClass",
