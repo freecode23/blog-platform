@@ -22,29 +22,35 @@ import { useEffect } from 'react';
 
 export default function Froala(props) {
     const { editorContent, handleEditorChange, imageUploadToS3 } = props;
+    // >>> NOTE1: IFRAME TAGS SHOWS UP HERE>>>>>>>>>
     console.log("2) editorContent Froala Comp>>", editorContent)
-
     return (
         <div className="editor-wrapper">
             <div className="editor-container">
                 <FroalaEditor
                     model={editorContent.model}
                     tag="textarea"
-                    onModelChange={handleEditorChange} // will get data and pass to the function
+                    onModelChange={handleEditorChange}
                     config={froalaConfig}
                     imageUploadToS3={imageUploadToS3}
                 />
             </div>
 
-
-            {/* Show content if its not an empty string. model is the content */}
+            {/* NOTE2: IFRAME TAGS NOT SHOWING UP HERE (NOT FROALA EDITOR)>>>>>>>>> */}
             <div className="editor-display-container">
                 {editorContent.model !== "" ?
-                    < div dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(editorContent, { FORCE_BODY: true })
-                    }}></div> : "Content will be displayed here..."
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(editorContent, {
+                                FORCE_BODY: true,
+                                ALLOWED_TAGS: ["iframe"],
+                            }),
+                        }}
+                    ></div> : "Content will be displayed here..."
                 }
             </div>
         </div>
     );
 }
+
+

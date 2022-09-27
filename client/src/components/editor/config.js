@@ -12,6 +12,7 @@ export const froalaConfig = {
     imageUploadURL: apiUrl + "upload_froala",
     htmlAllowedEmptyTags: ['textarea', 'a', 'iframe', 'object', 'video', 'style', '.fa', 'p'],
     imageUploadParam: "file",
+    htmlAllowedTags: ['a', 'blockquote', 'br', 'div', 'embed', 'h2', 'h3', 'iframe', 'img', 'li', 'ol', 'p', 'strong', 'ul'],
     fontFamily: {
         'Arial,Helvetica,sans-serif': 'Arial',
         'Georgia,serif': 'Georgia',
@@ -35,6 +36,10 @@ export const froalaConfig = {
                 console.log(err)
             }
             localStorage.setItem("froalaImages", JSON.stringify(images_arr))
+        },
+        'video.inserted': function ($video) {
+            // Do something here.
+            console.log($video);
         }
     },
     toolbarButtons: {

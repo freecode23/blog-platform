@@ -254,10 +254,13 @@ function SinglePost() {
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(post.content, {
                 FORCE_BODY: true,
+                ALLOWED_TAGS: ["iframe"],
               }),
             }}
           ></div>
         )}
+
+
 
         {updateMode && (
           <button
