@@ -131,7 +131,6 @@ router.delete("/unpublished", async (req, res) => {
 
         // 5. delete object from froala
         pictures.forEach((pictureKey, idx) => {
-            console.log("picture key", pictureKey);
             s3.deleteObject(
                 {
                     Bucket: process.env.AWS_BUCKET_NAME,

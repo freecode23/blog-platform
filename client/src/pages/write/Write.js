@@ -127,13 +127,26 @@ function Write() {
     try {
       const res = await axiosInstance.post("/api/blogposts", newPost);
       res.data && navigate("/blogposts/" + res.data._id);
+
+      // - set error to false
       setShowSnackbar(false);
       setSubmitErrorMsg("");
+
+
+
+
     } catch (err) {
       setSubmitErrorMsg(err.response.data.message);
       setShowSnackbar(true);
     }
-    setIsSubmitted(true);
+
+
+    console.log("setIsSubmitted(true)")
+    setIsSubmitted(true)
+
+    // - Question: this is false. so it will delete froala images after its published
+    console.log("submit status", isSubmitted)
+
   };
 
 
