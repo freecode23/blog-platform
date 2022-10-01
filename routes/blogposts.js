@@ -192,17 +192,6 @@ router.delete("/unpublished",
 
             console.log("delete unpublished", req.body)
 
-
-            // // 4. delete big picture from s3
-            // s3.deleteObject({
-            //     Bucket: process.env.AWS_BUCKET_NAME,
-            //     Key: post.picture
-            // }, function (err, data) {
-            //     if (err) {
-            //         console.log("err:", err)
-            //     }
-            // })
-
             // // 5. delete object from froala
             // post.pictures.forEach((pictureKey, idx) => {
             //     console.log("picture key", pictureKey)
