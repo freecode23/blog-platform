@@ -8,6 +8,8 @@ import Tags from "../../components/tags/tags";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import useUnmount from "../../hooks/useUnmount";
+
 import "./write.css";
 
 function Write() {
@@ -15,7 +17,7 @@ function Write() {
   // make sure the name is the same as the field name in the model
   // so that req.body works in API
   const navigate = useNavigate();
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submittedId, setSubmittedId] = useState(null);
   const [title, setTitle] = useState("");
   const [categories, setCategoryNames] = useState([]);
   const [file, setFile] = useState(null); // the actual picture file
@@ -29,7 +31,6 @@ function Write() {
     localStorage.removeItem("snackbar");
     setShowSnackbar(false);
   }
-
 
   // 2. Init tags using existing categories
   useEffect(() => {
@@ -47,7 +48,6 @@ function Write() {
 
   // 3. Init signature and set so we can access s3
   React.useEffect(() => {
-
     const getSignature = async () => {
       const res = await axiosInstance.get("/api/get_signature");
       setSignature(res.data);
@@ -58,29 +58,32 @@ function Write() {
   }, []);
 
   // 4. Remove unpublihsed froala images on unmount
+  useUnmount(() => {
+    if (!submittedId) {
+      // A. create the delete function
+      const deleteUnpublishedImagesS3 = async (images) => {
+        const res = await axiosInstance.delete("/api/blogposts/unpublished", {
+          data: { images: images },
+        });
+      };
+
+      // B. grab the images from local storage
+      const unpublishedImages = JSON.parse(
+        localStorage.getItem("froalaImages")
+      );
+
+      // C. delete from s3 and from localStorage
+      deleteUnpublishedImagesS3(unpublishedImages);
+      localStorage.setItem("froalaImages", JSON.stringify([]));
+    }
+  });
+
   React.useEffect(() => {
-    return () => {
-      if (!isSubmitted) {
-
-        // A. create the delete function
-        const deleteUnpublishedImagesS3 = async (images) => {
-          const res = await axiosInstance.delete("/api/blogposts/unpublished", {
-            data: { images: images }
-          }
-          );
-        };
-
-        // B. grab the images from local storage
-        const unpublishedImages = JSON.parse(
-          localStorage.getItem("froalaImages")
-        );
-
-        // C. delete from s3 and from localStorage
-        deleteUnpublishedImagesS3(unpublishedImages);
-        localStorage.setItem("froalaImages", JSON.stringify([]))
-      }
-    };
-  }, []);
+    if (submittedId) {
+      console.log("submittedId", submittedId);
+      navigate("/blogposts/" + submittedId);
+    }
+  }, [submittedId]);
 
   // 5. Handlers:
   function handleEditorChange(editorData) {
@@ -126,29 +129,17 @@ function Write() {
     // - create the blogpost in Mongo
     try {
       const res = await axiosInstance.post("/api/blogposts", newPost);
-      res.data && navigate("/blogposts/" + res.data._id);
 
-      // - set error to false
-      setShowSnackbar(false);
-      setSubmitErrorMsg("");
-
-
-
-
+      if (res.data) {
+        setSubmittedId(res.data._id);
+        setShowSnackbar(false);
+        setSubmitErrorMsg("");
+      }
     } catch (err) {
       setSubmitErrorMsg(err.response.data.message);
       setShowSnackbar(true);
     }
-
-
-    console.log("setIsSubmitted(true)")
-    setIsSubmitted(true)
-
-    // - Question: this is false. so it will delete froala images after its published
-    console.log("submit status", isSubmitted)
-
   };
-
 
   return (
     <div className="write">
