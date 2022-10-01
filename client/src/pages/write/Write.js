@@ -30,39 +30,23 @@ function Write() {
     setShowSnackbar(false);
   }
 
-  React.useEffect(() => {
-    return () => {
-      if (!isSubmitted) {
-        const deleteUnpublishedImages = async (images) => {
-          const res = await axiosInstance.delete(
-            "/api/blogposts/unpublished",
-            images
-          );
-          console.log(res.data);
-        };
-        const unpublishedImages = JSON.parse(
-          localStorage.getItem("froalaImages")
-        );
-        console.log("unpublishedImages in cleanup effect", unpublishedImages);
-        deleteUnpublishedImages(unpublishedImages);
-      }
+
+  // 2. Init tags using existing categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const res = await axiosInstance.get("/api/categories");
+
+      setCategoryNames(() => {
+        return res.data.map((category) => {
+          return category.name;
+        });
+      });
     };
+    fetchCategories();
   }, []);
 
-  function handleEditorChange(editorData) {
-    // Question: somethine happen here that cause it not to update
-    // receive editorData from Froala component
-    // then pass it back to update the display
-    setEditorContent(editorData);
-  }
-
-  // 2. get signature and set so we can access s3
+  // 3. Init signature and set so we can access s3
   React.useEffect(() => {
-    // const getSignature = async () => {
-    //   fetch("/api/get_signature")
-    //     .then((r) => r.json())
-    //     .then((data) => setSignature(data));
-    // };
 
     const getSignature = async () => {
       const res = await axiosInstance.get("/api/get_signature");
@@ -73,7 +57,36 @@ function Write() {
     getSignature();
   }, []);
 
-  // 3. When publish is clicked
+  // 4. Remove unpublihsed froala images on unmount
+  React.useEffect(() => {
+    return () => {
+      if (!isSubmitted) {
+
+        // A. create the delete function
+        const deleteUnpublishedImagesS3 = async (images) => {
+          const res = await axiosInstance.delete("/api/blogposts/unpublished", {
+            data: { images: images }
+          }
+          );
+        };
+
+        // B. grab the images from local storage
+        const unpublishedImages = JSON.parse(
+          localStorage.getItem("froalaImages")
+        );
+
+        // C. delete from s3 and from localStorage
+        deleteUnpublishedImagesS3(unpublishedImages);
+        localStorage.setItem("froalaImages", JSON.stringify([]))
+      }
+    };
+  }, []);
+
+  // 5. Handlers:
+  function handleEditorChange(editorData) {
+    setEditorContent(editorData);
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -117,28 +130,12 @@ function Write() {
       setShowSnackbar(false);
       setSubmitErrorMsg("");
     } catch (err) {
-      console.log("err.data", err);
       setSubmitErrorMsg(err.response.data.message);
-
       setShowSnackbar(true);
     }
     setIsSubmitted(true);
   };
 
-  // 4. create initial tags using existing categories
-  // - Init categories
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const res = await axiosInstance.get("/api/categories");
-
-      setCategoryNames(() => {
-        return res.data.map((category) => {
-          return category.name;
-        });
-      });
-    };
-    fetchCategories();
-  }, []);
 
   return (
     <div className="write">

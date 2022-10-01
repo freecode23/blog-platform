@@ -22,7 +22,7 @@ import "./froala.css"
 export default function Froala(props) {
     const { editorContent, handleEditorChange, imageUploadToS3 } = props;
     // >>> NOTE1: IFRAME TAGS SHOWS UP HERE>>>>>>>>>
-    console.log("2) editorContent Froala Comp>>", editorContent)
+    // console.log("2) editorContent Froala Comp>>", editorContent)
     return (
         <div className="editor-wrapper">
             <div className="editor-container">

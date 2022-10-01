@@ -122,8 +122,39 @@ router.put("/likes/:id", async (req, res) => {
     }
 });
 
+// DELETE froala images that is not submitted
+router.delete("/unpublished", async (req, res) => {
+    console.log("delete unpublished")
+    try {
+        console.log("req.body", req.body.images);
+        const pictures = req.body.images;
+
+        // 5. delete object from froala
+        pictures.forEach((pictureKey, idx) => {
+            console.log("picture key", pictureKey);
+            s3.deleteObject(
+                {
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Key: pictureKey,
+                },
+                function (err, data) {
+                    if (err) {
+                        console.log("err:", err);
+                    }
+                }
+            );
+        });
+    } catch (err) {
+        console.log("err delete froala images:", err);
+        res.status(500).json(err);
+    }
+    res.status(200).json("unpublished deleted finished");
+});
+
+
 // DELETE post
 router.delete("/:id", async (req, res) => {
+    console.log("delete post")
     try {
         // 1. find the post to be deleted
         const post = await Post.findById(req.params.id);
@@ -144,36 +175,31 @@ router.delete("/:id", async (req, res) => {
                 if (err) {
                     console.log("err:", err);
                 }
-                res.status(200).json("post deleted");
-            })
+            }
+        );
+
+        // 5. delete object from froala
+        post.pictures.forEach((pictureKey, idx) => {
+            console.log("picture key", pictureKey);
+            s3.deleteObject(
+                {
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Key: pictureKey,
+                },
+                function (err, data) {
+                    if (err) {
+                        console.log("err delete post:", err);
+                    }
+                }
+            );
+        });
+    } catch (err) {
+        console.log("err deleteing post", err)
+        // res.status(500).json(err);
     }
-}
-// DELETE froala images that is not submitted
-router.delete("/unpublished", async (req, res) => {
-        try {
-            console.log("delete unpublished", req.body);
+    res.status(200).json("post deleted");
+});
 
-            const { pictures } = req.body;
 
-            // 5. delete object from froala
-            // pictures.forEach((pictureKey, idx) => {
-            //   console.log("picture key", pictureKey);
-            //   s3.deleteObject(
-            //     {
-            //       Bucket: process.env.AWS_BUCKET_NAME,
-            //       Key: pictureKey,
-            //     },
-            //     function (err, data) {
-            //       if (err) {
-            //         console.log("err:", err);
-            //       }
-            //     }
-            //   );
-            // });
-        } catch (err) {
-            res.status(500).json(err);
-        }
-        res.status(200).json("post deleted");
-    });
 
 module.exports = router;

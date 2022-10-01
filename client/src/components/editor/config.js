@@ -32,18 +32,26 @@ export const froalaConfig = {
     "Open Sans": "Open Sans",
   },
   events: {
-    "image.uploaded": function(response) {
-      // parse response and array from string
-      const data = JSON.parse(response);
+    "image.uploaded": function (response) {
+      // 0. parse response and array from string
+      const image = JSON.parse(response);
 
-      // get existing images
+      // 1. set to empty array if it hasn't been set
+      if (localStorage.getItem("froalaImages") == null) {
+        localStorage.setItem("froalaImages", JSON.stringify([]))
+      }
+
+      // 2. get existing froalaImages from local
       const images_arr = JSON.parse(localStorage.getItem("froalaImages"));
+
+      // 3. append new uploaded image to this arr
       try {
-        // append new uploaded image
-        images_arr.push(data.key);
+        images_arr.push(image.key);
       } catch (err) {
         console.log(err);
       }
+
+      // 4. update localStorage with new image
       localStorage.setItem("froalaImages", JSON.stringify(images_arr));
     },
   },
