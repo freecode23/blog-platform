@@ -10,15 +10,6 @@ import "./home.css";
 
 export default function Home() {
 
-  // * Question: local storage empty
-  const [unpublished, setUnpublished] = useState(
-    JSON.parse(localStorage.getItem("froalaImages")) || []
-  );
-
-  useEffect(() => {
-    localStorage.setItem("froalaImages", JSON.stringify(unpublished));
-    console.log("unpublished", unpublished);
-  }, [unpublished]);
 
 
   // 1. create posts fields

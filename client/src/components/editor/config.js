@@ -27,6 +27,7 @@ export const froalaConfig = {
             console.log("uploading images config.....>>>>>")
             // parse response and array from string
             const data = JSON.parse(response)
+            console.log("data res", data);
 
             // get existing images
             const images_arr = JSON.parse(localStorage.getItem("froalaImages"))
