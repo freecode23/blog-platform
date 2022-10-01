@@ -15,10 +15,6 @@ import { useUserDataContext } from "./context/UserContext";
 
 require("dotenv").config();
 function App() {
-  // set empty array as items for Froala Images
-  const froalaImages = []
-  localStorage.setItem("froalaImages", JSON.stringify(froalaImages))
-
   // 1. user from auth
   const { user, isLoading, logout } = useAuth0();
   const { setUserData } = useUserDataContext();
@@ -44,7 +40,6 @@ function App() {
         logout({ returnTo: window.location.origin });
       }
     };
-
 
     fetchErrorUrl();
   }, []);
