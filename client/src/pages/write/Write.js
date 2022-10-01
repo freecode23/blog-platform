@@ -11,11 +11,11 @@ import { useNavigate } from "react-router-dom";
 import "./write.css";
 
 function Write() {
-
   // 1. set the state that will be received by the UI
   // make sure the name is the same as the field name in the model
   // so that req.body works in API
   const navigate = useNavigate();
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [title, setTitle] = useState("");
   const [categories, setCategoryNames] = useState([]);
   const [file, setFile] = useState(null); // the actual picture file
@@ -26,13 +26,30 @@ function Write() {
   const [submitErrorMsg, setSubmitErrorMsg] = React.useState("");
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   function closeSnackbarHandler() {
-    localStorage.removeItem('snackbar');
+    localStorage.removeItem("snackbar");
     setShowSnackbar(false);
   }
 
+  React.useEffect(() => {
+    return () => {
+      if (!isSubmitted) {
+        const deleteUnpublishedImages = async (images) => {
+          const res = await axiosInstance.delete(
+            "/api/blogposts/unpublished",
+            images
+          );
+          console.log(res.data);
+        };
+        const unpublishedImages = JSON.parse(
+          localStorage.getItem("froalaImages")
+        );
+        console.log("unpublishedImages in cleanup effect", unpublishedImages);
+        deleteUnpublishedImages(unpublishedImages);
+      }
+    };
+  }, []);
 
   function handleEditorChange(editorData) {
-
     // Question: somethine happen here that cause it not to update
     // receive editorData from Froala component
     // then pass it back to update the display
@@ -48,8 +65,8 @@ function Write() {
     // };
 
     const getSignature = async () => {
-      const res = await axiosInstance.get("/api/get_signature")
-      setSignature(res.data)
+      const res = await axiosInstance.get("/api/get_signature");
+      setSignature(res.data);
     };
     setShowSnackbar(false);
     setSubmitErrorMsg("");
@@ -60,10 +77,8 @@ function Write() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-
-
     // - check if adding froala pictures
-    const images_arr = JSON.parse(localStorage.getItem("froalaImages"))
+    const images_arr = JSON.parse(localStorage.getItem("froalaImages"));
 
     // - create newpost with the editor state
     const newPost = {
@@ -71,8 +86,7 @@ function Write() {
       content: editorContent,
       categories,
       pictures: images_arr,
-      likes: 0
-
+      likes: 0,
     };
 
     // - add big photo if file exists - will be set by the JSX
@@ -102,13 +116,13 @@ function Write() {
       res.data && navigate("/blogposts/" + res.data._id);
       setShowSnackbar(false);
       setSubmitErrorMsg("");
-
     } catch (err) {
-      console.log("err.data", err)
+      console.log("err.data", err);
       setSubmitErrorMsg(err.response.data.message);
 
       setShowSnackbar(true);
     }
+    setIsSubmitted(true);
   };
 
   // 4. create initial tags using existing categories
