@@ -57,9 +57,19 @@ function Write() {
     getSignature();
   }, []);
 
-  // 4. Remove unpublihsed froala images on unmount
+
+  // 4. Navigate to published id
+  React.useEffect(() => {
+    if (submittedId) {
+      console.log("submittedId", submittedId);
+      navigate("/blogposts/" + submittedId);
+    }
+  }, [submittedId]);
+
+  // 5. Remove unpublihsed froala images on unmount
   useUnmount(() => {
     if (!submittedId) {
+      console.log("delete unpublised")
       // A. create the delete function
       const deleteUnpublishedImagesS3 = async (images) => {
         const res = await axiosInstance.delete("/api/blogposts/unpublished", {
@@ -78,14 +88,8 @@ function Write() {
     }
   });
 
-  React.useEffect(() => {
-    if (submittedId) {
-      console.log("submittedId", submittedId);
-      navigate("/blogposts/" + submittedId);
-    }
-  }, [submittedId]);
 
-  // 5. Handlers:
+  // 6. Handlers:
   function handleEditorChange(editorData) {
     setEditorContent(editorData);
   }
