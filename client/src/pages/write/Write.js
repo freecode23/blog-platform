@@ -138,6 +138,7 @@ function Write() {
         setSubmittedId(res.data._id);
         setShowSnackbar(false);
         setSubmitErrorMsg("");
+        localStorage.setItem("froalaImages", JSON.stringify([]))
       }
     } catch (err) {
       setSubmitErrorMsg(err.response.data.message);

@@ -11,13 +11,14 @@ import SnackBar from "../snackbar/Snackbar";
 import Froala from "../editor/Froala";
 import Tags from "../tags/tags";
 import DOMPurify from "dompurify";
-
+import useUnmount from "../../hooks/useUnmount";
 
 
 function SinglePost() {
   // 1. Get the picture from local folder
   const awsS3Path = "https://myblogs3bucket.s3.us-east-2.amazonaws.com/";
   // 2. States and hooks
+  const [submittedId, setSubmittedId] = useState(null);
   const { user, isAuthenticated } = useAuth0();
   const { updateMode, setUpdateMode } = useUpdateModeContext();
   const [title, setTitle] = useState("");
@@ -45,7 +46,7 @@ function SinglePost() {
     comments: []
   });
 
-  // 4. get the id from the param so we can grab the data
+  // 4. get the id from the param of this blogpost page so we can grab the data
   const param = useParams();
   const navigate = useNavigate();
 
@@ -82,7 +83,6 @@ function SinglePost() {
     fetchPosts();
   }, [param.postId]);
 
-
   // fetch Comments 
   useEffect(() => {
     const fetchComments = async () => {
@@ -95,6 +95,35 @@ function SinglePost() {
 
   }, []);
 
+  // Navigate to /
+  React.useEffect(() => {
+    if (submittedId) {
+      console.log("submittedId", submittedId);
+      navigate("/");
+    }
+  }, [submittedId]);
+
+  // 5. Remove unpublihsed froala images on unmount
+  useUnmount(() => {
+    if (!submittedId) {
+      console.log("delete unpublised")
+      // A. create the delete function
+      const deleteUnpublishedImagesS3 = async (images) => {
+        const res = await axiosInstance.delete("/api/blogposts/unpublished", {
+          data: { images: images },
+        });
+      };
+
+      // B. grab the images from local storage
+      const unpublishedImages = JSON.parse(
+        localStorage.getItem("froalaImages")
+      );
+
+      // C. delete from s3 and from localStorage
+      deleteUnpublishedImagesS3(unpublishedImages);
+      localStorage.setItem("froalaImages", JSON.stringify([]));
+    }
+  });
 
   // 6. handler
   // - editor
@@ -123,11 +152,15 @@ function SinglePost() {
         content: editorContent,
       });
 
-      setUpdateMode(false);
-      setShowSnackbar(false);
-      setSubmitErrorMsg("");
 
-      res.data && navigate("/");
+      if (res.data) {
+        setUpdateMode(false);
+        setShowSnackbar(false);
+        setSubmitErrorMsg("");
+        setSubmittedId(res.data._id);
+        localStorage.setItem("froalaImages", JSON.stringify([]))
+      }
+      // res.data && navigate("/");
     } catch (err) {
       setSubmitErrorMsg(err.response.data.message);
       setShowSnackbar(true);
