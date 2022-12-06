@@ -19,7 +19,7 @@ function Write() {
   const navigate = useNavigate();
   const [submittedId, setSubmittedId] = useState(null);
   const [title, setTitle] = useState("");
-  const [github, setGithub] = useState("");
+  const [github, setGithub] = useState("https://github.com/freecode23/");
   const [categories, setCategoryNames] = useState([]);
   const [file, setFile] = useState(null); // the actual picture file
   const [signature, setSignature] = React.useState();
@@ -100,7 +100,7 @@ function Write() {
 
     // - check if adding froala pictures
     const images_arr = JSON.parse(localStorage.getItem("froalaImages"));
-
+    console.log("submitting github", github);
     // - create newpost with the editor state
     const newPost = {
       title,
@@ -209,7 +209,7 @@ function Write() {
           <div className="writeInput">
             <input
               className="writeInputTitle"
-              placeholder="https://github.com/freecode23/"
+              value={github}
               type="text"
               autoFocus={true}
               onChange={(e) => {

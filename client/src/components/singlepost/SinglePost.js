@@ -12,6 +12,7 @@ import Froala from "../editor/Froala";
 import Tags from "../tags/tags";
 import DOMPurify from "dompurify";
 import useUnmount from "../../hooks/useUnmount";
+import { Discovery } from "aws-sdk";
 
 
 function SinglePost() {
@@ -72,9 +73,12 @@ function SinglePost() {
       // "localhost::4000/api/blogposts/ + "blogposts /:postId"
       const res = await axiosInstance.get("/api/blogposts/" + param.postId);
 
-      console.log("res.data", res.data)
       setPost(res.data);
       setTitle(res.data.title);
+      if (res.data.github) {
+        console.log("res datagithub=", res.data.github);
+        setGithub(res.data.github);
+      }
       setCategoryNames(res.data.categories);
       setLikes(res.data.likes)
 
@@ -101,7 +105,7 @@ function SinglePost() {
   // Navigate to /
   React.useEffect(() => {
     if (submittedId) {
-      console.log("submittedId", submittedId);
+      // console.log("submittedId", submittedId);
       navigate("/");
     }
   }, [submittedId]);
@@ -188,6 +192,17 @@ function SinglePost() {
     );
   });
 
+  // 8. github jsx
+  const githubJSX = () => {
+    if (github !== "") {
+      return <a className="social link" href={github}>
+        <i className="singlePostSocialIcon fa-brands fa-github"></i>
+      </a>
+    } else {
+      return <div></div>
+    }
+  }
+
   return (
     <div className="singlePost">
       {showSnackbar && submitErrorMsg && (
@@ -230,10 +245,45 @@ function SinglePost() {
                 autoFocus
               />
             </div>
+            <label>Github repo</label>
+            <div className="singlePostInput">
+              <input
+                className="singlePostInputTitle"
+                type="text"
+                value={github}
+                onChange={(e) => setGithub(e.target.value)}
+                autoFocus
+              />
+            </div>
           </div>
         ) : (
-          <h1 className="singlePostTitle">{post.title}</h1>
+          <div>
+            <h1 className="singlePostTitle">{post.title}
+
+            </h1>
+          </div>
+
+
         )}
+
+        {/* Github */}
+        {/* {
+          updateMode ? (
+            <div className="singlePostFormItem">
+              <label>Github repo</label>
+              <div className="singlePostInput">
+                <input
+                  className="singlePostInputTitle"
+                  type="text"
+                  value={github}
+                  onChange={(e) => setGithub(e.target.value)}
+                  autoFocus
+                />
+              </div>
+            </div>
+          ) : (
+            <div> {githubJSX()}</div>)
+        } */}
 
         {/* Tags */}
         {updateMode ? (
@@ -247,7 +297,7 @@ function SinglePost() {
             </div>
           </div>
         ) : (
-          <div className="singlePostCatWrapper">{catJSX}</div>
+          <div className="singlePostCatWrapper">{catJSX} {githubJSX()}</div>
         )}
 
         {/* Image */}
@@ -310,19 +360,20 @@ function SinglePost() {
       </div>
 
       {/* Comments */}
-      {!updateMode && (
-        <div className="singlePostCommentWrapper">
-          <div className="singlePostComments">
-            <Comments comments={comments} />
+      {
+        !updateMode && (
+          <div className="singlePostCommentWrapper">
+            <div className="singlePostComments">
+              <Comments comments={comments} />
+            </div>
+            <div className="singlePostCommentForm">
+              <CommentForm postId={param.postId} setComments={setComments} />
+            </div>
           </div>
-          <div className="singlePostCommentForm">
-            <CommentForm postId={param.postId} setComments={setComments} />
-          </div>
-        </div>
-      )
+        )
 
       }
-    </div>
+    </div >
   );
 }
 

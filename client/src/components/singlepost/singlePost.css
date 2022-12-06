@@ -8,10 +8,27 @@
         text-align: left;
     }
     
+    .singlePostSocialIcon {
+        font-size: 50px;
+        cursor: pointer;
+        /* margin-top: 10px; */
+        margin-left: 20px;
+    }
+    
+    .singlePostSocialIcon:hover {
+        color: #8ffff3;
+        border-color: #8ffff3;
+    }
+    
     .singlePostMenuTitle {
         font-family: "Space Grotesk";
         font-weight: 700;
         margin-bottom: 20px;
+    }
+    
+    .singlePostInlineTitle {
+        display: flex;
+        align-items: center;
     }
     
     .singlePostForm {
@@ -69,7 +86,9 @@
     }
     
     .singlePostCatWrapper {
-        margin: 20px 0 10px 0;
+        display: flex;
+        padding: 20px 0px 50px 0px;
+        align-items: center;
     }
     
     .singlePostImg {
@@ -78,6 +97,7 @@
     }
     
     .singlePostTitle {
+        max-width: 80%;
         color: #292929;
         font-size: 40px;
         font-family: "Space Grotesk";
