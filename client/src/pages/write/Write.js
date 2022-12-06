@@ -19,6 +19,7 @@ function Write() {
   const navigate = useNavigate();
   const [submittedId, setSubmittedId] = useState(null);
   const [title, setTitle] = useState("");
+  const [github, setGithub] = useState("");
   const [categories, setCategoryNames] = useState([]);
   const [file, setFile] = useState(null); // the actual picture file
   const [signature, setSignature] = React.useState();
@@ -69,7 +70,7 @@ function Write() {
   // 5. Remove unpublihsed froala images on unmount
   useUnmount(() => {
     if (!submittedId) {
-      console.log("delete unpublised")
+      // console.log("delete unpublised")
       // A. create the delete function
       const deleteUnpublishedImagesS3 = async (images) => {
         const res = await axiosInstance.delete("/api/blogposts/unpublished", {
@@ -103,6 +104,7 @@ function Write() {
     // - create newpost with the editor state
     const newPost = {
       title,
+      github,
       content: editorContent,
       categories,
       pictures: images_arr,
@@ -198,6 +200,22 @@ function Write() {
           <label>Tags</label>
           <div className="writeInput">
             <Tags categories={categories} setCategoryNames={setCategoryNames} />
+          </div>
+        </div>
+
+        {/* Github */}
+        <div className="writeFormItem">
+          <label>Github repo</label>
+          <div className="writeInput">
+            <input
+              className="writeInputTitle"
+              placeholder="https://github.com/freecode23/"
+              type="text"
+              autoFocus={true}
+              onChange={(e) => {
+                setGithub(e.target.value);
+              }}
+            />
           </div>
         </div>
 

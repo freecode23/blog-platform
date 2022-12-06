@@ -22,6 +22,7 @@ function SinglePost() {
   const { user, isAuthenticated } = useAuth0();
   const { updateMode, setUpdateMode } = useUpdateModeContext();
   const [title, setTitle] = useState("");
+  const [github, setGithub] = useState("");
   const [categories, setCategoryNames] = useState([]);
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState(0);
@@ -40,6 +41,7 @@ function SinglePost() {
   // 3. create updated Post
   const [post, setPost] = useState({
     title: "",
+    github: "",
     picture: "",
     content: "",
     categories: [],
@@ -70,6 +72,7 @@ function SinglePost() {
       // "localhost::4000/api/blogposts/ + "blogposts /:postId"
       const res = await axiosInstance.get("/api/blogposts/" + param.postId);
 
+      console.log("res.data", res.data)
       setPost(res.data);
       setTitle(res.data.title);
       setCategoryNames(res.data.categories);
@@ -106,7 +109,6 @@ function SinglePost() {
   // 5. Remove unpublihsed froala images on unmount
   useUnmount(() => {
     if (!submittedId) {
-      console.log("delete unpublised")
       // A. create the delete function
       const deleteUnpublishedImagesS3 = async (images) => {
         const res = await axiosInstance.delete("/api/blogposts/unpublished", {

@@ -23,6 +23,10 @@ const PostSchema = new mongoose.Schema({
         type: Array,
         required: false,
     },
+    github: {
+        type: String,
+        required: false,
+    },
     categories: {
         type: Array,
         required: false
