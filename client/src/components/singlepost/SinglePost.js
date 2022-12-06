@@ -219,11 +219,11 @@ function SinglePost() {
       {isAuthenticated && (
         <div className="singlePostIcons">
           <i
-            className="singlePostIcon far fa-edit"
+            className="singlePostIcon fas fa-edit"
             onClick={() => setUpdateMode(true)}
           ></i>
           <i
-            className="singlePostIcon far fa-trash-alt"
+            className="singlePostIcon fa-solid fa-trash"
             onClick={handleDelete}
           ></i>
         </div>

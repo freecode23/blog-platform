@@ -70,10 +70,10 @@
     }
     
     .singlePostIcon:last-child {
-        color: red;
+        color: rgb(222, 6, 6);
     }
     
-    .singlePostInputTitle {
+    s .singlePostInputTitle {
         font-family: "Space Grotesk";
         font-size: 20px;
         border: none;
