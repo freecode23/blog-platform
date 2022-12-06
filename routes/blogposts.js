@@ -126,7 +126,7 @@ router.put("/likes/:id", async (req, res) => {
 router.delete("/unpublished", async (req, res) => {
     // console.log("delete unpublished>>")
     try {
-        console.log("req.body", req.body.images);
+        // console.log("req.body", req.body.images);
         const pictures = req.body.images;
 
         // 5. delete object from froala
@@ -153,7 +153,7 @@ router.delete("/unpublished", async (req, res) => {
 
 // DELETE post
 router.delete("/:id", async (req, res) => {
-    console.log("delete post>>")
+    // console.log("delete post>>")
     try {
         // 1. find the post to be deleted
         const post = await Post.findById(req.params.id);
@@ -179,7 +179,7 @@ router.delete("/:id", async (req, res) => {
 
         // 5. delete object from froala
         post.pictures.forEach((pictureKey, idx) => {
-            console.log("picture key", pictureKey);
+            // console.log("picture key", pictureKey);
             s3.deleteObject(
                 {
                     Bucket: process.env.AWS_BUCKET_NAME,

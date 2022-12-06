@@ -76,7 +76,6 @@ function SinglePost() {
       setPost(res.data);
       setTitle(res.data.title);
       if (res.data.github) {
-        console.log("res datagithub=", res.data.github);
         setGithub(res.data.github);
       }
       setCategoryNames(res.data.categories);

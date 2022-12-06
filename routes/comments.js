@@ -45,7 +45,7 @@ router.post("/:id", async (req, res) => {
 // get all comments
 router.get("/",
     async (req, res) => {
-        console.log("hitting comments api")
+        // console.log("hitting comments api")
         try {
             const comments = await Comment.find();
             res.status(200).json(comments);

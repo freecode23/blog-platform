@@ -100,7 +100,6 @@ function Write() {
 
     // - check if adding froala pictures
     const images_arr = JSON.parse(localStorage.getItem("froalaImages"));
-    console.log("submitting github", github);
     // - create newpost with the editor state
     const newPost = {
       title,
