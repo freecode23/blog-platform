@@ -10,10 +10,8 @@
         "multer-s3": "^2.0.1",
         "passive-events-support": "^1.0.33",
         "path": "^0.12.7",
-        "react-confetti": "^6.1.0",
         "react-froala-wysiwyg": "^4.0.13",
-        "react-mde": "^11.5.0",
-        "wysiwyg-editor-node-sdk": "^4.0.12"
+        "react-mde": "^11.5.0"
     },
     "name": "api",
     "version": "1.0.0",
