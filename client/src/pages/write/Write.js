@@ -56,7 +56,7 @@ function Write() {
     setShowSnackbar(false);
     setSubmitErrorMsg("");
     getSignature();
-  }, []);
+  }, [signature]);
 
 
   // 4. Navigate to published id

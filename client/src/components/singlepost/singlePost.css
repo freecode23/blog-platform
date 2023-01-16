@@ -73,7 +73,7 @@
         color: rgb(222, 6, 6);
     }
     
-    s .singlePostInputTitle {
+    .singlePostInputTitle {
         font-family: "Space Grotesk";
         font-size: 20px;
         border: none;
@@ -103,14 +103,14 @@
         font-family: "Space Grotesk";
     }
     
-    .singlePostTitleInput {
+    .singlePostInputTitle {
         font-family: "Space Grotesk";
         font-size: 30px;
         border: none;
         width: 50vw;
     }
     
-    .singlePostTitleInput:focus {
+    .singlePostInputTitle:focus {
         outline: none;
         border: none;
         color: grey;
